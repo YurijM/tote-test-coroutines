@@ -22,12 +22,17 @@ class ProfileViewModel : ViewModel() {
 
     init {
         _profile.value = GAMBLER
+        eventListenerGamblerLiveData()
 
         //getGamblerLiveData()
         /*getGambler {
             _profile.value = GAMBLER
             toLog("ProfileViewModel -> init -> GAMBLER: $GAMBLER")
         }*/
+    }
+
+    override fun onCleared() {
+        removeListenerGamblerLiveData()
     }
 
     fun changeNickname(nickname: String) {
@@ -58,9 +63,13 @@ class ProfileViewModel : ViewModel() {
         }
     }
 
-    /*private fun getGamblerLiveData() = viewModelScope.launch(Dispatchers.IO) {
-        REPOSITORY.getGamblerLiveData(_profile)
-    }*/
+    private fun eventListenerGamblerLiveData() = viewModelScope.launch(Dispatchers.IO) {
+        REPOSITORY.eventListenerGamblerLiveData(_profile)
+    }
+
+    private fun removeListenerGamblerLiveData() = viewModelScope.launch(Dispatchers.IO) {
+        REPOSITORY.removeEventListener(REPOSITORY.listenerGambler)
+    }
 
     fun saveGamblerToDB(onSuccess: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         showProgress()

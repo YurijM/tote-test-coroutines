@@ -42,7 +42,6 @@ class ProfileFragment : Fragment() {
         toLog("${javaClass.simpleName} - ${object {}.javaClass.enclosingMethod?.name}")
 
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-        //viewModel.getGamblerLiveData()
 
         observeProfile()
         observePhotoUri()

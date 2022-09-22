@@ -29,10 +29,6 @@ class SignInFragment : Fragment() {
     ): View {
         //toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
 
-        //viewModel = ViewModelProvider(this)[SignInViewModel::class.java]
-
-        //observeGambler()
-
         binding = FragmentSignInBinding.inflate(layoutInflater, container, false)
 
         initFields()
@@ -81,18 +77,6 @@ class SignInFragment : Fragment() {
         PASSWORD = binding.signInInputPassword.text.toString().trim()
 
         viewModel.signIn()
-
-        /*viewModel.signIn() {
-            toLog("SignInFragment -> login -> GAMBLER: $GAMBLER")
-            AppPreferences.setIsAuth(true)
-            loadAppBarPhoto()
-
-            if (isProfileFilled(GAMBLER)) {
-                findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
-            } else {
-                findTopNavController().navigate(R.id.action_signInFragment_to_profileFragment)
-            }
-        }*/
     }
 
     private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
@@ -115,7 +99,7 @@ class SignInFragment : Fragment() {
                             toLog("GAMBLER: $GAMBLER")
 
                             if (isProfileFilled(GAMBLER)) {
-                                //findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+                                findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
                             } else {
                                 findTopNavController().navigate(R.id.action_signInFragment_to_profileFragment)
                             }
@@ -129,23 +113,4 @@ class SignInFragment : Fragment() {
             }
         }
     }
-
-    /*private fun observeGambler() = viewModel.gambler.observe(viewLifecycleOwner) {
-        toLog("SignInFragment -> observeGambler -> GAMBLER: $GAMBLER")
-        GAMBLER = it
-        toLog("SignInFragment -> observeGambler -> GAMBLER after: $GAMBLER")
-
-        *//*if (GAMBLER.id.isNotBlank()) {
-            AppPreferences.setIsAuth(true)
-
-            if (isProfileFilled(GAMBLER)) {
-                findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
-            } else {
-                findTopNavController().navigate(R.id.action_signInFragment_to_profileFragment)
-            }
-        }*//*
-
-            //loadAppBarPhoto()
-
-    }*/
 }

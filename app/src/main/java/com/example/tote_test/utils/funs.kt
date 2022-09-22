@@ -104,7 +104,7 @@ fun loadAppBarPhoto() {
     val tv = TypedValue()
     if (APP_ACTIVITY.theme.resolveAttribute(com.google.android.material.R.attr.actionBarSize, tv, true)) {
         val actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
-        size = actionBarHeight - APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.padding_lg)
+        size = actionBarHeight - APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.padding_xl)
     }
     toLog("size: $size")
 
@@ -113,10 +113,7 @@ fun loadAppBarPhoto() {
 }
 
 fun Fragment.findTopNavController(): NavController {
-    toLog("requireActivity: ${requireActivity()}")
-    //val topLevelHost = requireActivity().supportFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment?
-    val topLevelHost: NavHostFragment? = null
-    toLog("topLevelHost: ${topLevelHost?.navController}")
+    val topLevelHost = requireActivity().supportFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment?
     return topLevelHost?.navController ?: findNavController()
 }
 

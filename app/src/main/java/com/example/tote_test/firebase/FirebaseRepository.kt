@@ -1,16 +1,31 @@
 package com.example.tote_test.firebase
 
+import androidx.lifecycle.MutableLiveData
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.*
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
+class AppValueEventListener (val onSuccess: (DataSnapshot) -> Unit): ValueEventListener {
+    override fun onDataChange(snapshot: DataSnapshot) {
+        onSuccess(snapshot)
+    }
+
+    override fun onCancelled(error: DatabaseError) {
+    }
+}
+
 class FirebaseRepository {
+    lateinit var listenerGambler: ValueEventListener
+
     init {
         AUTH = FirebaseAuth.getInstance()
     }
@@ -51,6 +66,11 @@ class FirebaseRepository {
         }
     }
 
+    fun signOut() {
+        AppPreferences.setIsAuth(false)
+        AUTH.signOut()
+    }
+
     suspend fun getGambler(id: String): GamblerModel {
         var gambler = GamblerModel()
 
@@ -68,5 +88,18 @@ class FirebaseRepository {
 
         toLog("REPOSITORY -> gambler: $gambler")
         return gambler
+    }
+
+    fun eventListenerGamblerLiveData(liveData: MutableLiveData<GamblerModel>) {
+        listenerGambler = REF_DB_ROOT.child(NODE_GAMBLERS).child(CURRENT_ID)
+            .addValueEventListener(AppValueEventListener {
+                GAMBLER = it.getValue(GamblerModel::class.java) ?: GamblerModel()
+                liveData.value = GAMBLER
+            })
+    }
+
+    fun removeEventListener(listener: ValueEventListener) {
+            REF_DB_ROOT.removeEventListener(listener)
+            toLog("removeListenerGamblerLiveData: $listener")
     }
 }
