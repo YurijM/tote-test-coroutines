@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Тотализатор 2022</string>
+    <string name="loading">Идёт загрузка...</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+
+    <string name="registration">Регистрация</string>
+    <string name="auth">Авторизация</string>
+    <string name="rating">Рейтинг</string>
+    <string name="prognosis">Прогноз</string>
+    <string name="games">Игры</string>
+    <string name="profile">Профиль</string>
+
+    <string name="error_all_required">Все поля должны быть заполнены</string>
+    <string name="error_field_empty">Поле \"%1$s\" должно быть заполнено</string>
+    <string name="error_min_length">Длина поля \"%1$s\" должна быть не меньше %2$d</string>
+    <string name="error_confirm_password">Пароли должны совпадать</string>
+    <string name="error_photo_load">Фото должно быть загружено</string>
+    <string name="error_stake">Вы ещё не перечислили свою ставку</string>
+    <string name="error_gender">Укажите свой пол</string>
+
+    <string name="sign_in">Войти</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="email">email</string>
+    <string name="stake">ставка: %1$dруб.</string>
+    <string name="points">кол-во очков: %1$.2f</string>
+    <string name="password">Пароль</string>
+    <string name="password_confirm">Подтвердить пароль</string>
+
+    <string name="nickname">НИК</string>
+    <string name="family">Фамилия</string>
+    <string name="name">Имя</string>
+    <string name="gender">Пол</string>
+    <string name="man">м</string>
+    <string name="woman">ж</string>
+    <string name="load_photo">Загрузить фото</string>
+    <string name="empty">empty</string>
+
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_sm">4dp</dimen>
+    <dimen name="margin">8dp</dimen>
+    <dimen name="margin_lg">12dp</dimen>
+    <dimen name="margin_xl">20dp</dimen>
+    <dimen name="padding_sm">4dp</dimen>
+    <dimen name="padding">8dp</dimen>
+    <dimen name="padding_lg">12dp</dimen>
+    <dimen name="padding_xl">20dp</dimen>
+
+    <dimen name="text_size_sm">12sp</dimen>
+    <dimen name="text_size">16sp</dimen>
+    <dimen name="text_size_lg">20sp</dimen>
+    <dimen name="text_size_xl">24sp</dimen>
+
+    <dimen name="img_logo_width">225dp</dimen>
+    <dimen name="img_logo_height">250dp</dimen>
+    <dimen name="img_cup_width">215dp</dimen>
+    <dimen name="img_cup_height">240dp</dimen>
+    <dimen name="img_size_author">28dp</dimen>
+    <dimen name="height_footer">36dp</dimen>
+
+    <dimen name="profile_size_photo">140dp</dimen>
+    <dimen name="profile_size_photo_radius">20dp</dimen>
+</resources>

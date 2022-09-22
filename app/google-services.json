@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "391407869862",
+    "firebase_url": "https://tote-test-923c5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tote-test-923c5",
+    "storage_bucket": "tote-test-923c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391407869862:android:3d0a0f5b1b162ec511f967",
+        "android_client_info": {
+          "package_name": "com.example.tote_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "391407869862-evjsert8lchnvu7761gu68dvs6lm4ofi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg6FfWGw8hRW1wwRjQCpA5J2gNlI9uICw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "391407869862-evjsert8lchnvu7761gu68dvs6lm4ofi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

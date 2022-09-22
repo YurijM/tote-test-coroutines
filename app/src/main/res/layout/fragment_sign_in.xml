@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_lg"
+    android:paddingTop="@dimen/padding_xl"
+    tools:context=".ui.auth.SignInFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signInLayoutInputEmail"
+        style="@style/LayoutTextInput"
+        android:hint="@string/email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInInputEmail"
+            style="@style/TextInput"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/signInLayoutInputPassword"
+        style="@style/LayoutTextInput"
+        android:hint="@string/password"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/signInInputPassword"
+            style="@style/TextInput"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/signInToAuth"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:text="@string/sign_in"
+        app:cornerRadius="40dp"
+        app:strokeColor="@color/application"
+        app:strokeWidth="@dimen/margin_sm" />
+
+    <ProgressBar
+        android:id="@+id/signInProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTintMode="src_in"
+        android:visibility="invisible"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:layout_width="@dimen/img_cup_width"
+        android:layout_height="@dimen/img_cup_height"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@drawable/cup" />
+
+</LinearLayout>
