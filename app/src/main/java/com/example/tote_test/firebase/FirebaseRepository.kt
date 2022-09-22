@@ -22,6 +22,25 @@ class FirebaseRepository {
         CURRENT_ID = AUTH.currentUser?.uid.toString()
     }
 
+    suspend fun signUp(): Resource<AuthResult> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                val result = AUTH.createUserWithEmailAndPassword(EMAIL, PASSWORD).await()
+
+                CURRENT_ID = result.user?.uid.toString()
+                if (CURRENT_ID.isNotBlank()) {
+                    GAMBLER.id = CURRENT_ID
+                    GAMBLER.email = EMAIL
+
+                    REF_DB_ROOT.child(NODE_GAMBLERS).child(CURRENT_ID).setValue(GAMBLER).await()
+
+                    toLog("REPOSITORY -> signUp -> result: $result")
+                }
+                Resource.Success(result)
+            }
+        }
+    }
+
     suspend fun signIn(): Resource<AuthResult> {
         return withContext(Dispatchers.IO) {
             safeCall {
@@ -32,12 +51,12 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun getGambler(): GamblerModel {
+    suspend fun getGambler(id: String): GamblerModel {
         var gambler = GamblerModel()
 
         try {
-            toLog("CURRENT_ID: $CURRENT_ID")
-            gambler = REF_DB_ROOT.child(NODE_GAMBLERS).child(CURRENT_ID)
+            toLog("id: $id")
+            gambler = REF_DB_ROOT.child(NODE_GAMBLERS).child(id)
                 .get()
                 .await()
                 .getValue(GamblerModel::class.java) ?: GamblerModel()
@@ -47,7 +66,7 @@ class FirebaseRepository {
             }
         }
 
-        toLog("REPOSITORY -> GAMBLER: $gambler")
+        toLog("REPOSITORY -> gambler: $gambler")
         return gambler
     }
 }

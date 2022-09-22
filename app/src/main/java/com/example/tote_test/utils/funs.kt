@@ -108,7 +108,7 @@ fun loadAppBarPhoto() {
     }
     toLog("size: $size")
 
-    gamblerPhoto.loadImage(GAMBLER.photoUrl, size, size, size/2)
+    gamblerPhoto.loadImage(GAMBLER.photoUrl, size, size, size / 2)
     gamblerPhoto.visibility = View.VISIBLE
 }
 
@@ -116,7 +116,7 @@ fun Fragment.findTopNavController(): NavController {
     toLog("requireActivity: ${requireActivity()}")
     //val topLevelHost = requireActivity().supportFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment?
     val topLevelHost: NavHostFragment? = null
-        toLog("topLevelHost: ${topLevelHost?.navController}")
+    toLog("topLevelHost: ${topLevelHost?.navController}")
     return topLevelHost?.navController ?: findNavController()
 }
 

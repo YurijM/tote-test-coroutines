@@ -8,10 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.tote_test.R
 import com.example.tote_test.firebase.FirebaseRepository
 import com.example.tote_test.ui.main.MainActivity
-import com.example.tote_test.utils.AppPreferences
-import com.example.tote_test.utils.GAMBLER
-import com.example.tote_test.utils.REPOSITORY
-import com.example.tote_test.utils.toLog
+import com.example.tote_test.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,13 +17,15 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        REPOSITORY = FirebaseRepository()
-        REPOSITORY.initDB()
-
-        AppPreferences.setIsAuth(false)
-
         lifecycleScope.launch(Dispatchers.IO) {
-            //GAMBLER = REPOSITORY.getGambler()
+            REPOSITORY = FirebaseRepository()
+            REPOSITORY.initDB()
+
+            AppPreferences.getPreferences(requireContext())
+            //AppPreferences.setIsAuth(false)
+
+            //lifecycleScope.launch(Dispatchers.IO) {
+            GAMBLER = REPOSITORY.getGambler(CURRENT_ID)
             toLog("SplashFragment -> GAMBLER: $GAMBLER")
 
             withContext(Dispatchers.Main) {

@@ -18,5 +18,9 @@ class StartFragment : Fragment(R.layout.fragment_start) {
         binding.startSignIn.setOnClickListener {
             findTopNavController().navigate(R.id.action_startFragment_to_signInFragment)
         }
+
+        binding.startSignUp.setOnClickListener {
+            findTopNavController().navigate(R.id.action_startFragment_to_signUpFragment)
+        }
     }
 }

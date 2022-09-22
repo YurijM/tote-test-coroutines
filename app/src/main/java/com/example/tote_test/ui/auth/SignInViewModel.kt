@@ -17,8 +17,8 @@ class SignInViewModel : ViewModel() {
         if (!AppPreferences.getIsAuth()) {
             _status.postValue(Resource.Loading())
             viewModelScope.launch(Dispatchers.IO) {
-                val loginResult = REPOSITORY.signIn()
-                _status.postValue(loginResult)
+                val result = REPOSITORY.signIn()
+                _status.postValue(result)
             }
         }
     }

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/padding"
+    tools:context=".ui.profile.ProfileFragment">
+
+    <ProgressBar
+        android:id="@+id/profileProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/profileEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/email"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/profileTopLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/profileEmail">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_sm"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profileStake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                tools:text="@string/stake" />
+
+            <TextView
+                android:id="@+id/profileErrorStake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/error_stake"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="@dimen/text_size_sm"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/profileLayoutNickname"
+                style="@style/LayoutTextInput"
+                android:hint="@string/nickname">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profileInputNickname"
+                    style="@style/TextInput" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/profileLayoutFamily"
+                style="@style/LayoutTextInput"
+                android:hint="@string/family">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profileInputFamily"
+                    style="@style/TextInput" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/profileLayoutName"
+                style="@style/LayoutTextInput"
+                android:hint="@string/name">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/profileInputName"
+                    style="@style/TextInput" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/profileGenderLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:text="@string/gender"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_lg" />
+
+                <RadioGroup
+                    android:id="@+id/profileGenderGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/profileMan"
+                        style="@style/RadioButton"
+                        android:text="@string/man" />
+
+                    <RadioButton
+                        android:id="@+id/profileWoman"
+                        style="@style/RadioButton"
+                        android:text="@string/woman" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/profileErrorGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/error_gender"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="@dimen/text_size_sm"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/profilePoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                tools:text="@string/points" />
+
+            <ImageView
+                android:id="@+id/profilePhoto"
+                android:layout_width="@dimen/profile_size_photo"
+                android:layout_height="@dimen/profile_size_photo"
+                android:layout_marginTop="@dimen/margin_sm"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/app_name"
+                android:gravity="top"
+                android:layout_gravity="center"
+                android:tag="@string/empty"
+                android:src="@drawable/user" />
+
+            <TextView
+                android:id="@+id/profileErrorPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="@string/error_photo_load"
+                android:textColor="@color/design_default_color_error"
+                android:textSize="@dimen/text_size_sm"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/profileLoadPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:text="@string/load_photo"
+                android:textSize="@dimen/text_size_sm" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/profileSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileTopLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

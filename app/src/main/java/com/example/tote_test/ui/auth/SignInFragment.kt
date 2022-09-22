@@ -108,12 +108,17 @@ class SignInFragment : Fragment() {
                     AppPreferences.setIsAuth(true)
 
                     lifecycleScope.launch(Dispatchers.IO) {
-                        //viewModel.getGambler()
-                        GAMBLER = REPOSITORY.getGambler()
+                        GAMBLER = REPOSITORY.getGambler(CURRENT_ID)
 
                         withContext(Dispatchers.Main) {
                             loadAppBarPhoto()
                             toLog("GAMBLER: $GAMBLER")
+
+                            if (isProfileFilled(GAMBLER)) {
+                                //findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+                            } else {
+                                findTopNavController().navigate(R.id.action_signInFragment_to_profileFragment)
+                            }
                         }
                     }
                 }
