@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-class AppValueEventListener (val onSuccess: (DataSnapshot) -> Unit): ValueEventListener {
+class AppValueEventListener(val onSuccess: (DataSnapshot) -> Unit) : ValueEventListener {
     override fun onDataChange(snapshot: DataSnapshot) {
         onSuccess(snapshot)
     }
@@ -90,6 +90,15 @@ class FirebaseRepository {
         return gambler
     }
 
+    suspend fun saveGambler(id: String, gambler: GamblerModel): Resource<AuthResult> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                REF_DB_ROOT.child(NODE_GAMBLERS).child(id).setValue(gambler).await()
+                Resource.Success()
+            }
+        }
+    }
+
     fun eventListenerGamblerLiveData(liveData: MutableLiveData<GamblerModel>) {
         listenerGambler = REF_DB_ROOT.child(NODE_GAMBLERS).child(CURRENT_ID)
             .addValueEventListener(AppValueEventListener {
@@ -99,7 +108,7 @@ class FirebaseRepository {
     }
 
     fun removeEventListener(listener: ValueEventListener) {
-            REF_DB_ROOT.removeEventListener(listener)
-            toLog("removeListenerGamblerLiveData: $listener")
+        REF_DB_ROOT.removeEventListener(listener)
+        toLog("removeListenerGamblerLiveData: $listener")
     }
 }

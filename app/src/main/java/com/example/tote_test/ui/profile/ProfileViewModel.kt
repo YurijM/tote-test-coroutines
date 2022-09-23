@@ -6,13 +6,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tote_test.models.GamblerModel
-import com.example.tote_test.utils.*
+import com.example.tote_test.utils.REPOSITORY
+import com.example.tote_test.utils.Resource
+import com.example.tote_test.utils.isProfileFilled
+import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
-    private val _inProgress = MutableLiveData(false)
-    val inProgress: LiveData<Boolean> = _inProgress
+    private val _status = MutableLiveData<Resource<AuthResult>>()
+    val status: LiveData<Resource<AuthResult>> = _status
 
     private val _profile = MutableLiveData<GamblerModel>()
     val profile: LiveData<GamblerModel> = _profile
@@ -21,14 +24,8 @@ class ProfileViewModel : ViewModel() {
     val photoUri: LiveData<Uri> = _photoUri
 
     init {
-        _profile.value = GAMBLER
+        //_profile.value = GAMBLER
         eventListenerGamblerLiveData()
-
-        //getGamblerLiveData()
-        /*getGambler {
-            _profile.value = GAMBLER
-            toLog("ProfileViewModel -> init -> GAMBLER: $GAMBLER")
-        }*/
     }
 
     override fun onCleared() {
@@ -71,7 +68,17 @@ class ProfileViewModel : ViewModel() {
         REPOSITORY.removeEventListener(REPOSITORY.listenerGambler)
     }
 
-    fun saveGamblerToDB(onSuccess: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
+    fun saveProfile(id: String, gambler: GamblerModel) {
+        _status.postValue(Resource.Loading())
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = REPOSITORY.saveGambler(id, gambler)
+            _status.postValue(result)
+        }
+    }
+
+
+    /*fun saveGamblerToDB(onSuccess: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         showProgress()
 
         val profile: GamblerModel = _profile.value as GamblerModel
@@ -82,13 +89,7 @@ class ProfileViewModel : ViewModel() {
         dataMap[GAMBLER_FAMILY] = profile.family.trim()
         dataMap[GAMBLER_NAME] = profile.name.trim()
         dataMap[GAMBLER_GENDER] = profile.gender
-
-        /*REPOSITORY.saveGamblerToDB(dataMap) {
-            hideProgress()
-
-            onSuccess()
-        }*/
-    }
+    }*/
 
     /*fun saveImageToStorage(onSuccess: () -> Unit, onFail: (String) -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         toLog("_photoUri.value: ${_photoUri.value}")
@@ -173,7 +174,7 @@ class ProfileViewModel : ViewModel() {
     }*/
 
 
-    fun saveImageToStorage(onSuccess: (url: String) -> Unit) = viewModelScope.launch(Dispatchers.IO) {
+    /*fun saveImageToStorage(onSuccess: (url: String) -> Unit) = viewModelScope.launch(Dispatchers.IO) {
         toLog("_photoUri.value: ${_photoUri.value}")
 
         if (_photoUri.value == null) {
@@ -186,7 +187,7 @@ class ProfileViewModel : ViewModel() {
 
         _photoUri.value?.let { it ->
             viewModelScope.launch(Dispatchers.IO) {
-                /*REPOSITORY.saveImageToStorage(it, path) {
+                *//*REPOSITORY.saveImageToStorage(it, path) {
                     viewModelScope.launch(Dispatchers.IO) {
                         REPOSITORY.getUrlFromStorage(path) { url ->
                             viewModelScope.launch(Dispatchers.IO) {
@@ -197,16 +198,16 @@ class ProfileViewModel : ViewModel() {
                             }
                         }
                     }
-                }*/
+                }*//*
             }
         }
-    }
+    }*/
 
-    private fun showProgress() {
+    /*private fun showProgress() {
         _inProgress.postValue(true)
-    }
+    }*/
 
-    private fun hideProgress() {
+    /*private fun hideProgress() {
         _inProgress.postValue(false)
-    }
+    }*/
 }

@@ -151,15 +151,15 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (isStartDestination(navController?.currentDestination)) {
-            //super.onBackPressed()
-            onBackPressedDispatcher.addCallback(
+            super.onBackPressed()
+            /*onBackPressedDispatcher.addCallback(
                 this,
                 object : OnBackPressedCallback(true) {
                     override fun handleOnBackPressed() {
                         // back button pressed... finishing the activity
                         finish()
                     }
-                })
+                })*/
         } else {
             navController?.popBackStack()
         }

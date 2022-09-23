@@ -10,12 +10,17 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentProfileBinding
 import com.example.tote_test.utils.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -33,8 +38,6 @@ class ProfileFragment : Fragment() {
     private var isGenderFilled = false
     private var isPhotoUriFilled = false
 
-    var localGambler = GAMBLER
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,7 +48,7 @@ class ProfileFragment : Fragment() {
 
         observeProfile()
         observePhotoUri()
-        observeInProgress()
+        observeStatus()
 
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
 
@@ -210,8 +213,6 @@ class ProfileFragment : Fragment() {
             loadProfilePhoto(it.photoUrl)
         }
 
-        localGambler = it
-
         //initFieldPhotoUri()
     }
 
@@ -222,7 +223,7 @@ class ProfileFragment : Fragment() {
         initFieldPhotoUri()
     }
 
-    private fun observeInProgress() = viewModel.inProgress.observe(viewLifecycleOwner) {
+    /*private fun observeInProgress() = viewModel.inProgress.observe(viewLifecycleOwner) {
         if (it) {
             binding.profileProgressBar.visibility = View.VISIBLE
         } else {
@@ -230,9 +231,9 @@ class ProfileFragment : Fragment() {
         }
 
         binding.profileSave.isEnabled = (!it && isFieldsFilled())
-    }
+    }*/
 
-    private fun saveProfilePhoto() {
+    /*private fun saveProfilePhoto() {
         //val tag = binding.profilePhoto.tag.toString()
 
         //toLog("saveProfilePhoto -> tag: $tag")
@@ -247,7 +248,7 @@ class ProfileFragment : Fragment() {
                 //toGamblers()
             }
         //}
-    }
+    }*/
 
     /*private fun saveProfilePhoto() {
         val tag = binding.profilePhoto.tag.toString()
@@ -280,13 +281,23 @@ class ProfileFragment : Fragment() {
         }
     }*/
 
+    private fun saveProfile() {
+        if (isNicknameFilled
+            && isFamilyFilled
+            && isNameFilled
+            && isGenderFilled
+        ) {
+            viewModel.profile.value?.let { viewModel.saveProfile(CURRENT_ID, it) }
+        }
+    }
+
     private fun toGamblers() {
         if (viewModel.checkProfileFilled()) {
             //findTopNavController().navigate(R.id.action_profileFragment_to_tabsFragment)
         }
     }
 
-    private fun saveProfile() {
+    /*private fun saveProfile() {
         if (isNicknameFilled
             && isFamilyFilled
             && isNameFilled
@@ -310,6 +321,41 @@ class ProfileFragment : Fragment() {
                 toGamblers()
             }
             //viewModel.hideProgress()
+        }
+    }*/
+
+    private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
+        when (it) {
+            is Resource.Loading -> {
+                binding.profileProgressBar.isVisible = true
+            }
+            is Resource.Success -> {
+                binding.profileProgressBar.isVisible = false
+
+                /*CURRENT_ID = AUTH.currentUser?.uid.toString()
+                if (CURRENT_ID.isNotBlank()) {
+                    AppPreferences.setIsAuth(true)
+
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        GAMBLER = REPOSITORY.getGambler(CURRENT_ID)
+
+                        withContext(Dispatchers.Main) {
+                            loadAppBarPhoto()
+                            toLog("GAMBLER: $GAMBLER")
+
+                            if (isProfileFilled(GAMBLER)) {
+                                findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+                            } else {
+                                findTopNavController().navigate(R.id.action_signInFragment_to_profileFragment)
+                            }
+                        }
+                    }
+                }*/
+            }
+            is Resource.Error -> {
+                binding.profileProgressBar.isVisible = false
+                fixError(it.message.toString())
+            }
         }
     }
 }
