@@ -1,5 +1,6 @@
 package com.example.tote_test.firebase
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.*
@@ -10,6 +11,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
@@ -90,11 +92,46 @@ class FirebaseRepository {
         return gambler
     }
 
-    suspend fun saveGambler(id: String, gambler: GamblerModel): Resource<AuthResult> {
+    suspend fun saveGambler(id: String, gambler: GamblerModel): Resource<Boolean> {
         return withContext(Dispatchers.IO) {
             safeCall {
                 REF_DB_ROOT.child(NODE_GAMBLERS).child(id).setValue(gambler).await()
-                Resource.Success()
+                Resource.Success(true)
+            }
+        }
+    }
+
+    suspend fun saveImageToStorage(path: StorageReference, uri: Uri): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                path.putFile(uri).await()
+                Resource.Success(true)
+            }
+        }
+    }
+
+    suspend fun getUrlFromStorage(path: StorageReference): Resource<Uri> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                val uri = path.downloadUrl.await()
+                Resource.Success(uri)
+            }
+        }
+    }
+
+    suspend fun saveGamblerPhoto(id: String, photoUri: Uri): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_PHOTO).child(id)
+                saveImageToStorage(path, photoUri)
+                //if (saveImageToStorage(path, photoUri) == Resource.Success(true)) {
+                    val uri = getUrlFromStorage(path)
+                toLog("uri: ${uri.data}")
+                    REF_DB_ROOT.child(NODE_GAMBLERS).child(id).child(GAMBLER_PHOTO_URL).setValue(uri.data.toString()).await()
+                    Resource.Success(true)
+                //} else {
+                    //Resource.Error("FirebaseRepository -> saveGamblerPhoto: error!!!", false)
+                //}
             }
         }
     }

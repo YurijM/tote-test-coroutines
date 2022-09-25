@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tote_test.models.GamblerModel
+import com.example.tote_test.utils.CURRENT_ID
 import com.example.tote_test.utils.REPOSITORY
 import com.example.tote_test.utils.Resource
 import com.example.tote_test.utils.isProfileFilled
@@ -14,8 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ProfileViewModel : ViewModel() {
-    private val _status = MutableLiveData<Resource<AuthResult>>()
-    val status: LiveData<Resource<AuthResult>> = _status
+    private val _status = MutableLiveData<Resource<Boolean>>()
+    val status: LiveData<Resource<Boolean>> = _status
 
     private val _profile = MutableLiveData<GamblerModel>()
     val profile: LiveData<GamblerModel> = _profile
@@ -68,11 +69,16 @@ class ProfileViewModel : ViewModel() {
         REPOSITORY.removeEventListener(REPOSITORY.listenerGambler)
     }
 
-    fun saveProfile(id: String, gambler: GamblerModel) {
+    fun saveProfile(gambler: GamblerModel) {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
-            val result = REPOSITORY.saveGambler(id, gambler)
+            var result = REPOSITORY.saveGambler(CURRENT_ID, gambler)
+
+            //if (result == Resource.Success(true)) {
+                result = REPOSITORY.saveGamblerPhoto(CURRENT_ID, _photoUri.value!!)
+            //}
+
             _status.postValue(result)
         }
     }

@@ -14,13 +14,9 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentProfileBinding
 import com.example.tote_test.utils.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
@@ -282,13 +278,13 @@ class ProfileFragment : Fragment() {
     }*/
 
     private fun saveProfile() {
-        if (isNicknameFilled
+        /*if (isNicknameFilled
             && isFamilyFilled
             && isNameFilled
             && isGenderFilled
-        ) {
-            viewModel.profile.value?.let { viewModel.saveProfile(CURRENT_ID, it) }
-        }
+        ) {*/
+            viewModel.profile.value?.let { viewModel.saveProfile(it) }
+        //}
     }
 
     private fun toGamblers() {
