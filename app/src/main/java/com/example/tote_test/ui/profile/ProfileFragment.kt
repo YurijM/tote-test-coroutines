@@ -61,8 +61,6 @@ class ProfileFragment : Fragment() {
                     it.path?.let { path -> loadProfilePhoto(path) }
                     viewModel.changePhotoUrl(it)
                 }
-
-                //result.data?.data?.let { viewModel.changePhotoUri(it) }
             }
         }
 
@@ -161,7 +159,7 @@ class ProfileFragment : Fragment() {
 
         binding.profilePhoto.tag = photoUrl
 
-        initFieldPhotoUri()
+        //initFieldPhotoUri()
     }
 
     /*private fun isFieldsFilled(): Boolean =
@@ -206,8 +204,7 @@ class ProfileFragment : Fragment() {
     private fun observePhotoUri() = viewModel.photoUri.observe(viewLifecycleOwner) {
         toLog("observePhotoUri -> path: $it")
         loadProfilePhoto(it.toString())
-
-        initFieldPhotoUri()
+        //initFieldPhotoUri()
     }
 
     /*private fun observeInProgress() = viewModel.inProgress.observe(viewLifecycleOwner) {

@@ -23,12 +23,12 @@ class ProfileViewModel : ViewModel() {
     private val _photoUri = MutableLiveData<Uri>()
     val photoUri: LiveData<Uri> = _photoUri
 
-    private val _isNickname = MutableLiveData<Boolean>(false)
-    private val _isFamily = MutableLiveData<Boolean>(false)
-    private val _isName = MutableLiveData<Boolean>(false)
-    private val _isGender = MutableLiveData<Boolean>(false)
+    private val _isNickname = MutableLiveData(false)
+    private val _isFamily = MutableLiveData(false)
+    private val _isName = MutableLiveData(false)
+    private val _isGender = MutableLiveData(false)
 
-    private val _isFieldsFilled = MutableLiveData<Boolean>(false)
+    private val _isFieldsFilled = MutableLiveData(false)
     val isFieldsFilled: LiveData<Boolean> = _isFieldsFilled
 
     /*private val _isPhotoUrl = MutableLiveData<Boolean>(false)
@@ -98,13 +98,13 @@ class ProfileViewModel : ViewModel() {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
-            var result = REPOSITORY.saveGambler(CURRENT_ID, gambler)
+            var result = REPOSITORY.saveGambler(CURRENT_ID, gambler).data ?: false
 
-            //if (result == Resource.Success(true)) {
-            result = REPOSITORY.saveGamblerPhoto(CURRENT_ID, _photoUri.value!!)
-            //}
+            if (result && (_photoUri.value != null)) {
+                result = REPOSITORY.saveGamblerPhoto(CURRENT_ID, _photoUri.value!!).data ?: false
+            }
 
-            _status.postValue(result)
+            _status.postValue(Resource.Success(result))
         }
     }
 
