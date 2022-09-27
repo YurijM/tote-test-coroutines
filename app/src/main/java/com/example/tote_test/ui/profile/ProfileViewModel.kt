@@ -10,7 +10,6 @@ import com.example.tote_test.utils.CURRENT_ID
 import com.example.tote_test.utils.REPOSITORY
 import com.example.tote_test.utils.Resource
 import com.example.tote_test.utils.isProfileFilled
-import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,6 +23,17 @@ class ProfileViewModel : ViewModel() {
     private val _photoUri = MutableLiveData<Uri>()
     val photoUri: LiveData<Uri> = _photoUri
 
+    private val _isNickname = MutableLiveData<Boolean>(false)
+    private val _isFamily = MutableLiveData<Boolean>(false)
+    private val _isName = MutableLiveData<Boolean>(false)
+    private val _isGender = MutableLiveData<Boolean>(false)
+
+    private val _isFieldsFilled = MutableLiveData<Boolean>(false)
+    val isFieldsFilled: LiveData<Boolean> = _isFieldsFilled
+
+    /*private val _isPhotoUrl = MutableLiveData<Boolean>(false)
+    val isPhotoUrl: LiveData<Boolean> = _isPhotoUrl*/
+
     init {
         //_profile.value = GAMBLER
         eventListenerGamblerLiveData()
@@ -35,22 +45,37 @@ class ProfileViewModel : ViewModel() {
 
     fun changeNickname(nickname: String) {
         _profile.value?.nickname = nickname
+        _isNickname.value = nickname.isNotBlank()
+        _isFieldsFilled.value = checkFieldsFilled()
     }
 
     fun changeFamily(family: String) {
         _profile.value?.family = family
+        _isFamily.value = family.isNotBlank()
+        _isFieldsFilled.value = checkFieldsFilled()
     }
 
     fun changeName(name: String) {
         _profile.value?.name = name
+        _isName.value = name.isNotBlank()
+        _isFieldsFilled.value = checkFieldsFilled()
     }
 
     fun changeGender(gender: String) {
         _profile.value?.gender = gender
+        _isGender.value = gender.isNotBlank()
+        _isFieldsFilled.value = checkFieldsFilled()
     }
 
     fun changePhotoUrl(uri: Uri) {
         _photoUri.value = uri
+    }
+
+    private fun checkFieldsFilled(): Boolean {
+        return (_isNickname.value == true)
+                && (_isFamily.value == true)
+                && (_isName.value == true)
+                && (_isGender.value == true)
     }
 
     fun checkProfileFilled(): Boolean {
@@ -76,7 +101,7 @@ class ProfileViewModel : ViewModel() {
             var result = REPOSITORY.saveGambler(CURRENT_ID, gambler)
 
             //if (result == Resource.Success(true)) {
-                result = REPOSITORY.saveGamblerPhoto(CURRENT_ID, _photoUri.value!!)
+            result = REPOSITORY.saveGamblerPhoto(CURRENT_ID, _photoUri.value!!)
             //}
 
             _status.postValue(result)

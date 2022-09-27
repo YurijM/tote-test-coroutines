@@ -28,10 +28,6 @@ class ProfileFragment : Fragment() {
     private lateinit var inputName: TextView
     private var gender = ""
 
-    private var isNicknameFilled = false
-    private var isFamilyFilled = false
-    private var isNameFilled = false
-    private var isGenderFilled = false
     private var isPhotoUriFilled = false
 
     override fun onCreateView(
@@ -43,6 +39,7 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
         observeProfile()
+        observeFieldsFilled()
         observePhotoUri()
         observeStatus()
 
@@ -105,10 +102,7 @@ class ProfileFragment : Fragment() {
             if (it != null) {
                 viewModel.changeNickname(it.toString())
 
-                isNicknameFilled =
-                    !checkFieldBlank(it.toString(), binding.profileLayoutNickname, getString(R.string.nickname))
-
-                binding.profileSave.isEnabled = isFieldsFilled()
+                !checkFieldBlank(it.toString(), binding.profileLayoutNickname, getString(R.string.nickname))
             }
         }
     }
@@ -120,9 +114,7 @@ class ProfileFragment : Fragment() {
             if (it != null) {
                 viewModel.changeFamily(it.toString())
 
-                isFamilyFilled = !checkFieldBlank(it.toString(), binding.profileLayoutFamily, getString(R.string.family))
-
-                binding.profileSave.isEnabled = isFieldsFilled()
+                !checkFieldBlank(it.toString(), binding.profileLayoutFamily, getString(R.string.family))
             }
         }
     }
@@ -134,9 +126,7 @@ class ProfileFragment : Fragment() {
             if (it != null) {
                 viewModel.changeName(it.toString())
 
-                isNameFilled = !checkFieldBlank(it.toString(), binding.profileLayoutName, getString(R.string.name))
-
-                binding.profileSave.isEnabled = isFieldsFilled()
+                !checkFieldBlank(it.toString(), binding.profileLayoutName, getString(R.string.name))
             }
         }
     }
@@ -151,11 +141,8 @@ class ProfileFragment : Fragment() {
 
             viewModel.changeGender(gender)
 
-            isGenderFilled = gender.isNotBlank()
-
-            binding.profileErrorGender.visibility = if (isGenderFilled) View.GONE else View.VISIBLE
-
-            binding.profileSave.isEnabled = isFieldsFilled()
+            binding.profileErrorGender.visibility =
+                if (gender.isNotBlank()) View.GONE else View.VISIBLE
         }
     }
 
@@ -164,7 +151,7 @@ class ProfileFragment : Fragment() {
 
         binding.profileErrorPhoto.visibility = if (isPhotoUriFilled) View.GONE else View.VISIBLE
 
-        binding.profileSave.isEnabled = isFieldsFilled()
+        //binding.profileSave.isEnabled = isFieldsFilled()
     }
 
     private fun loadProfilePhoto(photoUrl: String) {
@@ -177,12 +164,12 @@ class ProfileFragment : Fragment() {
         initFieldPhotoUri()
     }
 
-    private fun isFieldsFilled(): Boolean =
+    /*private fun isFieldsFilled(): Boolean =
         isNicknameFilled
                 && isFamilyFilled
                 && isNameFilled
                 && isGenderFilled
-                && isPhotoUriFilled
+                && isPhotoUriFilled*/
 
     private fun observeProfile() = viewModel.profile.observe(viewLifecycleOwner) {
         binding.profileEmail.text = it.email
@@ -210,6 +197,10 @@ class ProfileFragment : Fragment() {
         }
 
         //initFieldPhotoUri()
+    }
+
+    private fun observeFieldsFilled() = viewModel.isFieldsFilled.observe(viewLifecycleOwner) {
+        binding.profileSave.isEnabled = it
     }
 
     private fun observePhotoUri() = viewModel.photoUri.observe(viewLifecycleOwner) {
