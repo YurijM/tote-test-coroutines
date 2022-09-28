@@ -30,6 +30,8 @@ class ProfileFragment : Fragment() {
 
     private var isPhotoUriFilled = false
 
+    private var currentPhotoUrl = EMPTY
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,8 +60,10 @@ class ProfileFragment : Fragment() {
         launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
                 result.data?.data?.let {
-                    it.path?.let { path -> loadProfilePhoto(path) }
                     viewModel.changePhotoUrl(it)
+                    binding.profilePhoto.tag = it
+                    /*it.path?.let { path -> loadProfilePhoto(path) }
+                    viewModel.changePhotoUrl(it)*/
                 }
             }
         }
@@ -80,7 +84,6 @@ class ProfileFragment : Fragment() {
         initFieldFamily()
         initFieldName()
         initFieldGender()
-        //initFieldPhotoUri()
     }
 
     private fun initFieldStake() {
@@ -145,11 +148,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun initFieldPhotoUri() {
-        isPhotoUriFilled = binding.profilePhoto.tag != EMPTY
+        isPhotoUriFilled = (binding.profilePhoto.tag.toString() != EMPTY
+                || viewModel.profile.value?.photoUrl != EMPTY)
+        toLog("binding.profilePhoto.tag: ${binding.profilePhoto.tag}")
+        toLog("viewModel.profile.value?.photoUrl: ${viewModel.profile.value?.photoUrl}")
 
         binding.profileErrorPhoto.visibility = if (isPhotoUriFilled) View.GONE else View.VISIBLE
-
-        //binding.profileSave.isEnabled = isFieldsFilled()
     }
 
     private fun loadProfilePhoto(photoUrl: String) {
@@ -157,17 +161,8 @@ class ProfileFragment : Fragment() {
         val radius = resources.getDimensionPixelSize(R.dimen.profile_size_photo_radius)
         binding.profilePhoto.loadImage(photoUrl, size, size, radius)
 
-        binding.profilePhoto.tag = photoUrl
-
-        //initFieldPhotoUri()
+        initFieldPhotoUri()
     }
-
-    /*private fun isFieldsFilled(): Boolean =
-        isNicknameFilled
-                && isFamilyFilled
-                && isNameFilled
-                && isGenderFilled
-                && isPhotoUriFilled*/
 
     private fun observeProfile() = viewModel.profile.observe(viewLifecycleOwner) {
         binding.profileEmail.text = it.email
@@ -187,14 +182,13 @@ class ProfileFragment : Fragment() {
 
         toLog("observeProfile -> binding.profilePhoto.tag: ${binding.profilePhoto.tag}")
         toLog("observeProfile -> profile.photoUrl: ${it.photoUrl}")
+        toLog("observeProfile -> currentPhotoUrl: $currentPhotoUrl")
 
-        if (binding.profilePhoto.tag != EMPTY) {
-            loadProfilePhoto(binding.profilePhoto.tag.toString())
-        } else if (it.photoUrl != EMPTY) {
+        if (binding.profilePhoto.tag.toString() == EMPTY && it.photoUrl != currentPhotoUrl) {
             loadProfilePhoto(it.photoUrl)
+            currentPhotoUrl = it.photoUrl
+            toLog("Фото загружено")
         }
-
-        //initFieldPhotoUri()
     }
 
     private fun observeFieldsFilled() = viewModel.isFieldsFilled.observe(viewLifecycleOwner) {
@@ -204,109 +198,11 @@ class ProfileFragment : Fragment() {
     private fun observePhotoUri() = viewModel.photoUri.observe(viewLifecycleOwner) {
         toLog("observePhotoUri -> path: $it")
         loadProfilePhoto(it.toString())
-        //initFieldPhotoUri()
     }
-
-    /*private fun observeInProgress() = viewModel.inProgress.observe(viewLifecycleOwner) {
-        if (it) {
-            binding.profileProgressBar.visibility = View.VISIBLE
-        } else {
-            binding.profileProgressBar.visibility = View.INVISIBLE
-        }
-
-        binding.profileSave.isEnabled = (!it && isFieldsFilled())
-    }*/
-
-    /*private fun saveProfilePhoto() {
-        //val tag = binding.profilePhoto.tag.toString()
-
-        //toLog("saveProfilePhoto -> tag: $tag")
-        toLog("saveProfilePhoto -> GAMBLER.photoUrl: ${GAMBLER.photoUrl}")
-        //if (tag.isNotBlank() && tag != EMPTY) {
-            viewModel.saveImageToStorage {
-                binding.profilePhoto.tag = it
-
-                toLog("saveProfilePhoto")
-                showToast("Сохранено")
-
-                //toGamblers()
-            }
-        //}
-    }*/
-
-    /*private fun saveProfilePhoto() {
-        val tag = binding.profilePhoto.tag.toString()
-
-        toLog("saveProfilePhoto -> tag: $tag")
-        toLog("saveProfilePhoto -> GAMBLER.photoUrl: ${GAMBLER.photoUrl}")
-        if (tag.isNotBlank() && tag != EMPTY) {
-            viewModel.saveImageToStorage(
-                {
-                    viewModel.getUrlFromStorage
-                    {
-                        viewModel.savePhotoUrlToDB(
-                            it,
-                            {
-                                binding.profilePhoto.tag = it
-
-                                viewModel.hideProgress()
-
-                                toLog("saveProfilePhoto")
-                                showToast("Сохранено")
-                            }
-                    },
-                    {}
-                    )
-                },
-                {
-                    toLog("saveProfilePhoto -> saveImageToStorage -> fail: $it")
-                }
-            )
-        }
-    }*/
 
     private fun saveProfile() {
-        /*if (isNicknameFilled
-            && isFamilyFilled
-            && isNameFilled
-            && isGenderFilled
-        ) {*/
-            viewModel.profile.value?.let { viewModel.saveProfile(it) }
-        //}
+        viewModel.profile.value?.let { viewModel.saveProfile(it) }
     }
-
-    private fun toGamblers() {
-        if (viewModel.checkProfileFilled()) {
-            //findTopNavController().navigate(R.id.action_profileFragment_to_tabsFragment)
-        }
-    }
-
-    /*private fun saveProfile() {
-        if (isNicknameFilled
-            && isFamilyFilled
-            && isNameFilled
-            && isGenderFilled
-        ) {
-            //viewModel.showProgress()
-
-            viewModel.saveGamblerToDB {
-                toLog("saveProfile")
-
-                val tag = binding.profilePhoto.tag.toString()
-                toLog("saveProfile -> tag: $tag")
-                if (tag.isNotBlank() && tag != EMPTY) {
-                    saveProfilePhoto()
-                }
-
-                //GAMBLER = localGambler
-                //APP_ACTIVITY.viewModel.changeGambler(GAMBLER)
-                toLog("ProfileFragment -> saveProfile -> GAMBLER: $GAMBLER")
-
-                toGamblers()
-            }
-            //viewModel.hideProgress()
-        }
-    }*/
 
     private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
         when (it) {
@@ -316,25 +212,15 @@ class ProfileFragment : Fragment() {
             is Resource.Success -> {
                 binding.profileProgressBar.isVisible = false
 
-                /*CURRENT_ID = AUTH.currentUser?.uid.toString()
-                if (CURRENT_ID.isNotBlank()) {
-                    AppPreferences.setIsAuth(true)
+                if (binding.profilePhoto.tag.toString() != EMPTY) {
+                    loadAppBarPhoto()
+                    binding.profilePhoto.tag = EMPTY
+                    currentPhotoUrl = viewModel.profile.value?.photoUrl ?: EMPTY
+                }
 
-                    lifecycleScope.launch(Dispatchers.IO) {
-                        GAMBLER = REPOSITORY.getGambler(CURRENT_ID)
-
-                        withContext(Dispatchers.Main) {
-                            loadAppBarPhoto()
-                            toLog("GAMBLER: $GAMBLER")
-
-                            if (isProfileFilled(GAMBLER)) {
-                                findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
-                            } else {
-                                findTopNavController().navigate(R.id.action_signInFragment_to_profileFragment)
-                            }
-                        }
-                    }
-                }*/
+                if (viewModel.checkProfileFilled()) {
+                    findTopNavController().navigate(R.id.action_profileFragment_to_tabsFragment)
+                }
             }
             is Resource.Error -> {
                 binding.profileProgressBar.isVisible = false

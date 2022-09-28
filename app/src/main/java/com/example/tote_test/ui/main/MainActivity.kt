@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -55,7 +54,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        if (CURRENT_ID.isNotBlank()) loadAppBarPhoto()
+        //if (CURRENT_ID.isNotBlank()) loadAppBarPhoto()
+        if (GAMBLER.photoUrl != EMPTY) loadAppBarPhoto()
 
         val navController = (supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment).navController
         prepareRootNavController(navController)

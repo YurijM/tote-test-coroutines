@@ -123,15 +123,14 @@ class FirebaseRepository {
         return withContext(Dispatchers.IO) {
             safeCall {
                 val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_PHOTO).child(id)
-                saveImageToStorage(path, photoUri)
-                //if (saveImageToStorage(path, photoUri) == Resource.Success(true)) {
+                if (saveImageToStorage(path, photoUri).data == true) {
                     val uri = getUrlFromStorage(path)
-                toLog("uri: ${uri.data}")
+                    toLog("uri: ${uri.data}")
                     REF_DB_ROOT.child(NODE_GAMBLERS).child(id).child(GAMBLER_PHOTO_URL).setValue(uri.data.toString()).await()
                     Resource.Success(true)
-                //} else {
-                    //Resource.Error("FirebaseRepository -> saveGamblerPhoto: error!!!", false)
-                //}
+                } else {
+                    Resource.Error("FirebaseRepository -> saveGamblerPhoto: error!!!", false)
+                }
             }
         }
     }
