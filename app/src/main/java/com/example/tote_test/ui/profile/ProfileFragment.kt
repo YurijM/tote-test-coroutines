@@ -61,9 +61,6 @@ class ProfileFragment : Fragment() {
             if (result.resultCode == RESULT_OK) {
                 result.data?.data?.let {
                     viewModel.changePhotoUrl(it)
-                    binding.profilePhoto.tag = it
-                    /*it.path?.let { path -> loadProfilePhoto(path) }
-                    viewModel.changePhotoUrl(it)*/
                 }
             }
         }
@@ -150,8 +147,6 @@ class ProfileFragment : Fragment() {
     private fun initFieldPhotoUri() {
         isPhotoUriFilled = (binding.profilePhoto.tag.toString() != EMPTY
                 || viewModel.profile.value?.photoUrl != EMPTY)
-        toLog("binding.profilePhoto.tag: ${binding.profilePhoto.tag}")
-        toLog("viewModel.profile.value?.photoUrl: ${viewModel.profile.value?.photoUrl}")
 
         binding.profileErrorPhoto.visibility = if (isPhotoUriFilled) View.GONE else View.VISIBLE
     }
@@ -196,7 +191,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observePhotoUri() = viewModel.photoUri.observe(viewLifecycleOwner) {
-        toLog("observePhotoUri -> path: $it")
+        binding.profilePhoto.tag = it
         loadProfilePhoto(it.toString())
     }
 

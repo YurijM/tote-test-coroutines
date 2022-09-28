@@ -50,8 +50,6 @@ class FirebaseRepository {
                     GAMBLER.email = EMAIL
 
                     REF_DB_ROOT.child(NODE_GAMBLERS).child(CURRENT_ID).setValue(GAMBLER).await()
-
-                    toLog("REPOSITORY -> signUp -> result: $result")
                 }
                 Resource.Success(result)
             }
@@ -77,7 +75,6 @@ class FirebaseRepository {
         var gambler = GamblerModel()
 
         try {
-            toLog("id: $id")
             gambler = REF_DB_ROOT.child(NODE_GAMBLERS).child(id)
                 .get()
                 .await()
@@ -88,7 +85,6 @@ class FirebaseRepository {
             }
         }
 
-        toLog("REPOSITORY -> gambler: $gambler")
         return gambler
     }
 
@@ -123,10 +119,12 @@ class FirebaseRepository {
         return withContext(Dispatchers.IO) {
             safeCall {
                 val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_PHOTO).child(id)
+                //path.delete().await()
+
                 if (saveImageToStorage(path, photoUri).data == true) {
                     val uri = getUrlFromStorage(path)
-                    toLog("uri: ${uri.data}")
                     REF_DB_ROOT.child(NODE_GAMBLERS).child(id).child(GAMBLER_PHOTO_URL).setValue(uri.data.toString()).await()
+
                     Resource.Success(true)
                 } else {
                     Resource.Error("FirebaseRepository -> saveGamblerPhoto: error!!!", false)
