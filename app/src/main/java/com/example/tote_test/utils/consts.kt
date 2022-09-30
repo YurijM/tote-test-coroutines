@@ -42,6 +42,7 @@ const val GAMBLER_STAKE = "stake"
 const val GAMBLER_POINTS = "points"
 const val GAMBLER_PREV_PLACE = "placePrev"
 const val GAMBLER_PLACE = "place"
-const val GAMBLER_IS_ADMIN = "isAdmin"
+const val GAMBLER_IS_ADMIN = "admin"
+const val GAMBLER_IS_ACTIVE = "active"
 
 

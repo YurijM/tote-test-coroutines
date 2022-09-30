@@ -14,6 +14,6 @@ data class GamblerModel(
     val points: Double = 0.00,
     val placePrev: Int = 0,
     val place: Int = 1,
-    val isAdmin: Boolean = false,
-    val isActive: Boolean = false,
+    val admin: Boolean = false,
+    val active: Boolean = false,
 )
