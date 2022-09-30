@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/padding">
+    android:padding="@dimen/padding_sm">
 
     <ImageView
         android:id="@+id/itemRatingGamblerPhoto"
-        android:layout_width="@dimen/img_rating_gambler_photo"
-        android:layout_height="@dimen/img_rating_gambler_photo"
+        android:layout_width="@dimen/rating_size_gambler_photo"
+        android:layout_height="@dimen/rating_size_gambler_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/app_name"

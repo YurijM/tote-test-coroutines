@@ -51,6 +51,8 @@
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_tabsFragment"
-            app:destination="@id/tabsFragment" />
+            app:destination="@id/tabsFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

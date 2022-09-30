@@ -1,6 +1,7 @@
 package com.example.tote_test.firebase
 
 import android.net.Uri
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.*
@@ -27,6 +28,7 @@ class AppValueEventListener(val onSuccess: (DataSnapshot) -> Unit) : ValueEventL
 
 class FirebaseRepository {
     lateinit var listenerGambler: ValueEventListener
+    val gamblers: LiveData<List<GamblerModel>> = GamblersLiveData()
 
     init {
         AUTH = FirebaseAuth.getInstance()
