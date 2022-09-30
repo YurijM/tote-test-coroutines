@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tote_test.databinding.FragmentRatingBinding
+import com.example.tote_test.utils.GAMBLER
 import com.example.tote_test.utils.toLog
 
 class RatingFragment : Fragment() {
@@ -16,37 +17,9 @@ class RatingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
+        toLog("Rating -> GAMBLER: $GAMBLER")
 
         binding = FragmentRatingBinding.inflate(layoutInflater, container, false)
-
-        binding.textTest.text = "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n" +
-                "Путь. Скорость. Время.\n"
 
         return binding.root
     }

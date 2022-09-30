@@ -23,4 +23,5 @@
 
     <dimen name="profile_size_photo">140dp</dimen>
     <dimen name="profile_size_photo_radius">20dp</dimen>
+    <dimen name="img_rating_gambler_photo">48dp</dimen>
 </resources>
