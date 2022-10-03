@@ -36,7 +36,7 @@ class RatingFragment : Fragment() {
     }
 
     private fun observeGambler() = viewModel.gamblers.observe(viewLifecycleOwner) {
-        val gamblers = it.sortedWith(compareBy(GamblerModel::place, GamblerModel::name))
+        val gamblers = it.sortedWith(compareBy(GamblerModel::place, GamblerModel::nickname))
         adapter.setGamblers(gamblers)
     }
 

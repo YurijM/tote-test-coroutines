@@ -10,54 +10,54 @@
         android:id="@+id/itemRatingGamblerPhoto"
         android:layout_width="@dimen/rating_size_gambler_photo"
         android:layout_height="@dimen/rating_size_gambler_photo"
+        android:contentDescription="@string/app_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/app_name"
         tools:src="@drawable/user" />
 
     <TextView
         android:id="@+id/itemRatingGamblerNickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_lg"
-        android:textSize="@dimen/text_size_lg"
         app:layout_constraintBottom_toBottomOf="@id/itemRatingGamblerPhoto"
         app:layout_constraintStart_toEndOf="@+id/itemRatingGamblerPhoto"
         app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto"
+        android:layout_marginStart="@dimen/margin_sm"
+        android:textSize="@dimen/text_size_lg"
         tools:text="@string/nickname" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/itemRatingPoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_lg"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingGamblerPhoto"
+        app:layout_constraintEnd_toStartOf="@id/itemRatingMoveArrow"
+        app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto"
+        tools:text="101.23" />
+
+    <ImageView
+        android:id="@+id/itemRatingMoveArrow"
+        android:layout_width="34dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingGamblerPhoto"
+        app:layout_constraintEnd_toStartOf="@id/itemRatingMovePlaces"
+        app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto"
+        tools:src="@drawable/ic_arrow_down" />
+
+    <TextView
+        android:id="@+id/itemRatingMovePlaces"
+        android:layout_width="18dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/text_size"
         app:layout_constraintBottom_toBottomOf="@id/itemRatingGamblerPhoto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto">
-
-        <TextView
-            android:id="@+id/itemRatingPoints"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginEnd="@dimen/margin_lg"
-            android:textSize="@dimen/text_size_lg"
-            android:textStyle="bold"
-            tools:text="1.23" />
-
-        <ImageView
-            android:id="@+id/itemRatingMoveArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            tools:src="@drawable/ic_arrow_down" />
-
-        <TextView
-            android:id="@+id/itemRatingMovePlaces"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="@dimen/text_size"
-            tools:text="3" />
-
-    </LinearLayout>
+        app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto"
+        tools:text="3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

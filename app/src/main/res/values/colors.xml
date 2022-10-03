@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="navy">#000080</color>
     <color name="grey">#555</color>
+    <color name="red">#C00</color>
+    <color name="green">#046C09</color>
 
     <color name="application">#00838F</color>
     <color name="background">#89CCC6</color>
