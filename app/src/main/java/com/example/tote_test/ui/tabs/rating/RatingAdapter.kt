@@ -1,17 +1,21 @@
 package com.example.tote_test.ui.tabs.rating
 
 import android.annotation.SuppressLint
+import android.os.Build
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.loadImage
+import com.example.tote_test.utils.toLog
 import kotlin.math.roundToInt
 
 
@@ -31,24 +35,59 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
         return RatingHolder(view)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RatingHolder, position: Int) {
         holder.nickname.text = gamblers[position].nickname
 
         holder.points.text = gamblers[position].points.toString()
 
-        val color = when (gamblers[position].place) {
+        val value = TypedValue()
+        //APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
+        //getView().setBackgroundColor(value.data)
+
+        /*val colorRes = TypedValue().let {
+            APP_ACTIVITY.theme.resolveAttribute(R.styleable.ds_color_third_place, it, true)
+            APP_ACTIVITY.getColor(it.resourceId)
+        }
+        val color1 = ResourcesCompat.getColor(
+            APP_ACTIVITY.resources,
+            colorRes,
+            null)*/
+
+        val hexColor = "#" + Integer.toHexString(value.data).substring(2)
+
+        //parseColor("#000080").green
+
+        toLog("color1: ${R.attr.color_third_place}")
+        toLog("hexColor: $hexColor")
+        toLog("navy: ${R.color.navy}")
+
+        /*val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(R.attr.color_third_place, typedValue, true);
+        val color11 = ContextCompat.getColor(APP_ACTIVITY, typedValue.resourceId)*/
+
+        /*val color = when (gamblers[position].place) {
             1 -> R.color.red
             2 -> R.color.green
             3 -> R.color.navy
             else -> R.color.grey
-        }
+        }*/
 
-        holder.points.setTextColor(
+        /*holder.points.setTextColor(
             ResourcesCompat.getColor(
                 APP_ACTIVITY.resources,
                 color,
                 null)
-        )
+        )*/
+
+        when (gamblers[position].place) {
+            1 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_first_place, value, true)
+            2 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_second_place, value, true)
+            3 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
+            else -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_other_place, value, true)
+        }
+
+        holder.points.setTextColor(value.data)
 
         holder.movePlaces.text = (gamblers[position].placePrev - gamblers[position].place).toString()
 

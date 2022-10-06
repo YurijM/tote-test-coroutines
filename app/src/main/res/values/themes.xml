@@ -13,6 +13,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="color_first_place">#C00</item>
+        <item name="color_second_place">#046C09</item>
+        <item name="color_third_place">#000080</item>
+        <item name="color_other_place">#555</item>
     </style>
 
     <style name="SplashActivity" parent="Theme.MaterialComponents.Light.NoActionBar">

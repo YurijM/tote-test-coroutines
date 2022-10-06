@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ds">
+        <attr name="background_color" format="color"/>
+        <attr name="color_first_place" format="color"/>
+        <attr name="color_second_place" format="color"/>
+        <attr name="color_third_place" format="color"/>
+        <attr name="color_other_place" format="color"/>
+    </declare-styleable>
+</resources>
