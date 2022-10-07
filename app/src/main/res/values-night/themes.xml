@@ -12,6 +12,9 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="color_third_place">#0055FF</item>
+        <item name="color_first_place">@color/red</item>
+        <item name="color_second_place">@color/green</item>
+        <item name="color_third_place">@color/yellow</item>
+        <item name="color_other_place">@color/light_grey</item>
     </style>
 </resources>

@@ -41,9 +41,9 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
 
         holder.points.text = gamblers[position].points.toString()
 
-        val value = TypedValue()
-        //APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
-        //getView().setBackgroundColor(value.data)
+        /*val value = TypedValue()
+        APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
+        getView().setBackgroundColor(value.data)*/
 
         /*val colorRes = TypedValue().let {
             APP_ACTIVITY.theme.resolveAttribute(R.styleable.ds_color_third_place, it, true)
@@ -54,12 +54,12 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
             colorRes,
             null)*/
 
-        val hexColor = "#" + Integer.toHexString(value.data).substring(2)
+        //val hexColor = "#" + Integer.toHexString(value.data).substring(2)
 
         //parseColor("#000080").green
 
         toLog("color1: ${R.attr.color_third_place}")
-        toLog("hexColor: $hexColor")
+        //toLog("hexColor: $hexColor")
         toLog("navy: ${R.color.navy}")
 
         /*val typedValue = TypedValue()
@@ -79,6 +79,8 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
                 color,
                 null)
         )*/
+
+        val value = TypedValue()
 
         when (gamblers[position].place) {
             1 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_first_place, value, true)
