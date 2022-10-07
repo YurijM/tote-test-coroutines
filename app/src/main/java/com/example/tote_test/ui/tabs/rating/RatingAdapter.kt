@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet.Constraint
+import androidx.constraintlayout.widget.ConstraintSet.Layout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
@@ -24,10 +27,11 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
 
     class RatingHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nickname: TextView = view.findViewById(R.id.itemRatingGamblerNickname)
+        val photo: ImageView = view.findViewById(R.id.itemRatingGamblerPhoto)
+        val groupRating: ConstraintLayout = view.findViewById(R.id.itemRatingGroupRating)
         val points: TextView = view.findViewById(R.id.itemRatingPoints)
         val movePlaces: TextView = view.findViewById(R.id.itemRatingMovePlaces)
         val moveArrow: ImageView = view.findViewById(R.id.itemRatingMoveArrow)
-        val photo: ImageView = view.findViewById(R.id.itemRatingGamblerPhoto)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatingHolder {
@@ -35,73 +39,31 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
         return RatingHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RatingHolder, position: Int) {
         holder.nickname.text = gamblers[position].nickname
 
-        holder.points.text = gamblers[position].points.toString()
+        loadPhoto(holder.photo, gamblers[position].photoUrl)
 
-        /*val value = TypedValue()
-        APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
-        getView().setBackgroundColor(value.data)*/
+        if (gamblers[position].active) {
+            holder.groupRating.visibility = View.VISIBLE
 
-        /*val colorRes = TypedValue().let {
-            APP_ACTIVITY.theme.resolveAttribute(R.styleable.ds_color_third_place, it, true)
-            APP_ACTIVITY.getColor(it.resourceId)
+            holder.points.setTextColor(setPointColor(gamblers[position].points, gamblers[position].place))
+            holder.points.text = "%.2f".format(gamblers[position].points)
+
+            setMovePlaces(holder, gamblers[position].placePrev, gamblers[position].place)
+        } else {
+            holder.groupRating.visibility = View.INVISIBLE
         }
-        val color1 = ResourcesCompat.getColor(
-            APP_ACTIVITY.resources,
-            colorRes,
-            null)*/
+    }
 
-        //val hexColor = "#" + Integer.toHexString(value.data).substring(2)
+    private fun setMovePlaces(holder: RatingAdapter.RatingHolder, placePrev: Int, place: Int) {
+        val movePlaces = placePrev - place
 
-        //parseColor("#000080").green
+        holder.movePlaces.text = movePlaces.toString()
 
-        toLog("color1: ${R.attr.color_third_place}")
-        //toLog("hexColor: $hexColor")
-        toLog("navy: ${R.color.navy}")
-
-        /*val typedValue = TypedValue()
-        requireContext().theme.resolveAttribute(R.attr.color_third_place, typedValue, true);
-        val color11 = ContextCompat.getColor(APP_ACTIVITY, typedValue.resourceId)*/
-
-        /*val color = when (gamblers[position].place) {
-            1 -> R.color.red
-            2 -> R.color.green
-            3 -> R.color.navy
-            else -> R.color.grey
-        }*/
-
-        /*holder.points.setTextColor(
-            ResourcesCompat.getColor(
-                APP_ACTIVITY.resources,
-                color,
-                null)
-        )*/
-
-        val value = TypedValue()
-
-        when (gamblers[position].place) {
-            1 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_first_place, value, true)
-            2 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_second_place, value, true)
-            3 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
-            else -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_other_place, value, true)
-        }
-
-        holder.points.setTextColor(value.data)
-
-        holder.movePlaces.text = (gamblers[position].placePrev - gamblers[position].place).toString()
-
-        val metrics = APP_ACTIVITY.resources.displayMetrics.density
-        val size = (APP_ACTIVITY.resources.getDimension(R.dimen.rating_size_gambler_photo) * metrics).roundToInt()
-        val radius = (APP_ACTIVITY.resources.getDimension(R.dimen.profile_size_photo_radius) * metrics).roundToInt()
-
-        holder.photo.loadImage(gamblers[position].photoUrl, size, size, radius)
-
-        val movePlaces = gamblers[position].placePrev - gamblers[position].place
-
-        if (gamblers[position].placePrev == 0) {
+        if (placePrev == 0) {
             holder.moveArrow.visibility = View.INVISIBLE
             holder.movePlaces.visibility = View.INVISIBLE
         } else {
@@ -115,7 +77,6 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
                             null)
                     )
                     holder.movePlaces.visibility = View.VISIBLE
-                    holder.movePlaces.text = movePlaces.toString()
                     holder.movePlaces.setTextColor(
                         ResourcesCompat.getColor(
                             APP_ACTIVITY.resources,
@@ -152,6 +113,27 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
                 }
             }
         }
+    }
+
+    private fun setPointColor(points: Double, place: Int): Int {
+        val value = TypedValue()
+
+        when (place) {
+            1 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_first_place, value, true)
+            2 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_second_place, value, true)
+            3 -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_third_place, value, true)
+            else -> APP_ACTIVITY.theme.resolveAttribute(R.attr.color_other_place, value, true)
+        }
+
+        return value.data
+    }
+
+    private fun loadPhoto(photo: ImageView, url: String) {
+        val metrics = APP_ACTIVITY.resources.displayMetrics.density
+        val size = (APP_ACTIVITY.resources.getDimension(R.dimen.rating_size_gambler_photo) * metrics).roundToInt()
+        val radius = (APP_ACTIVITY.resources.getDimension(R.dimen.profile_size_photo_radius) * metrics).roundToInt()
+
+        photo.loadImage(url, size, size, radius)
     }
 
     override fun getItemCount(): Int = gamblers.size

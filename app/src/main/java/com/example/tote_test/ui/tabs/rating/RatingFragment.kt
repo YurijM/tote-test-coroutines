@@ -20,7 +20,7 @@ class RatingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
+        toLog("${javaClass.simpleName} - ${object {}.javaClass.enclosingMethod?.name}")
         toLog("Rating -> GAMBLER: $GAMBLER")
 
         binding = FragmentRatingBinding.inflate(layoutInflater, container, false)
@@ -30,13 +30,18 @@ class RatingFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[RatingViewModel::class.java]
 
-        observeGambler()
+        observeGamblers()
 
         return binding.root
     }
 
-    private fun observeGambler() = viewModel.gamblers.observe(viewLifecycleOwner) {
-        val gamblers = it.sortedWith(compareBy(GamblerModel::place, GamblerModel::nickname))
+    private fun observeGamblers() = viewModel.gamblers.observe(viewLifecycleOwner) {
+        val gamblers = it
+            .filter { item -> if (GAMBLER.admin) true else item.active }
+            //.sortedByDescending { item -> item.active }
+            .sortedWith(compareBy {item -> item.active}).reversed()
+            //.sortedWith(compareBy(GamblerModel::place, GamblerModel::nickname))
+
         adapter.setGamblers(gamblers)
     }
 
