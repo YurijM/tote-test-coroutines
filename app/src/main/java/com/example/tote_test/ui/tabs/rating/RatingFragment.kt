@@ -36,11 +36,14 @@ class RatingFragment : Fragment() {
     }
 
     private fun observeGamblers() = viewModel.gamblers.observe(viewLifecycleOwner) {
+        toLog("GAMBLER: $GAMBLER")
         val gamblers = it
             .filter { item -> if (GAMBLER.admin) true else item.active }
-            //.sortedByDescending { item -> item.active }
-            .sortedWith(compareBy {item -> item.active}).reversed()
-            //.sortedWith(compareBy(GamblerModel::place, GamblerModel::nickname))
+            .sortedWith(
+                compareBy<GamblerModel> { item -> !item.active }
+                    .thenBy { item -> item.place }
+                    .thenBy { item -> item.nickname }
+            )
 
         adapter.setGamblers(gamblers)
     }
