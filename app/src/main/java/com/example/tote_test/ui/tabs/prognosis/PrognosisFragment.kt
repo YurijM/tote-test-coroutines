@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tote_test.databinding.FragmentPrognosisBinding
-import com.example.tote_test.utils.toLog
 
 class PrognosisFragment : Fragment() {
     private lateinit var binding: FragmentPrognosisBinding
@@ -15,7 +14,7 @@ class PrognosisFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
+        //toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
 
         binding = FragmentPrognosisBinding.inflate(layoutInflater, container, false)
 

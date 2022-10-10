@@ -97,7 +97,6 @@ fun ImageView.loadImage(url: String, width: Int, height: Int, radius: Int = 0, m
 
 @SuppressLint("PrivateResource")
 fun loadAppBarPhoto() {
-    toLog("loadAppBarPhoto")
     val gamblerPhoto = APP_ACTIVITY.findViewById<ImageView>(R.id.gamblerPhoto)
     var size = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
 
@@ -106,7 +105,6 @@ fun loadAppBarPhoto() {
         val actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
         size = actionBarHeight - APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.padding_xl)
     }
-    toLog("size: $size")
 
     gamblerPhoto.loadImage(GAMBLER.photoUrl, size, size, size / 2)
     gamblerPhoto.visibility = View.VISIBLE

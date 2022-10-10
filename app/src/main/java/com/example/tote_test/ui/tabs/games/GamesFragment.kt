@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tote_test.databinding.FragmentGamesBinding
-import com.example.tote_test.utils.toLog
 
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
@@ -15,7 +14,7 @@ class GamesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
+        //toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
 
         binding = FragmentGamesBinding.inflate(layoutInflater, container, false)
 

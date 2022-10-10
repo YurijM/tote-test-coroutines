@@ -96,7 +96,6 @@ class SignInFragment : Fragment() {
 
                         withContext(Dispatchers.Main) {
                             loadAppBarPhoto()
-                            toLog("GAMBLER: $GAMBLER")
 
                             if (isProfileFilled(GAMBLER)) {
                                 findTopNavController().navigate(R.id.action_signInFragment_to_tabsFragment)

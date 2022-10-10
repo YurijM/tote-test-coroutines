@@ -11,7 +11,7 @@ import com.google.firebase.auth.AuthResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SignUpViewModel() : ViewModel() {
+class SignUpViewModel : ViewModel() {
     private val _status = MutableLiveData<Resource<AuthResult>>()
     val status: LiveData<Resource<AuthResult>> = _status
 
@@ -28,7 +28,6 @@ class SignUpViewModel() : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             val result = REPOSITORY.signUp()
-            toLog("SignUpViewModel -> signUp -> result: $result")
             _status.postValue(result)
         }
     }

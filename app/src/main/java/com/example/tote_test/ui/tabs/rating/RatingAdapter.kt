@@ -10,15 +10,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet.Constraint
-import androidx.constraintlayout.widget.ConstraintSet.Layout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.loadImage
-import com.example.tote_test.utils.toLog
 import kotlin.math.roundToInt
 
 
@@ -49,7 +46,7 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
         if (gamblers[position].active) {
             holder.groupRating.visibility = View.VISIBLE
 
-            holder.points.setTextColor(setPointColor(gamblers[position].points, gamblers[position].place))
+            holder.points.setTextColor(setPointColor(gamblers[position].place))
             holder.points.text = "%.2f".format(gamblers[position].points)
 
             setMovePlaces(holder, gamblers[position].placePrev, gamblers[position].place)
@@ -58,7 +55,7 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
         }
     }
 
-    private fun setMovePlaces(holder: RatingAdapter.RatingHolder, placePrev: Int, place: Int) {
+    private fun setMovePlaces(holder: RatingHolder, placePrev: Int, place: Int) {
         val movePlaces = placePrev - place
 
         holder.movePlaces.text = movePlaces.toString()
@@ -115,7 +112,7 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
         }
     }
 
-    private fun setPointColor(points: Double, place: Int): Int {
+    private fun setPointColor(place: Int): Int {
         val value = TypedValue()
 
         when (place) {

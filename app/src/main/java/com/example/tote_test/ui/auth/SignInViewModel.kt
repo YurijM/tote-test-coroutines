@@ -22,22 +22,4 @@ class SignInViewModel : ViewModel() {
             }
         }
     }
-
-    /*fun getGambler() {
-        viewModelScope.launch(Dispatchers.IO) {
-            GAMBLER = REPOSITORY.getGambler()
-        }
-    }*/
-
-    /*fun auth(onSuccess: () -> Unit) = viewModelScope.launch(Dispatchers.IO) {
-        toLog("auth -> CURRENT_ID before: $CURRENT_ID")
-        REPOSITORY.signIn {
-            toLog("auth -> CURRENT_ID after: $CURRENT_ID")
-            if (CURRENT_ID.isNotBlank()) {
-                this@SignInViewModel.getGambler {
-                    onSuccess()
-                }
-            }
-        }
-    }*/
 }

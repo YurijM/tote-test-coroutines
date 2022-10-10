@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        toLog("${javaClass.simpleName} - ${object {}.javaClass.enclosingMethod?.name}")
+        //toLog("${javaClass.simpleName} - ${object {}.javaClass.enclosingMethod?.name}")
 
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
 
@@ -175,14 +175,14 @@ class ProfileFragment : Fragment() {
             }
         )
 
-        toLog("observeProfile -> binding.profilePhoto.tag: ${binding.profilePhoto.tag}")
-        toLog("observeProfile -> profile.photoUrl: ${it.photoUrl}")
-        toLog("observeProfile -> currentPhotoUrl: $currentPhotoUrl")
+        //toLog("observeProfile -> binding.profilePhoto.tag: ${binding.profilePhoto.tag}")
+        //toLog("observeProfile -> profile.photoUrl: ${it.photoUrl}")
+        //toLog("observeProfile -> currentPhotoUrl: $currentPhotoUrl")
 
         if (binding.profilePhoto.tag.toString() == EMPTY && it.photoUrl != currentPhotoUrl) {
             loadProfilePhoto(it.photoUrl)
             currentPhotoUrl = it.photoUrl
-            toLog("Фото загружено")
+            //toLog("Фото загружено")
         }
     }
 

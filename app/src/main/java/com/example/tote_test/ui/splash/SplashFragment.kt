@@ -22,7 +22,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             REPOSITORY.initDB()
 
             AppPreferences.getPreferences(requireContext())
-            toLog("isAuth: ${AppPreferences.getIsAuth()}")
+            //toLog("isAuth: ${AppPreferences.getIsAuth()}")
 
             GAMBLER = REPOSITORY.getGambler(CURRENT_ID)
             toLog("SplashFragment -> GAMBLER: $GAMBLER")
