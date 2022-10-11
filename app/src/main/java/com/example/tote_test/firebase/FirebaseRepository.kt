@@ -28,6 +28,7 @@ class AppValueEventListener(val onSuccess: (DataSnapshot) -> Unit) : ValueEventL
 
 class FirebaseRepository {
     lateinit var listenerGambler: ValueEventListener
+    val gambler: LiveData<GamblerModel> = GamblerLiveData()
     val gamblers: LiveData<List<GamblerModel>> = GamblersLiveData()
 
     init {

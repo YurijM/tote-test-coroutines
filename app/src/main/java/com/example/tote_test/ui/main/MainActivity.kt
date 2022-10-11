@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -21,7 +21,9 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var navController: NavController? = null
-    private val viewModel: MainViewModel by viewModels()
+
+    //private val viewModel: MainViewModel by viewModels()
+    private lateinit var viewModel: MainViewModel
 
     private var topLevelDestinations = setOf(
         getMainDestination(),
@@ -48,6 +50,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         APP_ACTIVITY = this
+
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        observeGambler()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -90,6 +95,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun observeGambler() = viewModel.gambler.observe(this) {
+        GAMBLER = it
+        toLog("MainActivity -> observeGambler: $GAMBLER")
     }
 
     private fun onNavControllerActivated(navController: NavController) {
