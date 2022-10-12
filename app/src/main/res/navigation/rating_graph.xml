@@ -1,16 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?><!--<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rating_graph"
-    app:startDestination="@id/ratingFragment">
-
-    <fragment
-        android:id="@+id/ratingFragment"
-        android:name="com.example.tote_test.ui.tabs.rating.RatingFragment"
-        android:label="fragment_rating"
-        tools:layout="@layout/fragment_rating" />
-</navigation>-->
-
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,5 +8,15 @@
         android:id="@+id/ratingFragment"
         android:name="com.example.tote_test.ui.tabs.rating.RatingFragment"
         android:label="@string/rating"
-        tools:layout="@layout/fragment_rating" />
+        tools:layout="@layout/fragment_rating">
+        <action
+            android:id="@+id/action_ratingFragment_to_adminGamblerFragment"
+            app:destination="@id/adminGamblerFragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/adminGamblerFragment"
+        android:name="com.example.tote_test.ui.admin.AdminGamblerFragment"
+        android:label="@string/admin_profile"
+        tools:layout="@layout/fragment_admin_gambler" />
 </navigation>

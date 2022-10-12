@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentRatingBinding
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.GAMBLER
+import com.example.tote_test.utils.findTopNavController
 import com.example.tote_test.utils.toLog
 
 class RatingFragment : Fragment() {
     private lateinit var binding: FragmentRatingBinding
     private lateinit var viewModel: RatingViewModel
-    private val adapter = RatingAdapter()
+    private val adapter = RatingAdapter() { gambler -> onListItemClick(gambler) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,10 @@ class RatingFragment : Fragment() {
         observeGamblers()
 
         return binding.root
+    }
+
+    private fun onListItemClick(gambler: GamblerModel) {
+        findTopNavController().navigate(R.id.action_ratingFragment_to_adminGamblerFragment)
     }
 
     private fun observeGamblers() = viewModel.gamblers.observe(viewLifecycleOwner) {

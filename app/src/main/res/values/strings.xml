@@ -2,6 +2,7 @@
     <string name="app_name">Тотализатор 2022</string>
     <string name="loading">Идёт загрузка …</string>
     <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="empty">empty</string>
 
     <string name="registration">Регистрация</string>
     <string name="auth">Авторизация</string>
@@ -9,6 +10,7 @@
     <string name="prognosis">Прогноз</string>
     <string name="games">Игры</string>
     <string name="profile">Профиль</string>
+    <string name="admin_profile">Профиль (админ)</string>
 
     <string name="save">Сохранить</string>
 
@@ -23,9 +25,6 @@
 
     <string name="sign_in">Войти</string>
     <string name="sign_up">Зарегистрироваться</string>
-    <string name="email">email</string>
-    <string name="stake">ставка: %1$dруб.</string>
-    <string name="points">кол-во очков: %1$.2f</string>
     <string name="password">Пароль</string>
     <string name="password_confirm">Подтвердить пароль</string>
 
@@ -36,6 +35,10 @@
     <string name="man">м</string>
     <string name="woman">ж</string>
     <string name="load_photo">Загрузить фото</string>
-    <string name="empty">empty</string>
+    <string name="email">email</string>
+    <string name="stake">ставка: %1$dруб.</string>
+    <string name="points">кол-во очков: %1$.2f</string>
 
+    <string name="stake_empty">ставка</string>
+    <string name="active">активен</string>
 </resources>

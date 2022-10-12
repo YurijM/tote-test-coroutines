@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/padding"
+    tools:context=".ui.admin.AdminGamblerFragment">
+
+    <ProgressBar
+        android:id="@+id/adminGamblerProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminGamblerActive" />
+
+    <ImageView
+        android:id="@+id/adminGamblerPhoto"
+        android:layout_width="@dimen/profile_size_photo"
+        android:layout_height="@dimen/profile_size_photo"
+        android:layout_marginTop="@dimen/margin"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:src="@drawable/user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/adminGamblerNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminGamblerPhoto"
+        tools:text="@string/nickname" />
+
+    <TextView
+        android:id="@+id/adminGamblerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/adminGamblerNickname"
+        app:layout_constraintTop_toBottomOf="@id/adminGamblerPhoto"
+        tools:text="@string/email" />
+
+    <TextView
+        android:id="@+id/adminGamblerFamily"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminGamblerNickname"
+        tools:text="@string/family" />
+
+    <TextView
+        android:id="@+id/adminGamblerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/adminGamblerFamily"
+        app:layout_constraintTop_toBottomOf="@id/adminGamblerNickname"
+        tools:text="@string/name" />
+
+    <TextView
+        android:id="@+id/adminGamblerGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/adminGamblerName"
+        app:layout_constraintTop_toBottomOf="@id/adminGamblerNickname"
+        tools:text="@string/gender" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/adminGamblerLayoutStake"
+        style="@style/LayoutTextInput"
+        android:layout_width="96dp"
+        android:hint="@string/stake_empty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminGamblerFamily">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/adminGamblerInputStake"
+            style="@style/TextInput" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/adminGamblerActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/active"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminGamblerLayoutStake" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

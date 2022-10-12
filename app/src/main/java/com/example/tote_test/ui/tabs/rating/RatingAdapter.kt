@@ -15,30 +15,49 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.APP_ACTIVITY
+import com.example.tote_test.utils.GAMBLER
 import com.example.tote_test.utils.loadImage
 import kotlin.math.roundToInt
 
-
-class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
+class RatingAdapter(private val onItemClicked: (gambler: GamblerModel) -> Unit) :
+    RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
     private var gamblers = emptyList<GamblerModel>()
 
-    class RatingHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class RatingHolder(
+        view: View,
+        private val onItemClicked: (gambler: GamblerModel) -> Unit
+    ) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val nickname: TextView = view.findViewById(R.id.itemRatingGamblerNickname)
         val photo: ImageView = view.findViewById(R.id.itemRatingGamblerPhoto)
         val groupRating: ConstraintLayout = view.findViewById(R.id.itemRatingGroupRating)
         val points: TextView = view.findViewById(R.id.itemRatingPoints)
         val movePlaces: TextView = view.findViewById(R.id.itemRatingMovePlaces)
         val moveArrow: ImageView = view.findViewById(R.id.itemRatingMoveArrow)
+
+        init {
+            if (GAMBLER.admin) {
+                view.setOnClickListener(this)
+            }/* else {
+                view.setOnClickListener(null)
+            }*/
+        }
+
+        override fun onClick(v: View) {
+            val gambler = v.tag as GamblerModel
+            onItemClicked(gambler)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatingHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_rating, parent, false)
-        return RatingHolder(view)
+        return RatingHolder(view, onItemClicked)
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: RatingHolder, position: Int) {
+        holder.itemView.tag = gamblers[position]
+
         holder.nickname.text = gamblers[position].nickname
 
         loadPhoto(holder.photo, gamblers[position].photoUrl)
@@ -71,14 +90,16 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
                         ResourcesCompat.getDrawable(
                             APP_ACTIVITY.resources,
                             R.drawable.ic_arrow_up,
-                            null)
+                            null
+                        )
                     )
                     holder.movePlaces.visibility = View.VISIBLE
                     holder.movePlaces.setTextColor(
                         ResourcesCompat.getColor(
                             APP_ACTIVITY.resources,
                             R.color.red,
-                            null)
+                            null
+                        )
                     )
                 }
                 movePlaces < 0 -> {
@@ -96,7 +117,9 @@ class RatingAdapter : RecyclerView.Adapter<RatingAdapter.RatingHolder>() {
                         ResourcesCompat.getColor(
                             APP_ACTIVITY.resources,
                             R.color.black,
-                            null))
+                            null
+                        )
+                    )
                 }
                 else -> {
                     holder.moveArrow.setImageDrawable(
