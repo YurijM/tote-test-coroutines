@@ -21,7 +21,6 @@
         android:id="@+id/adminGamblerNickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/margin"
         app:layout_constraintStart_toEndOf="@id/adminGamblerPhoto"
         app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +30,6 @@
         android:id="@+id/adminGamblerEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/margin"
         app:layout_constraintStart_toEndOf="@id/adminGamblerPhoto"
         app:layout_constraintTop_toBottomOf="@+id/adminGamblerNickname"
@@ -41,9 +39,8 @@
         android:id="@+id/adminGamblerFamily"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_sm"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin_sm"
         app:layout_constraintStart_toEndOf="@id/adminGamblerPhoto"
         app:layout_constraintTop_toBottomOf="@id/adminGamblerEmail"
         tools:text="@string/family" />
@@ -52,9 +49,8 @@
         android:id="@+id/adminGamblerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_sm"
-        android:textStyle="bold"
         android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin_sm"
         app:layout_constraintStart_toEndOf="@id/adminGamblerPhoto"
         app:layout_constraintTop_toBottomOf="@id/adminGamblerFamily"
         tools:text="@string/name" />
@@ -63,10 +59,9 @@
         android:id="@+id/adminGamblerLabelGender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
         android:layout_marginTop="@dimen/margin_sm"
         android:text="@string/gender"
-        android:textStyle="bold"
-        android:layout_marginStart="@dimen/margin"
         app:layout_constraintStart_toEndOf="@id/adminGamblerPhoto"
         app:layout_constraintTop_toBottomOf="@id/adminGamblerName" />
 
@@ -75,41 +70,58 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin"
-        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/adminGamblerLabelGender"
         app:layout_constraintTop_toTopOf="@id/adminGamblerLabelGender"
         tools:text="@string/gender" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/adminGamblerLayoutStake"
-        style="@style/LayoutTextInput"
-        android:layout_width="96dp"
-        android:hint="@string/stake_empty"
-        android:layout_marginStart="@dimen/margin"
-        app:layout_constraintStart_toEndOf="@id/adminGamblerPhoto"
-        app:layout_constraintTop_toBottomOf="@id/adminGamblerGender">
+    <LinearLayout
+        android:id="@+id/adminGamblerLayoutInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_sm"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminGamblerPhoto">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/adminGamblerInputStake"
-            style="@style/TextInput" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/adminGamblerLayoutStake"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_gambler_width_stake"
+            android:hint="@string/stake_empty">
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/adminGamblerInputStake"
+                style="@style/TextInput" />
 
-    <CheckBox
-        android:id="@+id/adminGamblerActive"
-        style="@style/RadioButton"
-        android:text="@string/active"
-        app:layout_constraintBottom_toBottomOf="@+id/adminGamblerLayoutStake"
-        app:layout_constraintStart_toEndOf="@+id/adminGamblerLayoutStake"
-        app:layout_constraintTop_toTopOf="@+id/adminGamblerLayoutStake" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <CheckBox
-        android:id="@+id/adminGamblerAdmin"
-        style="@style/RadioButton"
-        android:text="@string/admin"
-        app:layout_constraintEnd_toEndOf="@+id/adminGamblerActive"
-        app:layout_constraintStart_toStartOf="@+id/adminGamblerLayoutStake"
-        app:layout_constraintTop_toBottomOf="@+id/adminGamblerActive" />
+        <CheckBox
+            android:id="@+id/adminGamblerActive"
+            style="@style/RadioButton"
+            android:text="@string/active"
+            app:layout_constraintBottom_toBottomOf="@+id/adminGamblerLayoutStake"
+            app:layout_constraintStart_toEndOf="@+id/adminGamblerLayoutStake"
+            app:layout_constraintTop_toTopOf="@+id/adminGamblerLayoutStake" />
+
+        <CheckBox
+            android:id="@+id/adminGamblerAdmin"
+            style="@style/RadioButton"
+            android:text="@string/admin"
+            app:layout_constraintBottom_toBottomOf="@+id/adminGamblerActive"
+            app:layout_constraintStart_toEndOf="@+id/adminGamblerActive"
+            app:layout_constraintTop_toTopOf="@+id/adminGamblerActive" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/adminGamblerSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminGamblerLayoutInput" />
 
     <ProgressBar
         android:id="@+id/adminGamblerProgressBar"
@@ -119,14 +131,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminGamblerSave" />
-
-    <Button
-        android:id="@+id/adminGamblerSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminGamblerAdmin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

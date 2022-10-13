@@ -1,6 +1,7 @@
 package com.example.tote_test.ui.admin
 
-import android.annotation.SuppressLint
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,19 +27,29 @@ class AdminGamblerFragment : Fragment() {
 
         with(binding) {
             adminGamblerNickname.text = gambler.nickname.ifBlank {
-                APP_ACTIVITY.getString(R.string.error_value_empty, getString(R.string.nickname))
+                adminGamblerNickname.setTextColor(Color.parseColor("red"))
+                adminGamblerNickname.setTypeface(null, Typeface.ITALIC)
+                getString(R.string.error_value_empty, getString(R.string.nickname))
             }
             adminGamblerEmail.text = gambler.email.ifBlank {
-                APP_ACTIVITY.getString(R.string.error_value_empty, getString(R.string.email))
+                adminGamblerEmail.setTextColor(Color.parseColor("red"))
+                adminGamblerEmail.setTypeface(null, Typeface.ITALIC)
+                getString(R.string.error_value_empty, getString(R.string.email))
             }
             adminGamblerFamily.text = gambler.family.ifBlank {
-                APP_ACTIVITY.getString(R.string.error_value_empty, getString(R.string.family))
+                adminGamblerFamily.setTextColor(Color.parseColor("red"))
+                adminGamblerFamily.setTypeface(null, Typeface.ITALIC)
+                getString(R.string.error_value_empty, getString(R.string.family))
             }
             adminGamblerName.text = gambler.name.ifBlank {
-                APP_ACTIVITY.getString(R.string.error_value_empty, getString(R.string.name))
+                adminGamblerName.setTextColor(Color.parseColor("red"))
+                adminGamblerName.setTypeface(null, Typeface.ITALIC)
+                getString(R.string.error_value_empty, getString(R.string.name))
             }
             adminGamblerGender.text = gambler.gender.ifBlank {
                 adminGamblerLabelGender.visibility = View.GONE
+                adminGamblerGender.setTypeface(null, Typeface.ITALIC)
+                adminGamblerGender.setTextColor(Color.parseColor("red"))
                 getString(R.string.error_value_empty, getString(R.string.gender))
             }
             adminGamblerPhoto.loadImage(
