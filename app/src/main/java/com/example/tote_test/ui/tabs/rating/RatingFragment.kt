@@ -16,7 +16,7 @@ import com.example.tote_test.utils.toLog
 class RatingFragment : Fragment() {
     private lateinit var binding: FragmentRatingBinding
     private lateinit var viewModel: RatingViewModel
-    private val adapter = RatingAdapter() { gambler -> onListItemClick(gambler) }
+    private val adapter = RatingAdapter { gambler -> onListItemClick(gambler) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +37,9 @@ class RatingFragment : Fragment() {
     }
 
     private fun onListItemClick(gambler: GamblerModel) {
-        findTopNavController().navigate(R.id.action_ratingFragment_to_adminGamblerFragment)
+        val bundle = Bundle()
+        bundle.putSerializable("gambler", gambler)
+        findTopNavController().navigate(R.id.action_ratingFragment_to_adminGamblerFragment, bundle)
     }
 
     private fun observeGamblers() = viewModel.gamblers.observe(viewLifecycleOwner) {
@@ -52,5 +54,4 @@ class RatingFragment : Fragment() {
 
         adapter.setGamblers(gamblers)
     }
-
 }

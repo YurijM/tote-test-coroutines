@@ -10,7 +10,7 @@
     <string name="prognosis">Прогноз</string>
     <string name="games">Игры</string>
     <string name="profile">Профиль</string>
-    <string name="admin_profile">Профиль (админ)</string>
+    <string name="admin_gambler">Админка-Участник</string>
 
     <string name="save">Сохранить</string>
 
@@ -22,6 +22,7 @@
     <string name="error_stake">Вы ещё не перечислили свою ставку</string>
     <string name="error_gender">Укажите свой пол</string>
     <string name="error_valid_email">Некорректный адрес email</string>
+    <string name="error_value_empty">значение <b>\"%1$s\"</b> не заполнено</string>
 
     <string name="sign_in">Войти</string>
     <string name="sign_up">Зарегистрироваться</string>
@@ -41,4 +42,5 @@
 
     <string name="stake_empty">ставка</string>
     <string name="active">активен</string>
+    <string name="admin">администратор</string>
 </resources>

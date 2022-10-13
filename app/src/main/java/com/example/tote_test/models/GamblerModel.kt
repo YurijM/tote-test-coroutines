@@ -1,6 +1,7 @@
 package com.example.tote_test.models
 
 import com.example.tote_test.utils.EMPTY
+import java.io.Serializable
 
 data class GamblerModel(
     var id: String = "",
@@ -16,4 +17,4 @@ data class GamblerModel(
     val place: Int = 1,
     val admin: Boolean = false,
     val active: Boolean = false,
-)
+) : Serializable
