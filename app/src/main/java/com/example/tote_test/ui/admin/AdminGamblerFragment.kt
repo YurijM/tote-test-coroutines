@@ -7,24 +7,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentAdminGamblerBinding
 import com.example.tote_test.models.GamblerModel
-import com.example.tote_test.utils.APP_ACTIVITY
-import com.example.tote_test.utils.loadImage
+import com.example.tote_test.utils.*
+import java.lang.Integer.parseInt
 
 class AdminGamblerFragment : Fragment() {
     private lateinit var binding: FragmentAdminGamblerBinding
+    private lateinit var viewModel: AdminGamblerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
         val gambler = arguments?.getSerializable("gambler") as GamblerModel
+
+        viewModel = ViewModelProvider(this)[AdminGamblerViewModel::class.java]
+        observeStatus()
 
         binding = FragmentAdminGamblerBinding.inflate(layoutInflater, container, false)
 
+        binding.adminGamblerSave.setOnClickListener {
+            gambler.stake = parseInt(binding.adminGamblerInputStake.text.toString())
+            gambler.active = binding.adminGamblerActive.isChecked
+            gambler.admin = binding.adminGamblerAdmin.isChecked
+
+            viewModel.saveProfile(gambler)
+        }
+
+        setFields(gambler)
+
+        return binding.root
+    }
+
+    private fun setFields(gambler: GamblerModel) {
         with(binding) {
             adminGamblerNickname.text = gambler.nickname.ifBlank {
                 adminGamblerNickname.setTextColor(Color.parseColor("red"))
@@ -62,7 +83,21 @@ class AdminGamblerFragment : Fragment() {
             adminGamblerActive.isChecked = gambler.active
             adminGamblerAdmin.isChecked = gambler.admin
         }
+    }
 
-        return binding.root
+    private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
+        when (it) {
+            is Resource.Loading -> {
+                binding.adminGamblerProgressBar.isVisible = true
+            }
+            is Resource.Success -> {
+                binding.adminGamblerProgressBar.isVisible = false
+                findTopNavController().navigate(R.id.action_adminGamblerFragment_to_ratingFragment)
+            }
+            is Resource.Error -> {
+                binding.adminGamblerProgressBar.isVisible = false
+                fixError(it.message.toString())
+            }
+        }
     }
 }

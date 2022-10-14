@@ -11,8 +11,7 @@
         tools:layout="@layout/fragment_rating">
         <action
             android:id="@+id/action_ratingFragment_to_adminGamblerFragment"
-            app:destination="@id/adminGamblerFragment">
-        </action>
+            app:destination="@id/adminGamblerFragment" />
         <argument
             android:name="gambler"
             app:argType="com.example.tote_test.models.GamblerModel" />
@@ -21,5 +20,9 @@
         android:id="@+id/adminGamblerFragment"
         android:name="com.example.tote_test.ui.admin.AdminGamblerFragment"
         android:label="@string/admin_gambler"
-        tools:layout="@layout/fragment_admin_gambler" />
+        tools:layout="@layout/fragment_admin_gambler">
+        <action
+            android:id="@+id/action_adminGamblerFragment_to_ratingFragment"
+            app:destination="@id/ratingFragment" />
+    </fragment>
 </navigation>

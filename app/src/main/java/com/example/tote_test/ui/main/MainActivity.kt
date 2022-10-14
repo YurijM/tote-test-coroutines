@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        //if (CURRENT_ID.isNotBlank()) loadAppBarPhoto()
         if (GAMBLER.photoUrl != EMPTY) loadAppBarPhoto()
 
         val navController = (supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment).navController
