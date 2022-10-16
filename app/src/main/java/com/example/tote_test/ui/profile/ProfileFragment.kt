@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -205,7 +206,7 @@ class ProfileFragment : Fragment() {
                 binding.profileProgressBar.isVisible = true
             }
             is Resource.Success -> {
-                binding.profileProgressBar.isVisible = false
+                binding.profileProgressBar.isInvisible = true
 
                 if (binding.profilePhoto.tag.toString() != EMPTY) {
                     loadAppBarPhoto()
@@ -218,7 +219,7 @@ class ProfileFragment : Fragment() {
                 }
             }
             is Resource.Error -> {
-                binding.profileProgressBar.isVisible = false
+                binding.profileProgressBar.isInvisible = true
                 fixError(it.message.toString())
             }
         }

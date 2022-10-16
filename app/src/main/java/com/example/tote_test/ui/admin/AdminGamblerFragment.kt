@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -91,11 +92,11 @@ class AdminGamblerFragment : Fragment() {
                 binding.adminGamblerProgressBar.isVisible = true
             }
             is Resource.Success -> {
-                binding.adminGamblerProgressBar.isVisible = false
+                binding.adminGamblerProgressBar.isInvisible = true
                 findTopNavController().navigate(R.id.action_adminGamblerFragment_to_ratingFragment)
             }
             is Resource.Error -> {
-                binding.adminGamblerProgressBar.isVisible = false
+                binding.adminGamblerProgressBar.isInvisible = true
                 fixError(it.message.toString())
             }
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -96,7 +97,7 @@ class SignUpFragment : Fragment() {
                 binding.signUpProgressBar.isVisible = true
             }
             is Resource.Success -> {
-                binding.signUpProgressBar.isVisible = false
+                binding.signUpProgressBar.isInvisible = true
 
                 if (CURRENT_ID.isNotBlank()) {
                     AppPreferences.setIsAuth(true)
@@ -104,7 +105,7 @@ class SignUpFragment : Fragment() {
                 }
             }
             is Resource.Error -> {
-                binding.signUpProgressBar.isVisible = false
+                binding.signUpProgressBar.isInvisible = true
                 fixError(it.message.toString())
             }
         }
