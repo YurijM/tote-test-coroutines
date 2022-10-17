@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,15 +9,21 @@
     tools:context=".ui.tabs.games.GamesFragment">
 
     <Button
-        android:id="@+id/addGame"
+        android:id="@+id/gamesAddGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Добавить игру" />
+        android:text="Добавить расписание" />
 
-    <TextView
-        android:id="@+id/result"
+    <Button
+        android:id="@+id/gamesAddTeam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="result" />GamblerModel
+        android:text="Добавить список сборных" />
+
+    <ProgressBar
+        android:id="@+id/gamesProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible" />
 
 </LinearLayout>

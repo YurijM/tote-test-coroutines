@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.models.GameModel
+import com.example.tote_test.models.TeamModel
 import com.example.tote_test.utils.*
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -64,6 +65,15 @@ class FirebaseRepository {
         return withContext(Dispatchers.IO) {
             safeCall {
                 REF_DB_ROOT.child(NODE_GAMES).child(game.id.toString()).setValue(game).await()
+                Resource.Success(true)
+            }
+        }
+    }
+
+    suspend fun addTeam(team: TeamModel): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                REF_DB_ROOT.child(NODE_TEAMS).child(team.team).setValue(team).await()
                 Resource.Success(true)
             }
         }

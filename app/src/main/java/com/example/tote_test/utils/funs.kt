@@ -32,11 +32,11 @@ fun fixError(err: String) {
     showToast(err)
 }
 
-fun convertDateTimeToTimestamp(datetime: String): Long? {
+fun convertDateTimeToTimestamp(datetime: String): String {
     val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
     val date = simpleDateFormat.parse(datetime)
 
-    return date?.time
+    return date?.time.toString()
 
     //simpleDateFormat.format(timestamp)
 
