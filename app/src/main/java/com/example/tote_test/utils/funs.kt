@@ -16,6 +16,8 @@ import com.example.tote_test.models.GamblerModel
 import com.google.android.material.textfield.TextInputLayout
 import com.squareup.picasso.Picasso
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun showToast(msg: String) {
     Toast.makeText(APP_ACTIVITY, msg, Toast.LENGTH_LONG).show()
@@ -28,6 +30,17 @@ fun toLog(msg: String) {
 fun fixError(err: String) {
     Log.e(LOG_TAG, err)
     showToast(err)
+}
+
+fun convertDateTimeToTimestamp(datetime: String): Long? {
+    val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    val date = simpleDateFormat.parse(datetime)
+
+    return date?.time
+
+    //simpleDateFormat.format(timestamp)
+
+    //val result = "${timestamp.toString()} -> ${simpleDateFormat.format(timestamp)}"
 }
 
 fun checkFieldBlank(

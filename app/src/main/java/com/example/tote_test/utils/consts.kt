@@ -2,6 +2,7 @@ package com.example.tote_test.utils
 
 import com.example.tote_test.firebase.FirebaseRepository
 import com.example.tote_test.models.GamblerModel
+import com.example.tote_test.models.GameModel
 import com.example.tote_test.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -24,6 +25,7 @@ const val FOLDER_PROFILE_PHOTO = "profile_photo"
 const val CHILD_ID = "id"
 
 const val NODE_GAMBLERS = "gamblers"
+const val NODE_GAMES = "games"
 
 var GAMBLER = GamblerModel()
 lateinit var CURRENT_ID: String
@@ -44,5 +46,3 @@ const val GAMBLER_PREV_PLACE = "placePrev"
 const val GAMBLER_PLACE = "place"
 const val GAMBLER_IS_ADMIN = "admin"
 const val GAMBLER_IS_ACTIVE = "active"
-
-
