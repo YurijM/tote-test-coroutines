@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/padding"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.admin.AdminSettingsFragment">
 
     <ProgressBar
@@ -19,58 +19,48 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/adminSettingsAddTeams"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentPadding="@dimen/padding"
-        android:backgroundTint="@color/background_light"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="4dp"
-        app:layout_constraintStart_toStartOf="parent"
+        style="@style/CardViewAdmin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
+            android:text="@string/admin_settings_add_teams"
             android:textColor="#055"
-            android:text="@string/admin_settings_add_teams" />
+            android:textSize="@dimen/text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_double_arrow"
+            android:layout_gravity="end|center_vertical"
             android:contentDescription="@string/app_name"
-            android:layout_gravity="end|center_vertical" />
+            android:src="@drawable/ic_double_arrow" />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/adminSettingsAddGames"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:contentPadding="@dimen/padding"
-        android:backgroundTint="@color/background_light"
-        app:cardElevation="8dp"
-        app:cardCornerRadius="4dp"
+        style="@style/CardViewAdmin"
         android:layout_marginTop="@dimen/margin"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adminSettingsAddTeams" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminSettingsAddTeams">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size"
+            android:text="@string/admin_settings_add_games"
             android:textColor="#055"
-            android:text="@string/admin_settings_add_games" />
+            android:textSize="@dimen/text_size" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_double_arrow"
+            android:layout_gravity="end|center_vertical"
             android:contentDescription="@string/app_name"
-            android:layout_gravity="end|center_vertical" />
+            android:src="@drawable/ic_double_arrow" />
 
     </androidx.cardview.widget.CardView>
 
