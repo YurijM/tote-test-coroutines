@@ -59,9 +59,5 @@
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/adminSettingsFragment"
-        android:name="com.example.tote_test.ui.admin.AdminSettingsFragment"
-        android:label="@string/settings"
-        tools:layout="@layout/fragment_admin_settings" />
+    <include app:graph="@navigation/admin_graph" />
 </navigation>

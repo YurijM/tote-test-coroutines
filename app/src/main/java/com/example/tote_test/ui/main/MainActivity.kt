@@ -94,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.menu_item_admin -> {
                 ((supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment).navController)
-                    .navigate(R.id.adminSettingsFragment)
+                    .navigate(R.id.admin_graph)
             }
         }
         return super.onOptionsItemSelected(item)
