@@ -50,6 +50,16 @@ class ProfileFragment : Fragment() {
 
         initFields()
 
+        binding.profilePhoto.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("photoUrl", GAMBLER.photoUrl)
+
+            findTopNavController().navigate(R.id.action_profileFragment_to_adminGamblerPhotoFragment, bundle)
+
+            /*val action = ProfileFragmentDirections.actionProfileFragmentToAdminGamblerPhotoFragment(GAMBLER.photoUrl)
+            findTopNavController().navigate(action)*/
+        }
+
         binding.profileLoadPhoto.setOnClickListener {
             getImage()
         }

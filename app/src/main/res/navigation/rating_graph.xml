@@ -24,5 +24,18 @@
         <action
             android:id="@+id/action_adminGamblerFragment_to_ratingFragment"
             app:destination="@id/ratingFragment" />
+        <action
+            android:id="@+id/action_adminGamblerFragment_to_adminGamblerPhotoFragment"
+            app:destination="@id/adminGamblerPhotoFragment"
+            app:popUpTo="@id/adminGamblerFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminGamblerPhotoFragment"
+        android:name="com.example.tote_test.ui.admin.AdminGamblerPhotoFragment"
+        tools:layout="@layout/fragment_admin_gambler_photo">
+        <argument
+            android:name="photoUrl"
+            app:argType="string" />
     </fragment>
 </navigation>

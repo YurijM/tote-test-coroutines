@@ -34,6 +34,16 @@ class AdminGamblerFragment : Fragment() {
 
         binding = FragmentAdminGamblerBinding.inflate(layoutInflater, container, false)
 
+        binding.adminGamblerPhoto.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("photoUrl", gambler.photoUrl)
+
+            findTopNavController().navigate(R.id.action_adminGamblerFragment_to_adminGamblerPhotoFragment, bundle)
+
+            /*val action = AdminGamblerFragmentDirections.actionAdminGamblerFragmentToAdminGamblerPhotoFragment(gambler.photoUrl)
+            findTopNavController().navigate(action)*/
+        }
+
         binding.adminGamblerSave.setOnClickListener {
             gambler.stake = parseInt(binding.adminGamblerInputStake.text.toString())
             gambler.active = binding.adminGamblerActive.isChecked

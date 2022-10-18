@@ -58,6 +58,19 @@
             app:destination="@id/tabsFragment"
             app:popUpTo="@id/profileFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_adminGamblerPhotoFragment"
+            app:destination="@id/adminGamblerPhotoFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <include app:graph="@navigation/admin_graph" />
+    <fragment
+        android:id="@+id/adminGamblerPhotoFragment"
+        android:name="com.example.tote_test.ui.admin.AdminGamblerPhotoFragment"
+        tools:layout="@layout/fragment_admin_gambler_photo" >
+        <argument
+            android:name="photoUrl"
+            app:argType="string" />
+    </fragment>
 </navigation>
