@@ -23,7 +23,7 @@ lateinit var REF_STORAGE_ROOT: StorageReference
 
 const val FOLDER_PROFILE_PHOTO = "profile_photo"
 
-const val CHILD_ID = "id"
+//const val CHILD_ID = "id"
 
 const val NODE_GAMBLERS = "gamblers"
 const val NODE_GAMES = "games"
@@ -33,7 +33,7 @@ var GAMBLER = GamblerModel()
 lateinit var CURRENT_ID: String
 lateinit var EMAIL: String
 lateinit var PASSWORD: String
-var IS_ADMIN: Boolean = false
+//var IS_ADMIN: Boolean = false
 
 //Gambler model fields
 //const val GAMBLER_NICKNAME = "nickname"
@@ -244,7 +244,7 @@ val TEAMS = arrayListOf<TeamModel>(
     ),
 )
 
-val SCHEDULER = arrayListOf<GameModel>(
+val GAMES = arrayListOf<GameModel>(
     GameModel(
         id = 1,
         group = "A",

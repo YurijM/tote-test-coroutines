@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Тотализатор 2022</string>
+    <string name="settings">Администрирование</string>
     <string name="loading">Идёт загрузка …</string>
     <string name="unknown_error">Неизвестная ошибка</string>
     <string name="empty">empty</string>
@@ -23,6 +24,11 @@
     <string name="error_gender">Укажите свой пол</string>
     <string name="error_valid_email">Некорректный адрес email</string>
     <string name="error_value_empty">значение <b>\"%1$s\"</b> не заполнено</string>
+    <string name="error_add_games">Ошибка при обновлении расписания</string>
+    <string name="error_add_teams">Ошибка при обновлении списка сборных</string>
+
+    <string name="admin_settings_add_games_success">Расписание успешно обновлено</string>
+    <string name="admin_settings_add_teams_success">Спсок сборных успешно обновлён</string>
 
     <string name="sign_in">Войти</string>
     <string name="sign_up">Зарегистрироваться</string>
@@ -43,4 +49,6 @@
     <string name="stake_empty">ставка</string>
     <string name="active">активен</string>
     <string name="admin">администратор</string>
+    <string name="admin_settings_add_games">Добавить расписание игр</string>
+    <string name="admin_settings_add_teams">Добавить список сборных</string>
 </resources>

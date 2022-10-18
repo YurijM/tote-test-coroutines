@@ -63,8 +63,7 @@ class SignInFragment : Fragment() {
     private fun initFieldPassword() {
         binding.signInInputPassword.addTextChangedListener {
             if (it != null) {
-                isPasswordFilled =
-                    !checkFieldBlank(it.toString(), binding.signInLayoutInputPassword, getString(R.string.password))
+                isPasswordFilled = !checkFieldBlank(it.toString(), binding.signInLayoutInputPassword, getString(R.string.password))
 
                 binding.signInToAuth.isEnabled = isFieldsFilled()
             }

@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
-        menu.findItem(R.id.menu_item_admin).isVisible = false
+        menu.findItem(R.id.menu_item_admin).isVisible = GAMBLER.admin
 
         return true
     }
@@ -91,6 +91,10 @@ class MainActivity : AppCompatActivity() {
             R.id.menu_item_exit -> {
                 viewModel.signOut()
                 finish()
+            }
+            R.id.menu_item_admin -> {
+                ((supportFragmentManager.findFragmentById(R.id.mainContainer) as NavHostFragment).navController)
+                    .navigate(R.id.adminSettingsFragment)
             }
         }
         return super.onOptionsItemSelected(item)

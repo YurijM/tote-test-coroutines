@@ -26,6 +26,7 @@ class AdminGamblerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         val gambler = arguments?.getSerializable("gambler") as GamblerModel
 
         viewModel = ViewModelProvider(this)[AdminGamblerViewModel::class.java]

@@ -8,22 +8,4 @@
     android:orientation="vertical"
     tools:context=".ui.tabs.games.GamesFragment">
 
-    <Button
-        android:id="@+id/gamesAddGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Добавить расписание" />
-
-    <Button
-        android:id="@+id/gamesAddTeam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Добавить список сборных" />
-
-    <ProgressBar
-        android:id="@+id/gamesProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible" />
-
 </LinearLayout>
