@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentRatingBinding
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.GAMBLER
@@ -37,9 +36,12 @@ class RatingFragment : Fragment() {
     }
 
     private fun onListItemClick(gambler: GamblerModel) {
-        val bundle = Bundle()
+        /*val bundle = Bundle()
         bundle.putSerializable("gambler", gambler)
-        findTopNavController().navigate(R.id.action_ratingFragment_to_adminGamblerFragment, bundle)
+        findTopNavController().navigate(R.id.action_ratingFragment_to_adminGamblerFragment, bundle)*/
+
+        val action = RatingFragmentDirections.actionRatingFragmentToAdminGamblerFragment(gambler)
+        findTopNavController().navigate(action)
     }
 
     private fun observeGamblers() = viewModel.gamblers.observe(viewLifecycleOwner) {

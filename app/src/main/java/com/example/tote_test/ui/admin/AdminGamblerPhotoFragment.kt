@@ -17,22 +17,22 @@ class AdminGamblerPhotoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        /*val photoUrl = arguments?.getString("photoUrl")
-        val isBottomNav = arguments?.getBoolean("isBottomNav")*/
+        binding = FragmentAdminGamblerPhotoBinding.inflate(layoutInflater, container, false)
 
-        //AdminGamblerPhotoFragmentArgs.fromBundle(arguments).photoUrl as String
+        /*val photoUrl = arguments?.getString("photoUrl")
+        val isBottomNav = arguments?.getBoolean("isBottomNav")
+
+        val size = isBottomNav?.let { getSizeDisplay(it) }
+
+        if (photoUrl != null) {
+            binding.adminGamblerPhotoFull.loadImage(photoUrl, size?.get(0) ?: 100, size?.get(1) ?: 100)
+        }*/
 
         val photoUrl = AdminGamblerPhotoFragmentArgs.fromBundle(requireArguments()).photoUrl
         val isBottomNav = AdminGamblerPhotoFragmentArgs.fromBundle(requireArguments()).isBottomNav
 
-        binding = FragmentAdminGamblerPhotoBinding.inflate(layoutInflater, container, false)
-
-        //val size = isBottomNav?.let { getSizeDisplay(it) }
         val size = getSizeDisplay(isBottomNav)
 
-        /*if (photoUrl != null) {
-            binding.adminGamblerPhotoFull.loadImage(photoUrl, size?.get(0) ?: 100, size?.get(1) ?: 100)
-        }*/
         binding.adminGamblerPhotoFull.loadImage(photoUrl, size[0], size[1])
 
         return binding.root

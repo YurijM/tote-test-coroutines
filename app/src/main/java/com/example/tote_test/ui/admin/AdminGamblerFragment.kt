@@ -27,12 +27,14 @@ class AdminGamblerFragment : Fragment() {
     ): View {
         APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        val gambler = arguments?.getSerializable("gambler") as GamblerModel
+        //val gambler = arguments?.getSerializable("gambler") as GamblerModel
 
         viewModel = ViewModelProvider(this)[AdminGamblerViewModel::class.java]
         observeStatus()
 
         binding = FragmentAdminGamblerBinding.inflate(layoutInflater, container, false)
+
+        val gambler = AdminGamblerFragmentArgs.fromBundle(requireArguments()).gambler
 
         binding.adminGamblerPhoto.setOnClickListener {
             /*val bundle = Bundle()

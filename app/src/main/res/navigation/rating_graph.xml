@@ -12,9 +12,6 @@
         <action
             android:id="@+id/action_ratingFragment_to_adminGamblerFragment"
             app:destination="@id/adminGamblerFragment" />
-        <argument
-            android:name="gambler"
-            app:argType="com.example.tote_test.models.GamblerModel" />
     </fragment>
     <fragment
         android:id="@+id/adminGamblerFragment"
@@ -29,6 +26,9 @@
             app:destination="@id/adminGamblerPhotoFragment"
             app:popUpTo="@id/adminGamblerFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="gambler"
+            app:argType="com.example.tote_test.models.GamblerModel" />
     </fragment>
     <fragment
         android:id="@+id/adminGamblerPhotoFragment"
