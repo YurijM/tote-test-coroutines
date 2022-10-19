@@ -20,8 +20,10 @@ class AdminGamblerPhotoFragment : Fragment() {
         /*val photoUrl = arguments?.getString("photoUrl")
         val isBottomNav = arguments?.getBoolean("isBottomNav")*/
 
-        val photoUrl = AdminGamblerPhotoFragmentArgs.fromBundle(arguments).photoUrl
-        val isBottomNav = AdminGamblerPhotoFragmentArgs.fromBundle(arguments).isBottomNav
+        //AdminGamblerPhotoFragmentArgs.fromBundle(arguments).photoUrl as String
+
+        val photoUrl = AdminGamblerPhotoFragmentArgs.fromBundle(requireArguments()).photoUrl
+        val isBottomNav = AdminGamblerPhotoFragmentArgs.fromBundle(requireArguments()).isBottomNav
 
         binding = FragmentAdminGamblerPhotoBinding.inflate(layoutInflater, container, false)
 
