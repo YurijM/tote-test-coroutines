@@ -35,14 +35,14 @@ class AdminGamblerFragment : Fragment() {
         binding = FragmentAdminGamblerBinding.inflate(layoutInflater, container, false)
 
         binding.adminGamblerPhoto.setOnClickListener {
-            val bundle = Bundle()
+            /*val bundle = Bundle()
             bundle.putString("photoUrl", gambler.photoUrl)
             bundle.putBoolean("isBottomNav", true)
 
-            findTopNavController().navigate(R.id.action_adminGamblerFragment_to_adminGamblerPhotoFragment, bundle)
+            findTopNavController().navigate(R.id.action_adminGamblerFragment_to_adminGamblerPhotoFragment, bundle)*/
 
-            /*val action = AdminGamblerFragmentDirections.actionAdminGamblerFragmentToAdminGamblerPhotoFragment(gambler.photoUrl)
-            findTopNavController().navigate(action)*/
+            val action = AdminGamblerFragmentDirections.actionAdminGamblerFragmentToAdminGamblerPhotoFragment(gambler.photoUrl, true)
+            findTopNavController().navigate(action)
         }
 
         binding.adminGamblerSave.setOnClickListener {

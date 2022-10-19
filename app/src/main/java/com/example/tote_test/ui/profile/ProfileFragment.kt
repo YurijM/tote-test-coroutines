@@ -51,14 +51,14 @@ class ProfileFragment : Fragment() {
         initFields()
 
         binding.profilePhoto.setOnClickListener {
-            val bundle = Bundle()
+            /*val bundle = Bundle()
             bundle.putString("photoUrl", GAMBLER.photoUrl)
             bundle.putBoolean("isBottomNav", false)
 
-            findTopNavController().navigate(R.id.action_profileFragment_to_adminGamblerPhotoFragment, bundle)
+            findTopNavController().navigate(R.id.action_profileFragment_to_adminGamblerPhotoFragment, bundle)*/
 
-            /*val action = ProfileFragmentDirections.actionProfileFragmentToAdminGamblerPhotoFragment(GAMBLER.photoUrl)
-            findTopNavController().navigate(action)*/
+            val action = ProfileFragmentDirections.actionProfileFragmentToAdminGamblerPhotoFragment(GAMBLER.photoUrl, false)
+            findTopNavController().navigate(action)
         }
 
         binding.profileLoadPhoto.setOnClickListener {
