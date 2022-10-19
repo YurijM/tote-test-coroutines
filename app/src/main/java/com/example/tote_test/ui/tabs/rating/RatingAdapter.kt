@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.APP_ACTIVITY
-import com.example.tote_test.utils.GAMBLER
 import com.example.tote_test.utils.loadImage
 import kotlin.math.roundToInt
 
@@ -35,11 +34,13 @@ class RatingAdapter(private val onItemClicked: (gambler: GamblerModel) -> Unit) 
         val moveArrow: ImageView = view.findViewById(R.id.itemRatingMoveArrow)
 
         init {
-            if (GAMBLER.admin) {
+            /*if (GAMBLER.admin) {
                 view.setOnClickListener(this)
-            }/* else {
+            } else {
                 view.setOnClickListener(null)
             }*/
+
+            view.setOnClickListener(this)
         }
 
         override fun onClick(v: View) {

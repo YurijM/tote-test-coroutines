@@ -40,7 +40,11 @@ class RatingFragment : Fragment() {
         bundle.putSerializable("gambler", gambler)
         findTopNavController().navigate(R.id.action_ratingFragment_to_adminGamblerFragment, bundle)*/
 
-        val action = RatingFragmentDirections.actionRatingFragmentToAdminGamblerFragment(gambler)
+        val action = if (GAMBLER.admin) {
+            RatingFragmentDirections.actionRatingFragmentToAdminGamblerFragment(gambler)
+        } else {
+            RatingFragmentDirections.actionRatingFragmentToAdminGamblerPhotoFragment(gambler.photoUrl, true)
+        }
         findTopNavController().navigate(action)
     }
 

@@ -25,7 +25,7 @@ class AdminGamblerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        //APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         //val gambler = arguments?.getSerializable("gambler") as GamblerModel
 
