@@ -37,6 +37,7 @@ class AdminGamblerFragment : Fragment() {
         binding.adminGamblerPhoto.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("photoUrl", gambler.photoUrl)
+            bundle.putBoolean("isBottomNav", true)
 
             findTopNavController().navigate(R.id.action_adminGamblerFragment_to_adminGamblerPhotoFragment, bundle)
 

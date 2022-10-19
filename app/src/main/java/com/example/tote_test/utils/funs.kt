@@ -2,6 +2,7 @@ package com.example.tote_test.utils
 
 import android.annotation.SuppressLint
 import android.text.Editable
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
@@ -127,6 +128,32 @@ fun Fragment.findTopNavController(): NavController {
     val topLevelHost = requireActivity().supportFragmentManager.findFragmentById(R.id.tabsContainer) as NavHostFragment?
     return topLevelHost?.navController ?: findNavController()
 }
+
+@SuppressLint("PrivateResource")
+fun getSizeDisplay(isBottomNav: Boolean): IntArray {
+    var bar = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
+    val tv = TypedValue()
+    if (APP_ACTIVITY.theme.resolveAttribute(com.google.android.material.R.attr.actionBarSize, tv, true)) {
+        bar = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
+    }
+
+    val bottomNav = if (isBottomNav) {
+        APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.design_bottom_navigation_height)
+    } else {
+        0
+    }
+
+    val footer = APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.height_footer) * 2
+
+    val displayMetrics = DisplayMetrics()
+    APP_ACTIVITY.windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+    val width = displayMetrics.widthPixels
+    val height = (displayMetrics.heightPixels - bar - footer - bottomNav) //550
+
+    return intArrayOf(width, height)
+}
+
 
 
 

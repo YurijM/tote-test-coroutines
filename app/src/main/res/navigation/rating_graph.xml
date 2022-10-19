@@ -37,5 +37,8 @@
         <argument
             android:name="photoUrl"
             app:argType="string" />
+        <argument
+            android:name="isBottomNav"
+            app:argType="boolean" />
     </fragment>
 </navigation>
