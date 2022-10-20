@@ -3,6 +3,7 @@ package com.example.tote_test.utils
 import com.example.tote_test.firebase.FirebaseRepository
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.models.GameModel
+import com.example.tote_test.models.GroupModel
 import com.example.tote_test.models.TeamModel
 import com.example.tote_test.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -48,6 +49,23 @@ const val GAMBLER_PHOTO_URL = "photoUrl"
 //const val GAMBLER_PLACE = "place"
 //const val GAMBLER_IS_ADMIN = "admin"
 //const val GAMBLER_IS_ACTIVE = "active"
+
+val GROUPS = arrayListOf<GroupModel>(
+   GroupModel(1, "A"),
+   GroupModel(2, "B"),
+   GroupModel(3, "C"),
+   GroupModel(4, "D"),
+   GroupModel(5, "E"),
+   GroupModel(6, "F"),
+   GroupModel(7, "G"),
+   GroupModel(8, "H"),
+   GroupModel(9, "1/4 финала"),
+   GroupModel(10, "1/2 финала"),
+   GroupModel(11, "Матч за 3-е место"),
+   GroupModel(12, "Финал"),
+)
+
+const val GROUPS_COUNT = 8
 
 val TEAMS = arrayListOf<TeamModel>(
     TeamModel(
@@ -342,5 +360,243 @@ val GAMES = arrayListOf<GameModel>(
         team1 = "Уругвай",
         team2 = "Южная Корея",
         start = convertDateTimeToTimestamp("24.11.2022 16:00")
+    ),
+    GameModel(
+        id = 15,
+        group = "H",
+        team1 = "Португалия",
+        team2 = "Гана",
+        start = convertDateTimeToTimestamp("24.11.2022 19:00")
+    ),
+    GameModel(
+        id = 16,
+        group = "G",
+        team1 = "Бразилия",
+        team2 = "Сербия",
+        start = convertDateTimeToTimestamp("24.11.2022 22:00")
+    ),
+    GameModel(
+        id = 17,
+        group = "B",
+        team1 = "Уэльс",
+        team2 = "Иран",
+        start = convertDateTimeToTimestamp("25.11.2022 13:00")
+    ),
+    GameModel(
+        id = 18,
+        group = "A",
+        team1 = "Катар",
+        team2 = "Сенегал",
+        start = convertDateTimeToTimestamp("25.11.2022 16:00")
+    ),
+    GameModel(
+        id = 19,
+        group = "A",
+        team1 = "Нидерланды",
+        team2 = "Эквадор",
+        start = convertDateTimeToTimestamp("25.11.2022 19:00")
+    ),
+    GameModel(
+        id = 20,
+        group = "B",
+        team1 = "Англия",
+        team2 = "США",
+        start = convertDateTimeToTimestamp("25.11.2022 22:00")
+    ),
+    GameModel(
+        id = 21,
+        group = "D",
+        team1 = "Тунис",
+        team2 = "Австралия",
+        start = convertDateTimeToTimestamp("26.11.2022 13:00")
+    ),
+    GameModel(
+        id = 22,
+        group = "C",
+        team1 = "Польша",
+        team2 = "Саудовская Аравия",
+        start = convertDateTimeToTimestamp("26.11.2022 16:00")
+    ),
+    GameModel(
+        id = 23,
+        group = "D",
+        team1 = "Франция",
+        team2 = "Дания",
+        start = convertDateTimeToTimestamp("26.11.2022 19:00")
+    ),
+    GameModel(
+        id = 24,
+        group = "D",
+        team1 = "Аргентина",
+        team2 = "Мексика",
+        start = convertDateTimeToTimestamp("26.11.2022 22:00")
+    ),
+    GameModel(
+        id = 25,
+        group = "E",
+        team1 = "Япония",
+        team2 = "Коста-Рика",
+        start = convertDateTimeToTimestamp("27.11.2022 13:00")
+    ),
+    GameModel(
+        id = 26,
+        group = "F",
+        team1 = "Бельгия",
+        team2 = "Марокко",
+        start = convertDateTimeToTimestamp("27.11.2022 16:00")
+    ),
+    GameModel(
+        id = 27,
+        group = "F",
+        team1 = "Хорватия",
+        team2 = "Канада",
+        start = convertDateTimeToTimestamp("27.11.2022 19:00")
+    ),
+    GameModel(
+        id = 28,
+        group = "E",
+        team1 = "Испания",
+        team2 = "Германия",
+        start = convertDateTimeToTimestamp("27.11.2022 22:00")
+    ),
+    GameModel(
+        id = 29,
+        group = "G",
+        team1 = "Камерун",
+        team2 = "Сербия",
+        start = convertDateTimeToTimestamp("28.11.2022 13:00")
+    ),
+    GameModel(
+        id = 30,
+        group = "H",
+        team1 = "Южная Корея",
+        team2 = "Гана",
+        start = convertDateTimeToTimestamp("28.11.2022 16:00")
+    ),
+    GameModel(
+        id = 31,
+        group = "G",
+        team1 = "Бразилия",
+        team2 = "Швейцария",
+        start = convertDateTimeToTimestamp("28.11.2022 19:00")
+    ),
+    GameModel(
+        id = 32,
+        group = "H",
+        team1 = "Португалия",
+        team2 = "Уругвай",
+        start = convertDateTimeToTimestamp("28.11.2022 22:00")
+    ),
+    GameModel(
+        id = 33,
+        group = "A",
+        team1 = "Эквадор",
+        team2 = "Сенегал",
+        start = convertDateTimeToTimestamp("29.11.2022 18:00")
+    ),
+    GameModel(
+        id = 34,
+        group = "A",
+        team1 = "Нидерланды",
+        team2 = "Катар",
+        start = convertDateTimeToTimestamp("29.11.2022 18:00")
+    ),
+    GameModel(
+        id = 35,
+        group = "B",
+        team1 = "Иран",
+        team2 = "США",
+        start = convertDateTimeToTimestamp("29.11.2022 22:00")
+    ),
+    GameModel(
+        id = 36,
+        group = "B",
+        team1 = "Уэльс",
+        team2 = "Англия",
+        start = convertDateTimeToTimestamp("29.11.2022 22:00")
+    ),
+    GameModel(
+        id = 37,
+        group = "D",
+        team1 = "Австралия",
+        team2 = "Дания",
+        start = convertDateTimeToTimestamp("30.11.2022 18:00")
+    ),
+    GameModel(
+        id = 38,
+        group = "D",
+        team1 = "Тунис",
+        team2 = "Франция",
+        start = convertDateTimeToTimestamp("30.11.2022 18:00")
+    ),
+    GameModel(
+        id = 39,
+        group = "C",
+        team1 = "Саудовская Аравия",
+        team2 = "Мексика",
+        start = convertDateTimeToTimestamp("30.11.2022 22:00")
+    ),
+    GameModel(
+        id = 40,
+        group = "C",
+        team1 = "Польша",
+        team2 = "Аргентина",
+        start = convertDateTimeToTimestamp("30.11.2022 22:00")
+    ),
+    GameModel(
+        id = 41,
+        group = "F",
+        team1 = "Канада",
+        team2 = "Марокко",
+        start = convertDateTimeToTimestamp("01.12.2022 18:00")
+    ),
+    GameModel(
+        id = 42,
+        group = "F",
+        team1 = "Хорватия",
+        team2 = "Бельгия",
+        start = convertDateTimeToTimestamp("01.12.2022 18:00")
+    ),
+    GameModel(
+        id = 43,
+        group = "E",
+        team1 = "Коста-Рика",
+        team2 = "Германия",
+        start = convertDateTimeToTimestamp("01.12.2022 22:00")
+    ),
+    GameModel(
+        id = 44,
+        group = "E",
+        team1 = "Япония",
+        team2 = "Испания",
+        start = convertDateTimeToTimestamp("01.12.2022 22:00")
+    ),
+    GameModel(
+        id = 45,
+        group = "H",
+        team1 = "Гана",
+        team2 = "Уругвай",
+        start = convertDateTimeToTimestamp("02.12.2022 18:00")
+    ),
+    GameModel(
+        id = 46,
+        group = "H",
+        team1 = "Южная Корея",
+        team2 = "Португалия",
+        start = convertDateTimeToTimestamp("02.12.2022 18:00")
+    ),
+    GameModel(
+        id = 47,
+        group = "G",
+        team1 = "Сербия",
+        team2 = "Швейцария",
+        start = convertDateTimeToTimestamp("02.12.2022 22:00")
+    ),
+    GameModel(
+        id = 48,
+        group = "G",
+        team1 = "Камерун",
+        team2 = "Бразилия",
+        start = convertDateTimeToTimestamp("02.12.2022 22:00")
     ),
 )

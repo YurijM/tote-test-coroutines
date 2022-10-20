@@ -3,7 +3,7 @@ package com.example.tote_test.models
 import java.io.Serializable
 
 data class GameModel(
-    var id: Int,
+    var id: Int = 0,
     var group: String = "",
     var team1: String = "",
     var team2: String = "",
