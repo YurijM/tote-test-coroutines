@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_sm">
+
+    <TextView
+        android:id="@+id/groupGamesGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Группа" />
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_lg"
+        android:columnCount="11"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/groupGamesGroup">
+
+        <!--Header 1-->
+        <TextView
+            android:layout_gravity="center"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold"
+            android:text="@string/number" />
+
+        <TextView
+            android:layout_width="135dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/team" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/first" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/second" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/third" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/fourth" />
+
+        <TextView
+            android:layout_width="15dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/win" />
+
+        <TextView
+            android:layout_width="15dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/draw" />
+
+        <TextView
+            android:layout_width="15dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/defeat" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/balls" />
+
+        <TextView
+            android:layout_width="20dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/points" />
+
+        <!--Row 1-->
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginEnd="1dp"
+            android:text="@string/first" />
+
+        <TextView
+            tools:text="Саудовская Аравия" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:background="@color/light_grey" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:5" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="0:5" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:4" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            tools:text="0" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/green"
+            tools:text="1" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/navy"
+            tools:text="2" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="10:15" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="12" />
+
+        <!--Row 2-->
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginEnd="1dp"
+            android:text="@string/second" />
+
+        <TextView
+            tools:text="Англия" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:5" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:background="@color/light_grey" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="0:5" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:4" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            tools:text="0" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/green"
+            tools:text="1" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/navy"
+            tools:text="2" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="10:15" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="12" />
+
+        <!--Row 3-->
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginEnd="1dp"
+            android:text="@string/third" />
+
+        <TextView
+            tools:text="Иран" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:5" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="0:5" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:background="@color/light_grey" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:4" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            tools:text="0" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/green"
+            tools:text="1" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/navy"
+            tools:text="2" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="10:15" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="12" />
+
+        <!--Row 4-->
+        <TextView
+            android:layout_gravity="center"
+            android:layout_marginEnd="1dp"
+            android:text="@string/fourth" />
+
+        <TextView
+            tools:text="Швейцария" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:5" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="0:5" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="3:4" />
+
+        <TextView
+            android:layout_width="25dp"
+            android:background="@color/light_grey" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/red"
+            tools:text="0" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/green"
+            tools:text="1" />
+
+        <TextView
+            android:layout_gravity="center"
+            android:textColor="@color/navy"
+            tools:text="2" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="10:15" />
+
+        <TextView
+            android:layout_gravity="center"
+            tools:text="12" />
+
+    </GridLayout>
+
+
+
+    <!--<ImageView
+        android:id="@+id/itemRatingGamblerPhoto"
+        android:layout_width="@dimen/rating_size_gambler_photo"
+        android:layout_height="@dimen/rating_size_gambler_photo"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/user" />
+
+    <TextView
+        android:id="@+id/itemRatingGamblerNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_sm"
+        android:textSize="@dimen/text_size_lg"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingGamblerPhoto"
+        app:layout_constraintStart_toEndOf="@+id/itemRatingGamblerPhoto"
+        app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto"
+        tools:text="@string/nickname" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemRatingGroupRating"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/itemRatingGamblerNickname"
+        app:layout_constraintTop_toTopOf="@id/itemRatingGamblerPhoto"
+        app:layout_constraintBottom_toBottomOf="@id/itemRatingGamblerPhoto">
+
+        <TextView
+            android:id="@+id/itemRatingPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="?attr/color_first_place"
+            android:textSize="@dimen/text_size_lg"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/itemRatingMoveArrow"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="101.23" />
+
+        <ImageView
+            android:id="@+id/itemRatingMoveArrow"
+            android:layout_width="34dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/itemRatingMovePlaces"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_arrow_down" />
+
+        <TextView
+            android:id="@+id/itemRatingMovePlaces"
+            android:layout_width="19dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="22" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

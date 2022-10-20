@@ -11,7 +11,7 @@
     <string name="prognosis">Прогноз</string>
     <string name="games">Игры</string>
     <string name="profile">Профиль</string>
-    <string name="admin_gambler">Админка-Участник</string>
+    <string name="admin_gambler">Участник</string>
 
     <string name="save">Сохранить</string>
 
@@ -44,11 +44,24 @@
     <string name="load_photo">Загрузить фото</string>
     <string name="email">email</string>
     <string name="stake">ставка: %1$dруб.</string>
-    <string name="points">кол-во очков: %1$.2f</string>
+    <string name="gambler_points">кол-во очков: %1$.2f</string>
 
     <string name="stake_empty">ставка</string>
     <string name="active">активен</string>
     <string name="admin">администратор</string>
     <string name="admin_settings_add_games">Добавить расписание игр</string>
     <string name="admin_settings_add_teams">Добавить список сборных</string>
+
+    <string name="number">№</string>
+    <string name="team">Команда</string>
+    <string name="first">1</string>
+    <string name="second">2</string>
+    <string name="third">3</string>
+    <string name="fourth">4</string>
+    <string name="win">В</string>
+    <string name="draw">Н</string>
+    <string name="defeat">П</string>
+    <string name="balls">М</string>
+    <string name="points">О</string>
+
 </resources>

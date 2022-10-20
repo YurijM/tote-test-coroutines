@@ -174,7 +174,7 @@ class ProfileFragment : Fragment() {
     private fun observeProfile() = viewModel.profile.observe(viewLifecycleOwner) {
         binding.profileEmail.text = it.email
         binding.profileStake.text = getString(R.string.stake, it.stake)
-        binding.profilePoints.text = getString(R.string.points, it.points)
+        binding.profilePoints.text = getString(R.string.gambler_points, it.points)
 
         inputNickname.text = it.nickname
         inputFamily.text = it.family

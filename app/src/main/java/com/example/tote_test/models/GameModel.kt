@@ -8,9 +8,9 @@ data class GameModel(
     var team1: String = "",
     var team2: String = "",
     var start: String = "",
-    var goal1: Int? = null,
-    var goal2: Int? = null,
-    var addGoal1: Int? = null,
-    var addGoal2: Int? = null,
+    var goal1: String = "",
+    var goal2: String = "",
+    var addGoal1: String = "",
+    var addGoal2: String = "",
     val penalty: String = "",
 ) : Serializable
