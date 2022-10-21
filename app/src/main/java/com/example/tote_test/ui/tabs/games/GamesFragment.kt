@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tote_test.databinding.FragmentGamesBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GroupGamesModel
+import com.example.tote_test.models.GroupModel
+import com.example.tote_test.models.TeamModel
 import com.example.tote_test.utils.GROUPS
 import com.example.tote_test.utils.GROUPS_COUNT
 import com.example.tote_test.utils.TEAMS
@@ -17,8 +19,8 @@ import com.example.tote_test.utils.toLog
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
     private lateinit var viewModel: GamesViewModel
-
-    //private val adapter = GamesAdapter { game -> onListItemClick(game) }
+    private lateinit var groups: List<GroupModel>
+    private lateinit var teams: List<TeamModel>
     private val adapter = GamesAdapter()
 
     override fun onCreateView(
@@ -34,47 +36,45 @@ class GamesFragment : Fragment() {
         val recyclerView = binding.groupGamesList
         recyclerView.adapter = adapter
 
-        val groups = GROUPS.filter { it -> it.number <= GROUPS_COUNT }
+        groups = GROUPS.filter { it -> it.number <= GROUPS_COUNT }
             .sortedBy { it.number }
-
-        /*val groupGames = viewModel.games.value//.filter { it -> it.group == "A" }
-        toLog("groupGames: $groupGames")*/
-
 
         observeGames()
 
         return binding.root
     }
 
-    private fun onListItemClick(game: GameModel) {
-
-    }
-
     private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
-        val groupGames = arrayListOf<GroupGamesModel>()
+        val games = arrayListOf<GroupGamesModel>()
 
-        val teams = TEAMS.filter { it -> it.group == "A" }
-            .sortedBy { item -> item.team }
+        groups.forEach { group ->
+            teams = TEAMS.filter { team -> team.group == group.group }
+                .sortedBy { item -> item.team }
 
-        groupGames.add(GroupGamesModel(
-            "A",
-            it.filter { it -> it.group == "A" }
-                /*.sortedBy { item -> (item.team1 == teams[0].team || item.team2 == teams[0].team) }
-                .sortedBy { item -> (item.team1 == teams[1].team || item.team2 == teams[1].team) }
-                .sortedBy { item -> (item.team1 == teams[2].team || item.team2 == teams[2].team) }
-                .sortedBy { item -> (item.team1 == teams[3].team || item.team2 == teams[3].team) }.toList()*/
-                .sortedWith(
-                    compareBy<GameModel> { item -> (item.team1 == teams[0].team || item.team2 == teams[0].team) }
-                        .thenBy { item -> (item.team1 == teams[1].team || item.team2 == teams[1].team) }
-                        .thenBy { item -> (item.team1 == teams[2].team || item.team2 == teams[2].team) }
-                        .thenBy { item -> (item.team1 == teams[3].team || item.team2 == teams[3].team) }
+            val groupGames = it.filter { item -> item.group == group.group }.toMutableList()
+
+            val groupGamesByTeam = arrayListOf<GameModel>()
+
+            teams.forEach {
+                groupGames.filter { item -> item.team1 == it.team || item.team2 == it.team }
+                    .sortedBy { sort -> if (sort.team1 == it.team) sort.team2 else sort.team1 }
+                    .forEach { game ->
+                        groupGamesByTeam.add(game)
+                        groupGames.remove(game)
+                    }
+
+                //toLog("groupGames: $groupGames")
+            }
+
+            games.add(
+                GroupGamesModel(
+                    group.group,
+                    groupGamesByTeam
                 )
-        ))
-        //groupGames.add(GroupGamesModel("B", it.filter { item -> item.group == "B" }))
-        toLog("groupGames: $groupGames")
+            )
+            //toLog("groupGamesByTeam, size: $groupGamesByTeam, ${groupGamesByTeam.size}")
+        }
 
-        /*val games = arrayListOf<GameModel>()
-        games.add(it[0])*/
-        adapter.setGames(groupGames)
+        adapter.setGames(games)
     }
 }

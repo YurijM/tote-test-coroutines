@@ -10,59 +10,89 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GroupGamesModel
+import com.example.tote_test.utils.*
+import com.google.android.gms.common.Scopes
 
-//class GamesAdapter(private val onItemClicked: (game: GameModel) -> Unit) :
 class GamesAdapter() :
     RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     private var games = emptyList<GroupGamesModel>()
 
     class GamesHolder(
         view: View,
-        //private val onItemClicked: (game: GameModel) -> Unit
     ) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val group: TextView = view.findViewById(R.id.groupGamesGroup)
         val table: GridLayout = view.findViewById(R.id.groupGamesTable)
 
-        /*init {
-            view.setOnClickListener(this)
-        }*/
-
-        /*override fun onClick(v: View) {
-            val game = v.tag as GameModel
-            onItemClicked(game)
-        }*/
         override fun onClick(v: View) {}
-}
+    }
 
-override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesHolder {
-val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group_games, parent, false)
-return GamesHolder(view) //, onItemClicked)
-}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group_games, parent, false)
+        return GamesHolder(view) //, onItemClicked)
+    }
 
-override fun onBindViewHolder(holder: GamesHolder, position: Int) {
-holder.itemView.tag = games[position]
+    override fun onBindViewHolder(holder: GamesHolder, position: Int) {
+        holder.itemView.tag = games[position]
 
-val group = "Группа ${games[position].group}"
+        val group = "Группа ${games[position].group}"
 
-holder.group.text = group
+        holder.group.text = group
 
-val cellsCount = holder.table.childCount
+        val teams = TEAMS.filter { it.group == games[position].group }
+            .sortedBy { item -> item.team }
 
-/*for (i in 0 until cellsCount) {
-    val cell = holder.table.getChildAt(i) as TextView
-    cell.text = i.toString()
-}*/
-}
+        val groupGames = games[position].games
+        var idxGame = 0
 
-override fun getItemCount(): Int = games.size
+        //val cellsCount = holder.table.childCount
+        var startCell = GROUP_TABLE_COLUMNS_COUNT
+        var startScopeCell = startCell + SCOPE_CELL_START
+        var endScopeCell = startCell + SCOPE_CELL_START + GROUP_TEAMS_COUNT
 
-@SuppressLint("NotifyDataSetChanged")
-/*fun setGames(games: List<GameModel>) {
-this.games = games
-notifyDataSetChanged()
-}*/
-fun setGames(games: List<GroupGamesModel>) {
-this.games = games
-notifyDataSetChanged()
-}
+        for (row in 1..GROUP_TABLE_ROWS_COUNT) {
+            val team = teams[row - 1].team
+
+            var i = startCell
+            toLog("startCell: $startCell")
+
+            var cell = holder.table.getChildAt(i++) as TextView
+            cell.text = row.toString()
+
+            cell = holder.table.getChildAt(i) as TextView
+            cell.text = team
+
+            toLog("startScopeCell: $startScopeCell")
+            toLog("endScopeCell: $endScopeCell")
+
+            for (cellScope in (startScopeCell + row) until endScopeCell) {
+                toLog("cellScope: $cellScope")
+
+                val game = groupGames[idxGame]
+                toLog("game: $game")
+                cell = holder.table.getChildAt(cellScope) as TextView
+
+                cell.text = if (game.goal1.isBlank() || game.goal2.isBlank()) {
+                    "-"
+                } else if (game.team1 == team) {
+                    "${game.goal1} : ${game.goal2}"
+                } else {
+                    "${game.goal2} : ${game.goal1}"
+                }
+
+                idxGame++
+            }
+
+            startCell += GROUP_TABLE_COLUMNS_COUNT
+            startScopeCell = startCell + SCOPE_CELL_START + row
+            endScopeCell = startCell + SCOPE_CELL_START + GROUP_TEAMS_COUNT
+        }
+    }
+
+    override fun getItemCount(): Int = games.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setGames(games: List<GroupGamesModel>) {
+        this.games = games
+        notifyDataSetChanged()
+    }
 }

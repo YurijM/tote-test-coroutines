@@ -65,7 +65,11 @@ val GROUPS = arrayListOf<GroupModel>(
    GroupModel(12, "Финал"),
 )
 
+const val GROUP_TABLE_COLUMNS_COUNT = 11
+const val GROUP_TABLE_ROWS_COUNT = 4
 const val GROUPS_COUNT = 8
+const val GROUP_TEAMS_COUNT = 4
+const val SCOPE_CELL_START = 2
 
 val TEAMS = arrayListOf<TeamModel>(
     TeamModel(
