@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GroupGamesModel
+import com.example.tote_test.models.GroupResultsModel
 import com.example.tote_test.utils.*
 
 class GamesAdapter :
@@ -42,15 +44,18 @@ class GamesAdapter :
         val groupGames = games[position].games
         var idxGame = 0
 
-        //val cellsCount = holder.table.childCount
-        /*var startCell = GROUP_TABLE_COLUMNS_COUNT
-        var startScopeCell = startCell + SCOPE_CELL_START
-        var endScopeCell = startCell + SCOPE_CELL_START + GROUP_TEAMS_COUNT*/
-
-        for (row in 1 .. GROUP_TABLE_ROWS_COUNT) {
+        for (row in 1..GROUP_TABLE_ROWS_COUNT) {
             val startCell = GROUP_TABLE_COLUMNS_COUNT * row
             val startScopeCell = startCell + SCOPE_CELL_START + row
             val endScopeCell = startScopeCell + GROUP_TEAMS_COUNT - 1 - row
+            var startResultCell = endScopeCell + 1
+
+            val groupResults = arrayListOf(
+                GroupResultsModel(),
+                GroupResultsModel(),
+                GroupResultsModel(),
+                GroupResultsModel()
+            )
 
             val team = teams[row - 1].team
 
@@ -65,7 +70,7 @@ class GamesAdapter :
             var cellReverse = startScopeCell + GROUP_TABLE_COLUMNS_COUNT - 1
 
             if (row < GROUP_TABLE_ROWS_COUNT) {
-                for (cellScope in startScopeCell ..endScopeCell) {
+                for (cellScope in startScopeCell..endScopeCell) {
                     val game = groupGames[idxGame]
 
                     cell = holder.table.getChildAt(cellScope) as TextView
@@ -80,13 +85,88 @@ class GamesAdapter :
 
                     cell.text = result
 
+                    if (result != "-") {
+                        if (game.goal1 > game.goal2) {
+                            cell.setTextColor(
+                                ResourcesCompat.getColor(
+                                    APP_ACTIVITY.resources,
+                                    R.color.red,
+                                    null
+                                )
+                            )
+                            groupResults[row - 1].win++
+                            groupResults[row - 1].points.plus(3)
+                        } else if (game.goal1 < game.goal2) {
+                            cell.setTextColor(
+                                ResourcesCompat.getColor(
+                                    APP_ACTIVITY.resources,
+                                    R.color.navy,
+                                    null
+                                )
+                            )
+                            groupResults[row - 1].defeat++
+                        } else {
+                            cell.setTextColor(
+                                ResourcesCompat.getColor(
+                                    APP_ACTIVITY.resources,
+                                    R.color.application,
+                                    null
+                                )
+                            )
+                            groupResults[row - 1].draw++
+                            groupResults[row - 1].points.plus(1)
+                        }
+
+                        groupResults[row - 1].ball1.plus(game.goal1.toInt())
+                        groupResults[row - 1].ball2.plus(game.goal2.toInt())
+                    }
+
                     cell = holder.table.getChildAt(cellReverse) as TextView
                     cell.text = result.reversed()
 
+                    cell.setTextColor(
+                        ResourcesCompat.getColor(
+                            APP_ACTIVITY.resources,
+                            if (game.goal1 > game.goal2) {
+                                R.color.navy
+                            } else if (game.goal1 < game.goal2) {
+                                R.color.red
+                            } else {
+                                R.color.application
+                            },
+                            null
+                        )
+                    )
                     cellReverse += GROUP_TABLE_COLUMNS_COUNT
 
                     idxGame++
                 }
+
+                toLog("startResultCell: $startResultCell")
+                cell = holder.table.getChildAt(startResultCell++) as TextView
+                var item: String = groupResults[row - 1].win.toString()
+                cell.text = item
+
+                toLog("startResultCell: $startResultCell")
+                cell = holder.table.getChildAt(startResultCell++) as TextView
+                item = groupResults[row - 1].draw.toString()
+                cell.text = item
+
+                toLog("startResultCell: $startResultCell")
+                cell = holder.table.getChildAt(startResultCell++) as TextView
+                item = groupResults[row - 1].defeat.toString()
+                cell.text = item
+
+                toLog("startResultCell: $startResultCell")
+                cell = holder.table.getChildAt(startResultCell++) as TextView
+                item = "${groupResults[row - 1].ball1}:${groupResults[row - 1].ball2}"
+                cell.text = item
+
+                toLog("startResultCell: $startResultCell")
+                cell = holder.table.getChildAt(startResultCell) as TextView
+                item = groupResults[row - 1].points.toString()
+                cell.text = item
+
             }
         }
     }

@@ -28,63 +28,63 @@
 
         <!--Header 1-->
         <TextView
-            android:layout_width="15dp"
+            android:layout_width="12dp"
             android:gravity="center"
             android:textSize="@dimen/text_size_sm"
             android:textStyle="bold"
             android:text="@string/number" />
 
         <TextView
-            android:layout_width="135dp"
+            android:layout_width="132dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/team" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="30dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/first" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="30dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/second" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="30dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/third" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="30dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/fourth" />
 
         <TextView
-            android:layout_width="15dp"
+            android:layout_width="14dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/win" />
 
         <TextView
-            android:layout_width="15dp"
+            android:layout_width="14dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
             android:text="@string/draw" />
 
         <TextView
-            android:layout_width="15dp"
+            android:layout_width="14dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
@@ -98,7 +98,7 @@
             android:text="@string/balls" />
 
         <TextView
-            android:layout_width="20dp"
+            android:layout_width="14dp"
             android:gravity="center"
             android:textStyle="bold"
             android:textSize="@dimen/text_size_sm"
@@ -107,14 +107,14 @@
         <!--Row 1-->
         <TextView
             android:layout_gravity="center"
-            android:layout_marginEnd="1dp"
             android:text="@string/first" />
 
         <TextView
             tools:text="Саудовская Аравия" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="26dp"
+            android:layout_gravity="center"
             android:background="@color/light_grey" />
 
         <TextView
@@ -150,12 +150,11 @@
 
         <TextView
             android:layout_gravity="center"
-            tools:text="12" />
+            tools:text="9" />
 
         <!--Row 2-->
         <TextView
             android:layout_gravity="center"
-            android:layout_marginEnd="1dp"
             android:text="@string/second" />
 
         <TextView
@@ -166,7 +165,8 @@
             tools:text="3:5" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="26dp"
+            android:layout_gravity="center"
             android:background="@color/light_grey" />
 
         <TextView
@@ -198,12 +198,11 @@
 
         <TextView
             android:layout_gravity="center"
-            tools:text="12" />
+            tools:text="9" />
 
         <!--Row 3-->
         <TextView
             android:layout_gravity="center"
-            android:layout_marginEnd="1dp"
             android:text="@string/third" />
 
         <TextView
@@ -218,7 +217,8 @@
             tools:text="0:5" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="26dp"
+            android:layout_gravity="center"
             android:background="@color/light_grey" />
 
         <TextView
@@ -246,12 +246,11 @@
 
         <TextView
             android:layout_gravity="center"
-            tools:text="12" />
+            tools:text="9" />
 
         <!--Row 4-->
         <TextView
             android:layout_gravity="center"
-            android:layout_marginEnd="1dp"
             android:text="@string/fourth" />
 
         <TextView
@@ -270,7 +269,8 @@
             tools:text="3:4" />
 
         <TextView
-            android:layout_width="25dp"
+            android:layout_width="26dp"
+            android:layout_gravity="center"
             android:background="@color/light_grey" />
 
         <TextView
@@ -294,7 +294,7 @@
 
         <TextView
             android:layout_gravity="center"
-            tools:text="12" />
+            tools:text="9" />
 
     </GridLayout>
 
