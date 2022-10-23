@@ -14,7 +14,6 @@ import com.example.tote_test.models.TeamModel
 import com.example.tote_test.utils.GROUPS
 import com.example.tote_test.utils.GROUPS_COUNT
 import com.example.tote_test.utils.TEAMS
-import com.example.tote_test.utils.toLog
 
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
@@ -36,7 +35,7 @@ class GamesFragment : Fragment() {
         val recyclerView = binding.groupGamesList
         recyclerView.adapter = adapter
 
-        groups = GROUPS.filter { it -> it.number <= GROUPS_COUNT }
+        groups = GROUPS.filter { it.number <= GROUPS_COUNT }
             .sortedBy { it.number }
 
         observeGames()

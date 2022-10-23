@@ -8,12 +8,10 @@ import android.widget.GridLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
-import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GroupGamesModel
 import com.example.tote_test.utils.*
-import com.google.android.gms.common.Scopes
 
-class GamesAdapter() :
+class GamesAdapter :
     RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     private var games = emptyList<GroupGamesModel>()
 
@@ -45,15 +43,18 @@ class GamesAdapter() :
         var idxGame = 0
 
         //val cellsCount = holder.table.childCount
-        var startCell = GROUP_TABLE_COLUMNS_COUNT
+        /*var startCell = GROUP_TABLE_COLUMNS_COUNT
         var startScopeCell = startCell + SCOPE_CELL_START
-        var endScopeCell = startCell + SCOPE_CELL_START + GROUP_TEAMS_COUNT
+        var endScopeCell = startCell + SCOPE_CELL_START + GROUP_TEAMS_COUNT*/
 
-        for (row in 1..GROUP_TABLE_ROWS_COUNT) {
+        for (row in 1 .. GROUP_TABLE_ROWS_COUNT) {
+            val startCell = GROUP_TABLE_COLUMNS_COUNT * row
+            val startScopeCell = startCell + SCOPE_CELL_START + row
+            val endScopeCell = startScopeCell + GROUP_TEAMS_COUNT - 1 - row
+
             val team = teams[row - 1].team
 
             var i = startCell
-            toLog("startCell: $startCell")
 
             var cell = holder.table.getChildAt(i++) as TextView
             cell.text = row.toString()
@@ -61,30 +62,32 @@ class GamesAdapter() :
             cell = holder.table.getChildAt(i) as TextView
             cell.text = team
 
-            toLog("startScopeCell: $startScopeCell")
-            toLog("endScopeCell: $endScopeCell")
+            var cellReverse = startScopeCell + GROUP_TABLE_COLUMNS_COUNT - 1
 
-            for (cellScope in (startScopeCell + row) until endScopeCell) {
-                toLog("cellScope: $cellScope")
+            if (row < GROUP_TABLE_ROWS_COUNT) {
+                for (cellScope in startScopeCell ..endScopeCell) {
+                    val game = groupGames[idxGame]
 
-                val game = groupGames[idxGame]
-                toLog("game: $game")
-                cell = holder.table.getChildAt(cellScope) as TextView
+                    cell = holder.table.getChildAt(cellScope) as TextView
 
-                cell.text = if (game.goal1.isBlank() || game.goal2.isBlank()) {
-                    "-"
-                } else if (game.team1 == team) {
-                    "${game.goal1} : ${game.goal2}"
-                } else {
-                    "${game.goal2} : ${game.goal1}"
+                    val result = if (game.goal1.isBlank() || game.goal2.isBlank()) {
+                        "-"
+                    } else if (game.team1 == team) {
+                        "${game.goal1} : ${game.goal2}"
+                    } else {
+                        "${game.goal2} : ${game.goal1}"
+                    }
+
+                    cell.text = result
+
+                    cell = holder.table.getChildAt(cellReverse) as TextView
+                    cell.text = result.reversed()
+
+                    cellReverse += GROUP_TABLE_COLUMNS_COUNT
+
+                    idxGame++
                 }
-
-                idxGame++
             }
-
-            startCell += GROUP_TABLE_COLUMNS_COUNT
-            startScopeCell = startCell + SCOPE_CELL_START + row
-            endScopeCell = startCell + SCOPE_CELL_START + GROUP_TEAMS_COUNT
         }
     }
 
