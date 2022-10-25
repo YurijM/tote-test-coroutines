@@ -16,6 +16,7 @@ import com.example.tote_test.utils.*
 class GamesAdapter :
     RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     private var games = emptyList<GroupGamesModel>()
+    private lateinit var groupResults: ArrayList<GroupResultsModel>
 
     class GamesHolder(
         view: View,
@@ -44,17 +45,23 @@ class GamesAdapter :
         val groupGames = games[position].games
         var idxGame = 0
 
-        val groupResults = arrayListOf(
+        var startCell: Int
+        var startScopeCell: Int
+        var endScopeCell: Int
+        var startResultCell = 0
+
+        groupResults = arrayListOf(
             GroupResultsModel(),
             GroupResultsModel(),
             GroupResultsModel(),
             GroupResultsModel()
         )
+
         for (row in 1..GROUP_TABLE_ROWS_COUNT) {
-            val startCell = GROUP_TABLE_COLUMNS_COUNT * row
-            val startScopeCell = startCell + SCOPE_CELL_START + row
-            val endScopeCell = startScopeCell + GROUP_TEAMS_COUNT - 1 - row
-            var startResultCell = endScopeCell + 1
+            startCell = GROUP_TABLE_COLUMNS_COUNT * row
+            startScopeCell = startCell + SCOPE_CELL_START + row
+            endScopeCell = startScopeCell + GROUP_TEAMS_COUNT - 1 - row
+            startResultCell = endScopeCell + 1
 
             var rowReverse = row
 
@@ -97,7 +104,7 @@ class GamesAdapter :
                         cell.setTextColor(
                             ResourcesCompat.getColor(
                                 APP_ACTIVITY.resources,
-                                setResultAttr(goal1.toInt(), goal2.toInt(), groupResults[row - 1]),
+                                calcResultAttr(goal1.toInt(), goal2.toInt(), groupResults[row - 1]),
                                 null
                             )
                         )
@@ -111,13 +118,11 @@ class GamesAdapter :
                         cell.setTextColor(
                             ResourcesCompat.getColor(
                                 APP_ACTIVITY.resources,
-                                setResultAttr(goal2.toInt(), goal1.toInt(), groupResults[rowReverse]),
+                                calcResultAttr(goal2.toInt(), goal1.toInt(), groupResults[rowReverse]),
                                 null
                             )
                         )
                     }
-
-                    toLog("reverse groupResults[$rowReverse]: ${groupResults[rowReverse]}")
 
                     cellReverse += GROUP_TABLE_COLUMNS_COUNT
                     rowReverse++
@@ -125,32 +130,14 @@ class GamesAdapter :
                     idxGame++
                 }
 
-                toLog("groupResults[${row - 1}]: ${groupResults[row - 1]}")
-
-                cell = holder.table.getChildAt(startResultCell++) as TextView
-                var item: String = groupResults[row - 1].win.toString()
-                cell.text = item
-
-                cell = holder.table.getChildAt(startResultCell++) as TextView
-                item = groupResults[row - 1].draw.toString()
-                cell.text = item
-
-                cell = holder.table.getChildAt(startResultCell++) as TextView
-                item = groupResults[row - 1].defeat.toString()
-                cell.text = item
-
-                cell = holder.table.getChildAt(startResultCell++) as TextView
-                item = "${groupResults[row - 1].ball1}:${groupResults[row - 1].ball2}"
-                cell.text = item
-
-                cell = holder.table.getChildAt(startResultCell) as TextView
-                item = groupResults[row - 1].points.toString()
-                cell.text = item
+                setResultAttr(holder, startResultCell, row - 1)
             }
         }
+
+        setResultAttr(holder, startResultCell, GROUP_TABLE_ROWS_COUNT - 1)
     }
 
-    private fun setResultAttr(goal1: Int, goal2: Int, result: GroupResultsModel): Int {
+    private fun calcResultAttr(goal1: Int, goal2: Int, result: GroupResultsModel): Int {
         val color: Int
 
         if (goal1 > goal2) {
@@ -170,6 +157,30 @@ class GamesAdapter :
         result.ball2 += goal2
 
         return color
+    }
+
+    private fun setResultAttr(holder: GamesHolder, startCell: Int, row: Int) {
+        var start = startCell
+
+        var cell = holder.table.getChildAt(start++) as TextView
+        var item: String = groupResults[row].win.toString()
+        cell.text = item
+
+        cell = holder.table.getChildAt(start++) as TextView
+        item = groupResults[row].draw.toString()
+        cell.text = item
+
+        cell = holder.table.getChildAt(start++) as TextView
+        item = groupResults[row].defeat.toString()
+        cell.text = item
+
+        cell = holder.table.getChildAt(start++) as TextView
+        item = "${groupResults[row].ball1}:${groupResults[row].ball2}"
+        cell.text = item
+
+        cell = holder.table.getChildAt(start) as TextView
+        item = groupResults[row].points.toString()
+        cell.text = item
     }
 
     override fun getItemCount(): Int = games.size

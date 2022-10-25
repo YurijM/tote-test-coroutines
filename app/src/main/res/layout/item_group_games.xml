@@ -30,87 +30,86 @@
         <TextView
             android:layout_width="12dp"
             android:gravity="center"
+            android:text="@string/number"
             android:textSize="@dimen/text_size_sm"
-            android:textStyle="bold"
-            android:text="@string/number" />
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="132dp"
+            android:layout_width="130dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/team"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/team" />
-
-        <TextView
-            android:layout_width="30dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_size_sm"
-            android:text="@string/first" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="30dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/first"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/second" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="30dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/second"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/third" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="30dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/third"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/fourth" />
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="30dp"
+            android:gravity="center"
+            android:text="@string/fourth"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="14dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/win"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/win" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="14dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/draw"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/draw" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="14dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/defeat"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/defeat" />
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="40dp"
+            android:layout_width="32dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/balls"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/balls" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="14dp"
             android:gravity="center"
-            android:textStyle="bold"
+            android:text="@string/points"
             android:textSize="@dimen/text_size_sm"
-            android:text="@string/points" />
+            android:textStyle="bold" />
 
         <!--Row 1-->
         <TextView
             android:layout_gravity="center"
             android:text="@string/first" />
 
-        <TextView
-            tools:text="Саудовская Аравия" />
+        <TextView tools:text="Саудовская Аравия" />
 
         <TextView
             android:layout_width="26dp"
@@ -157,8 +156,7 @@
             android:layout_gravity="center"
             android:text="@string/second" />
 
-        <TextView
-            tools:text="Мексика" />
+        <TextView tools:text="Мексика" />
 
         <TextView
             android:layout_gravity="center"
@@ -205,8 +203,7 @@
             android:layout_gravity="center"
             android:text="@string/third" />
 
-        <TextView
-            tools:text="Польша" />
+        <TextView tools:text="Польша" />
 
         <TextView
             android:layout_gravity="center"
@@ -253,8 +250,7 @@
             android:layout_gravity="center"
             android:text="@string/fourth" />
 
-        <TextView
-            tools:text="Аргентина" />
+        <TextView tools:text="Аргентина" />
 
         <TextView
             android:layout_gravity="center"
@@ -297,7 +293,6 @@
             tools:text="9" />
 
     </GridLayout>
-
 
 
     <!--<ImageView

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_sm">
+    android:paddingTop="@dimen/padding_sm"
+    android:paddingHorizontal="@dimen/padding_sm">
 
     <ImageView
         android:id="@+id/itemRatingGamblerPhoto"
