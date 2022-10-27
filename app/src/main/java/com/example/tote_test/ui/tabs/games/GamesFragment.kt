@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.tote_test.databinding.FragmentGamesBinding
@@ -44,6 +46,8 @@ class GamesFragment : Fragment() {
     }
 
     private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
+        binding.gamesProgressBar.isVisible = true
+
         val games = arrayListOf<GroupGamesModel>()
 
         groups.forEach { group ->
@@ -61,8 +65,6 @@ class GamesFragment : Fragment() {
                         groupGamesByTeam.add(game)
                         groupGames.remove(game)
                     }
-
-                //toLog("groupGames: $groupGames")
             }
 
             games.add(
@@ -71,8 +73,9 @@ class GamesFragment : Fragment() {
                     groupGamesByTeam
                 )
             )
-            //toLog("groupGamesByTeam, size: $groupGamesByTeam, ${groupGamesByTeam.size}")
         }
+
+        binding.gamesProgressBar.isInvisible = true
 
         adapter.setGames(games)
     }
