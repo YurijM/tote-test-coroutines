@@ -13,23 +13,31 @@ import com.example.tote_test.models.GroupGamesModel
 import com.example.tote_test.models.GroupResultsModel
 import com.example.tote_test.utils.*
 
-class GamesAdapter :
+class GamesAdapter(private val onItemClicked: (groupGames: GroupGamesModel) -> Unit) :
     RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     private var games = emptyList<GroupGamesModel>()
     private lateinit var groupResults: ArrayList<GroupResultsModel>
 
     class GamesHolder(
         view: View,
+        private val onItemClicked: (groupGames: GroupGamesModel) -> Unit
     ) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val group: TextView = view.findViewById(R.id.groupGamesGroup)
         val table: GridLayout = view.findViewById(R.id.groupGamesTable)
 
-        override fun onClick(v: View) {}
+        init {
+            view.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            val groupGames = v.tag as GroupGamesModel
+            onItemClicked(groupGames)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group_games, parent, false)
-        return GamesHolder(view) //, onItemClicked)
+        return GamesHolder(view, onItemClicked)
     }
 
     override fun onBindViewHolder(holder: GamesHolder, position: Int) {
