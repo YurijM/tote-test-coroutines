@@ -9,5 +9,18 @@
         android:id="@+id/gamesFragment"
         android:name="com.example.tote_test.ui.tabs.games.GamesFragment"
         android:label="@string/games"
-        tools:layout="@layout/fragment_games" />
+        tools:layout="@layout/fragment_games" >
+        <action
+            android:id="@+id/action_gamesFragment_to_adminGroupGamesFragment"
+            app:destination="@id/adminGroupGamesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminGroupGamesFragment"
+        android:name="com.example.tote_test.ui.admin.group_games.AdminGroupGamesFragment"
+        android:label="@string/group"
+        tools:layout="@layout/fragment_admin_group_games">
+        <argument
+            android:name="group"
+            app:argType="string" />
+    </fragment>
 </navigation>

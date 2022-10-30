@@ -1,4 +1,4 @@
-package com.example.tote_test.ui.admin
+package com.example.tote_test.ui.admin.gambler
 
 import android.os.Bundle
 import android.view.LayoutInflater

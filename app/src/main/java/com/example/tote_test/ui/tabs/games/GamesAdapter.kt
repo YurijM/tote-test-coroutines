@@ -13,14 +13,14 @@ import com.example.tote_test.models.GroupGamesModel
 import com.example.tote_test.models.GroupResultsModel
 import com.example.tote_test.utils.*
 
-class GamesAdapter(private val onItemClicked: (groupGames: GroupGamesModel) -> Unit) :
+class GamesAdapter(private val onItemClicked: (group: String) -> Unit) :
     RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     private var games = emptyList<GroupGamesModel>()
     private lateinit var groupResults: ArrayList<GroupResultsModel>
 
     class GamesHolder(
         view: View,
-        private val onItemClicked: (groupGames: GroupGamesModel) -> Unit
+        private val onItemClicked: (group: String) -> Unit
     ) : RecyclerView.ViewHolder(view), View.OnClickListener {
         val group: TextView = view.findViewById(R.id.groupGamesGroup)
         val table: GridLayout = view.findViewById(R.id.groupGamesTable)
@@ -30,8 +30,8 @@ class GamesAdapter(private val onItemClicked: (groupGames: GroupGamesModel) -> U
         }
 
         override fun onClick(v: View) {
-            val groupGames = v.tag as GroupGamesModel
-            onItemClicked(groupGames)
+            val group = v.tag as String
+            onItemClicked(group)
         }
     }
 
@@ -41,9 +41,11 @@ class GamesAdapter(private val onItemClicked: (groupGames: GroupGamesModel) -> U
     }
 
     override fun onBindViewHolder(holder: GamesHolder, position: Int) {
-        holder.itemView.tag = games[position]
+        //holder.itemView.tag = games[position]
+        holder.itemView.tag = games[position].group
 
-        val group = "Группа ${games[position].group}"
+        //val group = "Группа ${games[position].group}"
+        val group = APP_ACTIVITY.resources.getString(R.string.group, games[position].group)
 
         holder.group.text = group
 

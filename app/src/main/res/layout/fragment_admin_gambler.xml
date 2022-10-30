@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/padding"
-    tools:context=".ui.admin.AdminGamblerFragment">
+    tools:context=".ui.admin.gambler.AdminGamblerFragment">
 
     <ImageView
         android:id="@+id/adminGamblerPhoto"

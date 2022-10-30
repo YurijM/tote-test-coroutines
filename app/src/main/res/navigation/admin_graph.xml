@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/adminSettingsFragment2"
-        android:name="com.example.tote_test.ui.admin.AdminSettingsFragment"
+        android:name="com.example.tote_test.ui.admin.settings.AdminSettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_admin_settings" />
 </navigation>

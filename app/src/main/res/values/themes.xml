@@ -53,6 +53,12 @@
         <item name="android:inputType">textPersonName</item>
     </style>
 
+    <style name="TextInputGoal" parent="TextInput">
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:padding">@dimen/padding_sm</item>
+    </style>
+
     <style name="RadioButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

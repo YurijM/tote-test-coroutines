@@ -64,4 +64,8 @@
     <string name="balls">М</string>
     <string name="points">О</string>
 
+    <string name="group">Группа %1$s</string>
+    <string name="colon">:</string>
+    <string name="start">Начало</string>
+
 </resources>

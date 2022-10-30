@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/adminGamblerFragment"
-        android:name="com.example.tote_test.ui.admin.AdminGamblerFragment"
+        android:name="com.example.tote_test.ui.admin.gambler.AdminGamblerFragment"
         android:label="@string/admin_gambler"
         tools:layout="@layout/fragment_admin_gambler">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/adminGamblerPhotoFragment"
-        android:name="com.example.tote_test.ui.admin.AdminGamblerPhotoFragment"
+        android:name="com.example.tote_test.ui.admin.gambler.AdminGamblerPhotoFragment"
         tools:layout="@layout/fragment_admin_gambler_photo">
         <argument
             android:name="photoUrl"

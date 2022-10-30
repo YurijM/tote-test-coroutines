@@ -1,4 +1,4 @@
-package com.example.tote_test.ui.admin
+package com.example.tote_test.ui.admin.gambler
 
 import android.graphics.Color
 import android.graphics.Typeface
@@ -43,7 +43,10 @@ class AdminGamblerFragment : Fragment() {
 
             findTopNavController().navigate(R.id.action_adminGamblerFragment_to_adminGamblerPhotoFragment, bundle)*/
 
-            val action = AdminGamblerFragmentDirections.actionAdminGamblerFragmentToAdminGamblerPhotoFragment(gambler.photoUrl, true)
+            val action = AdminGamblerFragmentDirections.actionAdminGamblerFragmentToAdminGamblerPhotoFragment(
+                gambler.photoUrl,
+                true
+            )
             findTopNavController().navigate(action)
         }
 
