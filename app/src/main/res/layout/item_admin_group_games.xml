@@ -93,7 +93,7 @@
             tools:text="@string/team" />
 
         <Button
-            android:id="@+id/adminGroupGameSave1"
+            android:id="@+id/adminGroupGameSave"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height_button_admin_group_games"
             android:layout_gravity="center_horizontal|bottom"

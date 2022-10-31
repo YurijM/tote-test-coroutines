@@ -35,6 +35,10 @@ class AdminGroupGamesFragment : Fragment() {
         viewModel = ViewModelProvider(this)[AdminGroupGamesViewModel::class.java]
         observeGames()
 
+        adapter.setOnItemClickListener {
+            viewModel.saveGame(it)
+        }
+
         return binding.root
     }
 

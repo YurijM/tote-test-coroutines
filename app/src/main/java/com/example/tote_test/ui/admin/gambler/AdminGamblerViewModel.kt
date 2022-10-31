@@ -18,10 +18,9 @@ class AdminGamblerViewModel : ViewModel() {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
-            val result = REPOSITORY.saveGambler(gambler.id, gambler).data ?: false
+            val result = REPOSITORY.saveGambler(gambler.id, gambler).data == true
 
             _status.postValue(Resource.Success(result))
         }
     }
-
 }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
@@ -15,12 +16,19 @@ import com.google.android.material.textfield.TextInputEditText
 class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.AdminGroupGamesHolder>() {
     private var games = emptyList<GameModel>()
 
+    private var listener: ((item: GameModel) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (item: GameModel) -> Unit) {
+        this.listener = listener
+    }
+
     class AdminGroupGamesHolder(view: View) : RecyclerView.ViewHolder(view) {
         val start: TextView = view.findViewById(R.id.adminGroupGameStart)
         val team1: TextView = view.findViewById(R.id.adminGroupGameTeam1)
         val goal1: TextInputEditText = view.findViewById(R.id.adminGroupGameInputGoal1)
         val team2: TextView = view.findViewById(R.id.adminGroupGameTeam2)
         val goal2: TextInputEditText = view.findViewById(R.id.adminGroupGameInputGoal2)
+        val buttonSave: Button = view.findViewById(R.id.adminGroupGameSave)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminGroupGamesHolder {
@@ -29,6 +37,15 @@ class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.Admin
     }
 
     override fun onBindViewHolder(holder: AdminGroupGamesHolder, position: Int) {
+        holder.buttonSave.setOnClickListener {
+            val game = games[position]
+
+            game.goal1 = holder.goal1.text.toString()
+            game.goal2 = holder.goal2.text.toString()
+
+            listener?.invoke(this.games[position])
+        }
+
         holder.start.text = APP_ACTIVITY.getString(
             R.string.start_game,
             games[position].start.asTime(false),
