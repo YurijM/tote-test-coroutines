@@ -18,24 +18,16 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startSignIn"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_sm"
+        style="@style/button_start_fragment"
         android:text="@string/auth"
-        app:cornerRadius="40dp"
-        app:strokeColor="@color/application"
-        app:strokeWidth="@dimen/margin_sm" />
+         />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startSignUp"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/registration"
-        app:cornerRadius="40dp"
-        app:strokeColor="@color/application"
-        app:strokeWidth="@dimen/margin_sm" />
+        style="@style/button_start_fragment" />
 
 </LinearLayout>
 

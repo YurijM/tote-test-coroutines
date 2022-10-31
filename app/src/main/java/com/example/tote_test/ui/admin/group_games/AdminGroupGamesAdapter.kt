@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GameModel
+import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.asTime
 import com.google.android.material.textfield.TextInputEditText
 
@@ -28,7 +29,11 @@ class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.Admin
     }
 
     override fun onBindViewHolder(holder: AdminGroupGamesHolder, position: Int) {
-        holder.start.text = games[position].start.asTime(false)
+        holder.start.text = APP_ACTIVITY.getString(
+            R.string.start_game,
+            games[position].start.asTime(false),
+            games[position].id.toString()
+        )
         holder.team1.text = games[position].team1
         holder.goal1.setText(games[position].goal1)
         holder.team2.text = games[position].team2

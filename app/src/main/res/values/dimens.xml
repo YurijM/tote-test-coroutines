@@ -27,6 +27,8 @@
     <dimen name="rating_size_gambler_photo">40dp</dimen>
 
     <dimen name="admin_gambler_width_stake">84dp</dimen>
-    <dimen name="admin_game_width_goal">52dp</dimen>
-    <dimen name="width_team">115dp</dimen>
+
+    <dimen name="admin_game_width_goal">40dp</dimen>
+    <dimen name="width_team">125dp</dimen>
+    <dimen name="height_button_admin_group_games">36dp</dimen>
 </resources>
