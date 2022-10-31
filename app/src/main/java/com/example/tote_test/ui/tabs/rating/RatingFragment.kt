@@ -10,7 +10,6 @@ import com.example.tote_test.databinding.FragmentRatingBinding
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.GAMBLER
 import com.example.tote_test.utils.findTopNavController
-import com.example.tote_test.utils.toLog
 
 class RatingFragment : Fragment() {
     private lateinit var binding: FragmentRatingBinding
@@ -49,7 +48,6 @@ class RatingFragment : Fragment() {
     }
 
     private fun observeGamblers() = viewModel.gamblers.observe(viewLifecycleOwner) {
-        toLog("Rating -> observeGambler: $GAMBLER")
         val gamblers = it
             .filter { item -> if (GAMBLER.admin) true else item.active }
             .sortedWith(

@@ -154,6 +154,21 @@ fun getSizeDisplay(isBottomNav: Boolean): IntArray {
     return intArrayOf(width, height)
 }
 
+fun String.asTime(withSeconds: Boolean): String {
+    val time = Date(this.toLong())
 
+    val format = if (withSeconds) {
+        "dd.MM.y HH:mm:ss"
+    } else {
+        "dd.MM.y HH:mm"
+    }
+
+    val timeFormat = SimpleDateFormat(
+        format,
+        Locale.getDefault()
+    )
+
+    return timeFormat.format(time)
+}
 
 

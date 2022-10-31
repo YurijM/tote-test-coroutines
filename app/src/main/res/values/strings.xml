@@ -67,5 +67,6 @@
     <string name="group">Группа %1$s</string>
     <string name="colon">:</string>
     <string name="start">Начало</string>
+    <string name="save_changes"><u>Сохранить изменения</u></string>
 
 </resources>

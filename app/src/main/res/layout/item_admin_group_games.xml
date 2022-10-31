@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/padding">
+    android:layout_height="wrap_content"
+    android:paddingVertical="@dimen/padding_sm">
 
     <LinearLayout
+        android:id="@+id/adminGroupGameTop"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/application"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:background="@color/teal_200"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_sm"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,64 +21,148 @@
             android:id="@+id/adminGroupGameStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_sm"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:layout_weight="1"
+            android:textSize="@dimen/text_size_sm"
             tools:text="@string/start" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/adminGroupGameSave"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/teal_200"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/adminGroupGameTeam1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin"
-                tools:text="@string/team" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/adminGroupGameLayoutGoal1"
-                style="@style/LayoutTextInput"
-                android:layout_width="@dimen/admin_game_width_goal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/adminGroupGameInputGoal1"
-                    style="@style/TextInputGoal"
-                    android:inputType="number" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/adminGroupGameColon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin"
-                android:text="@string/colon" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/adminGroupGameLayoutGoal2"
-                style="@style/LayoutTextInput"
-                android:layout_width="@dimen/admin_game_width_goal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/adminGroupGameInputGoal2"
-                    style="@style/TextInputGoal" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/adminGroupGameTeam2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                tools:text="@string/team" />
-
-        </LinearLayout>
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textSize="@dimen/text_size_sm"
+            android:text="@string/save_changes" />
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adminGroupGameTop">
+
+        <TextView
+            android:id="@+id/adminGroupGameColon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/colon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/adminGroupGameLayoutGoal1"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_game_width_goal"
+            android:layout_marginEnd="@dimen/margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/adminGroupGameColon"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/adminGroupGameInputGoal1"
+                style="@style/TextInputGoal"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/adminGroupGameTeam1"
+            android:layout_width="@dimen/width_team"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:lines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/adminGroupGameLayoutGoal1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/team" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/adminGroupGameLayoutGoal2"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_game_width_goal"
+            android:layout_marginStart="@dimen/margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/adminGroupGameColon"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/adminGroupGameInputGoal2"
+                style="@style/TextInputGoal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/adminGroupGameTeam2"
+            android:layout_width="@dimen/width_team"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:ellipsize="end"
+            android:lines="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/adminGroupGameLayoutGoal2"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/team" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/adminGroupGameTeam1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            tools:text="@string/team" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/adminGroupGameLayoutGoal1"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_game_width_goal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/adminGroupGameInputGoal1"
+                style="@style/TextInputGoal"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/adminGroupGameColon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:text="@string/colon" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/adminGroupGameLayoutGoal2"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_game_width_goal">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/adminGroupGameInputGoal2"
+                style="@style/TextInputGoal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/adminGroupGameTeam2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            tools:text="@string/team" />
+
+    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
