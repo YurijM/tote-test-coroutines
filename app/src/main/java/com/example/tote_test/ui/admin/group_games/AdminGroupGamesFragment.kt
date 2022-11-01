@@ -11,6 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentAdminGroupGamesBinding
 import com.example.tote_test.utils.APP_ACTIVITY
+import com.example.tote_test.utils.Resource
+import com.example.tote_test.utils.fixError
 
 class AdminGroupGamesFragment : Fragment() {
     private lateinit var binding: FragmentAdminGroupGamesBinding
@@ -33,7 +35,9 @@ class AdminGroupGamesFragment : Fragment() {
         APP_ACTIVITY.supportActionBar?.title = APP_ACTIVITY.getString(R.string.group, group)
 
         viewModel = ViewModelProvider(this)[AdminGroupGamesViewModel::class.java]
+
         observeGames()
+        observeStatus()
 
         adapter.setOnItemClickListener {
             viewModel.saveGame(it)
@@ -52,5 +56,20 @@ class AdminGroupGamesFragment : Fragment() {
         binding.adminGroupGamesProgressBar.isInvisible = true
 
         adapter.setGames(games)
+    }
+
+    private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
+        when (it) {
+            is Resource.Loading -> {
+                binding.adminGroupGamesProgressBar.isVisible = true
+            }
+            is Resource.Success -> {
+                binding.adminGroupGamesProgressBar.isInvisible = true
+            }
+            is Resource.Error -> {
+                binding.adminGroupGamesProgressBar.isInvisible = true
+                fixError(it.message.toString())
+            }
+        }
     }
 }
