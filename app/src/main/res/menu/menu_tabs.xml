@@ -4,6 +4,9 @@
         android:title="@string/rating"
         android:icon="@drawable/ic_rating" />
     <item android:id="@id/prognosis_graph"
+        android:title="Ставка"
+        android:icon="@drawable/ruble" />
+    <item android:id="@id/prognosis_graph"
         android:title="@string/prognosis"
         android:icon="@drawable/ic_prognosis" />
     <item android:id="@id/games_graph"
