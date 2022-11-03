@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stakes_graph"
+    app:startDestination="@id/stakesFragment">
+
+    <fragment
+        android:id="@+id/stakesFragment"
+        android:name="com.example.tote_test.ui.tabs.stakes.StakesFragment"
+        android:label="@string/stakes"
+        tools:layout="@layout/fragment_stakes" />
+</navigation>

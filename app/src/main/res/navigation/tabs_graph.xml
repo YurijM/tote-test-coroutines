@@ -8,4 +8,5 @@
     <include app:graph="@navigation/games_graph" />
     <include app:graph="@navigation/profile_graph" />
     <include app:graph="@navigation/prognosis_graph" />
+    <include app:graph="@navigation/stakes_graph" />
 </navigation>

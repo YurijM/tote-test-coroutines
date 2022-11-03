@@ -55,7 +55,7 @@
 
         <TextView
             android:id="@+id/adminGroupGameTeam1"
-            android:layout_width="@dimen/width_team"
+            android:layout_width="@dimen/admin_game_width_team"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin"
             android:ellipsize="end"
@@ -82,7 +82,7 @@
 
         <TextView
             android:id="@+id/adminGroupGameTeam2"
-            android:layout_width="@dimen/width_team"
+            android:layout_width="@dimen/admin_game_width_team"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
             android:ellipsize="end"

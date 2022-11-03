@@ -3,8 +3,8 @@
     <item android:id="@id/rating_graph"
         android:title="@string/rating"
         android:icon="@drawable/ic_rating" />
-    <item android:id="@id/prognosis_graph"
-        android:title="Ставка"
+    <item android:id="@id/stakes_graph"
+        android:title="@string/stakes"
         android:icon="@drawable/ruble" />
     <item android:id="@id/prognosis_graph"
         android:title="@string/prognosis"

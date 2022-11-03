@@ -9,6 +9,7 @@
     <string name="auth">Авторизация</string>
     <string name="rating">Рейтинг</string>
     <string name="prognosis">Прогноз</string>
+    <string name="stakes">Ставки</string>
     <string name="games">Игры</string>
     <string name="profile">Профиль</string>
     <string name="admin_gambler">Участник</string>
@@ -67,5 +68,9 @@
     <string name="group">Группа %1$s</string>
     <string name="colon">:</string>
     <string name="start_game">%1$s (игра №%2$s)</string>
+
+    <string name="stake_add_time">доп.время %1$s : %2$s</string>
+    <string name="stake_penalty">, по пенальти %1$s</string>
+    <string name="question_mark">\?</string>
 
 </resources>
