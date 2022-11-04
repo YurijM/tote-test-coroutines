@@ -29,6 +29,7 @@ const val FOLDER_PROFILE_PHOTO = "profile_photo"
 const val NODE_GAMBLERS = "gamblers"
 const val NODE_GAMES = "games"
 const val NODE_TEAMS = "teams"
+const val NODE_STAKES = "stakes"
 
 var GAMBLER = GamblerModel()
 lateinit var CURRENT_ID: String

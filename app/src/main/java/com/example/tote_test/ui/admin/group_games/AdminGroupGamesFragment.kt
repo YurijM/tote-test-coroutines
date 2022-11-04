@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentAdminGroupGamesBinding
+import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.Resource
 import com.example.tote_test.utils.fixError
+import com.example.tote_test.utils.toLog
 
 class AdminGroupGamesFragment : Fragment() {
     private lateinit var binding: FragmentAdminGroupGamesBinding
-    //private val viewModel: AdminGroupGamesViewModel by viewModels()
-    private lateinit var viewModel: AdminGroupGamesViewModel
+    private val viewModelGames: MainViewModel by viewModels()
+    private val viewModel: AdminGroupGamesViewModel by viewModels()
+    //private lateinit var viewModel: AdminGroupGamesViewModel
     private val adapter = AdminGroupGamesAdapter()
     private var group = ""
 
@@ -34,7 +38,8 @@ class AdminGroupGamesFragment : Fragment() {
 
         APP_ACTIVITY.supportActionBar?.title = APP_ACTIVITY.getString(R.string.group, group)
 
-        viewModel = ViewModelProvider(this)[AdminGroupGamesViewModel::class.java]
+        //viewModel = ViewModelProvider(this)[AdminGroupGamesViewModel::class.java]
+        //viewModelGames = APP_ACTIVITY.viewModel //ViewModelProvider(this)[MainViewModel::class.java]
 
         observeGames()
         observeStatus()
@@ -46,12 +51,14 @@ class AdminGroupGamesFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
+    private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
         binding.adminGroupGamesProgressBar.isVisible = true
 
         val games = it
             .filter { item -> item.group == group }
             .sortedBy { item -> item.id }
+
+        toLog("games: $games")
 
         binding.adminGroupGamesProgressBar.isInvisible = true
 

@@ -33,6 +33,7 @@ class FirebaseRepository {
     val games: LiveData<List<GameModel>> = GamesLiveData()
     val gambler: LiveData<GamblerModel> = GamblerLiveData()
     val gamblers: LiveData<List<GamblerModel>> = GamblersLiveData()
+    val stakes: LiveData<List<GameModel>> = GamesLiveData()
 
     init {
         AUTH = FirebaseAuth.getInstance()

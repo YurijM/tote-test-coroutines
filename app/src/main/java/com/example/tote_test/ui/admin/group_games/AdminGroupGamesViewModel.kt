@@ -14,7 +14,7 @@ class AdminGroupGamesViewModel : ViewModel() {
     private val _status = MutableLiveData<Resource<Boolean>>()
     val status: LiveData<Resource<Boolean>> = _status
 
-    val games = REPOSITORY.games
+    //val games = REPOSITORY.games
 
     fun saveGame(game: GameModel) {
         _status.postValue(Resource.Loading())

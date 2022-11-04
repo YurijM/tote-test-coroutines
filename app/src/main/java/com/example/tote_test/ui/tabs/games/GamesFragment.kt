@@ -7,17 +7,18 @@ import android.view.ViewGroup
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.tote_test.databinding.FragmentGamesBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GroupGamesModel
 import com.example.tote_test.models.GroupModel
 import com.example.tote_test.models.TeamModel
+import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.*
 
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
-    private lateinit var viewModel: GamesViewModel
+    private val viewModelGames: MainViewModel by viewModels()
     private lateinit var groups: List<GroupModel>
     private lateinit var teams: List<TeamModel>
     private val adapter = GamesAdapter { group -> onListItemClick(group) }
@@ -27,8 +28,6 @@ class GamesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
-
-        viewModel = ViewModelProvider(this)[GamesViewModel::class.java]
 
         binding = FragmentGamesBinding.inflate(layoutInflater, container, false)
 
@@ -43,7 +42,7 @@ class GamesFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
+    private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
         binding.gamesProgressBar.isVisible = true
 
         val games = arrayListOf<GroupGamesModel>()

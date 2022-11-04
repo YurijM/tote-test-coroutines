@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -22,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var navController: NavController? = null
 
-    //private val viewModel: MainViewModel by viewModels()
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
+    //private lateinit var viewModel: MainViewModel
 
     private var topLevelDestinations = setOf(
         getMainDestination(),
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         APP_ACTIVITY = this
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        //viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         observeGambler()
 
         binding = ActivityMainBinding.inflate(layoutInflater)

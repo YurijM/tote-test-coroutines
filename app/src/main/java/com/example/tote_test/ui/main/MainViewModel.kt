@@ -5,6 +5,7 @@ import com.example.tote_test.utils.REPOSITORY
 
 class MainViewModel : ViewModel() {
     val gambler = REPOSITORY.gambler
+    val games = REPOSITORY.games
 
     /*private val _gambler = MutableLiveData<GamblerModel>()
     val gambler: LiveData<GamblerModel> = _gambler
