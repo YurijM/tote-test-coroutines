@@ -9,5 +9,18 @@
         android:id="@+id/stakesFragment"
         android:name="com.example.tote_test.ui.tabs.stakes.StakesFragment"
         android:label="@string/stakes"
-        tools:layout="@layout/fragment_stakes" />
+        tools:layout="@layout/fragment_stakes" >
+        <action
+            android:id="@+id/action_stakesFragment_to_stakeFragment"
+            app:destination="@id/stakeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stakeFragment"
+        android:name="com.example.tote_test.ui.tabs.stakes.StakeFragment"
+        android:label="fragment_stake"
+        tools:layout="@layout/fragment_stake" >
+        <argument
+            android:name="game"
+            app:argType="com.example.tote_test.models.GameModel" />
+    </fragment>
 </navigation>

@@ -54,7 +54,6 @@ class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.Admin
         holder.team1.text = games[position].team1
         holder.goal1.setText(games[position].goal1)
         holder.team2.text = games[position].team2
-        holder.team2.text = games[position].team2
         holder.goal2.setText(games[position].goal2)
     }
 
