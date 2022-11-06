@@ -1,10 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.tabs.stakes.StakeFragment">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_sm"
+    android:background="@color/application"
+    tools:context=".ui.tabs.stakes.stake.StakeFragment">
 
+    <TextView
+        android:id="@+id/stakeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/application"
+        android:gravity="center"
+        android:padding="@dimen/padding_sm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_sm"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/start_game" />
 
+    <TextView
+        android:id="@+id/stakeGamesPlayed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/application"
+        android:gravity="center"
+        android:padding="@dimen/padding_sm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_sm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/games_played" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/stakeStart">
+
+        <TextView
+            android:id="@+id/stakeColon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/colon"
+            app:layout_constraintBottom_toBottomOf="@+id/stakeLayoutGoal1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/stakeLayoutGoal1" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stakeLayoutGoal1"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_game_width_goal"
+            android:layout_marginEnd="@dimen/margin"
+            app:layout_constraintEnd_toStartOf="@id/stakeColon"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stakeInputGoal1"
+                style="@style/TextInputGoal"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/stakeTeam1"
+            android:layout_width="@dimen/admin_game_width_team"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:lines="1"
+            app:layout_constraintBottom_toBottomOf="@+id/stakeLayoutGoal1"
+            app:layout_constraintEnd_toStartOf="@id/stakeLayoutGoal1"
+            app:layout_constraintTop_toTopOf="@+id/stakeLayoutGoal1"
+            tools:text="@string/team" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/stakeLayoutGoal2"
+            style="@style/LayoutTextInput"
+            android:layout_width="@dimen/admin_game_width_goal"
+            android:layout_marginStart="@dimen/margin"
+            app:layout_constraintStart_toEndOf="@id/stakeColon"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/stakeInputGoal2"
+                style="@style/TextInputGoal" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/stakeTeam2"
+            android:layout_width="@dimen/admin_game_width_team"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:ellipsize="end"
+            android:lines="1"
+            app:layout_constraintBottom_toBottomOf="@+id/stakeLayoutGoal2"
+            app:layout_constraintStart_toEndOf="@id/stakeLayoutGoal2"
+            app:layout_constraintTop_toTopOf="@+id/stakeLayoutGoal2"
+            tools:text="@string/team" />
+
+        <LinearLayout
+            android:id="@+id/stakeLayoutAddTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_sm"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stakeLayoutGoal1">
+
+            <TextView
+                android:id="@+id/stakeAddTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_time" />
+
+            <LinearLayout
+                android:id="@+id/stakeLayoutAddTimeResult"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/stakeLayoutAddGoal1"
+                    style="@style/LayoutTextInput"
+                    android:layout_width="@dimen/admin_game_width_goal"
+                    android:layout_marginEnd="@dimen/margin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/stakeInputAddGoal1"
+                        style="@style/TextInputGoal"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/colon" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/stakeLayoutAddGoal2"
+                    style="@style/LayoutTextInput"
+                    android:layout_width="@dimen/admin_game_width_goal"
+                    android:layout_marginStart="@dimen/margin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/stakeInputAddGoal2"
+                        style="@style/TextInputGoal"
+                        android:inputType="number" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/stakeLayoutPenalty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/stakePenalty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/penalty" />
+
+                <RadioGroup
+                    android:id="@+id/stakePenaltyTeamsGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/stakePenaltyTeam1"
+                        style="@style/RadioButton"
+                        android:layout_height="@dimen/text_size_xl"
+                        android:textColor="@color/color_text"
+                        android:layout_marginEnd="@dimen/margin"
+                        tools:text="@string/team" />
+
+                    <RadioButton
+                        android:id="@+id/stakePenaltyTeam2"
+                        style="@style/RadioButton"
+                        android:layout_height="@dimen/text_size_xl"
+                        android:textColor="@color/color_text"
+                        tools:text="@string/team" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/stakeSave"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height_button_admin_group_games"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginTop="@dimen/margin_sm"
+            android:text="@string/save"
+            android:textSize="@dimen/text_size_sm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stakeLayoutAddTime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/stakeProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

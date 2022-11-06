@@ -12,5 +12,5 @@ data class GameModel(
     var goal2: String = "",
     var addGoal1: String = "",
     var addGoal2: String = "",
-    val penalty: String = "",
+    var penalty: String = "",
 ) : Serializable

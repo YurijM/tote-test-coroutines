@@ -2,23 +2,23 @@ package com.example.tote_test.firebase
 
 import androidx.lifecycle.LiveData
 import com.example.tote_test.models.StakeModel
+import com.example.tote_test.utils.CURRENT_ID
 import com.example.tote_test.utils.NODE_STAKES
 import com.example.tote_test.utils.REF_DB_ROOT
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class StakesLiveData: LiveData<List<StakeModel>>() {
-    private val listener = object: ValueEventListener {
+class StakesLiveData : LiveData<List<StakeModel>>() {
+    private val listener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             value = snapshot.children.map {
-                it.getValue(StakeModel::class.java)?: StakeModel()
+                it.child(CURRENT_ID).getValue(StakeModel::class.java) ?: StakeModel()
             }
         }
 
         override fun onCancelled(error: DatabaseError) {
         }
-
     }
 
     override fun onActive() {

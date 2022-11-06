@@ -24,14 +24,14 @@ class StakesAdapter(private val onItemClicked: (game: GameModel) -> Unit) :
         view: View,
         private val onItemClicked: (game: GameModel) -> Unit
     ) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        val start: TextView = view.findViewById(R.id.stakeStart)
-        val team1: TextView = view.findViewById(R.id.stakeTeam1)
-        val goal1: TextView = view.findViewById(R.id.stakeGoal1)
-        val team2: TextView = view.findViewById(R.id.stakeTeam2)
-        val goal2: TextView = view.findViewById(R.id.stakeGoal2)
-        val layoutAddTime: LinearLayout = view.findViewById(R.id.stakeLayoutAddTime)
-        val addTime: TextView = view.findViewById(R.id.stakeAddTime)
-        val penalty: TextView = view.findViewById(R.id.stakePenalty)
+        val start: TextView = view.findViewById(R.id.itemStakeStart)
+        val team1: TextView = view.findViewById(R.id.itemStakeTeam1)
+        val goal1: TextView = view.findViewById(R.id.itemStakeGoal1)
+        val team2: TextView = view.findViewById(R.id.itemStakeTeam2)
+        val goal2: TextView = view.findViewById(R.id.itemStakeGoal2)
+        val layoutAddTime: LinearLayout = view.findViewById(R.id.itemStakeLayoutAddTime)
+        val addTime: TextView = view.findViewById(R.id.itemStakeAddTime)
+        val penalty: TextView = view.findViewById(R.id.itemStakePenalty)
 
         init {
             view.setOnClickListener(this)
@@ -52,6 +52,9 @@ class StakesAdapter(private val onItemClicked: (game: GameModel) -> Unit) :
         val game = games[position]
         holder.itemView.tag = game
 
+        holder.layoutAddTime.isGone = true
+        holder.penalty.isGone = true
+
         holder.start.text = APP_ACTIVITY.getString(
             R.string.start_game,
             game.start.asTime(false),
@@ -62,9 +65,9 @@ class StakesAdapter(private val onItemClicked: (game: GameModel) -> Unit) :
         holder.team2.text = game.team2
         holder.goal2.text = game.goal2.ifBlank { "?" }
 
-        val group = GROUPS.filter { it.group == game.group }
+        val group = GROUPS.first { it.group == game.group }
 
-        if (group[0].number > GROUPS_COUNT) {
+        if (group.number > GROUPS_COUNT) {
             if (game.goal1.isNotBlank() && game.goal2.isNotBlank() && game.goal1 == game.goal2) {
                 holder.layoutAddTime.isVisible = true
                 holder.addTime.isVisible = true

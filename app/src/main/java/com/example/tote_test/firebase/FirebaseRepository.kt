@@ -123,6 +123,15 @@ class FirebaseRepository {
         }
     }
 
+    suspend fun saveStake(gameId: String, stake: StakeModel): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                REF_DB_ROOT.child(NODE_STAKES).child(gameId).child(CURRENT_ID).setValue(stake).await()
+                Resource.Success(true)
+            }
+        }
+    }
+
     suspend fun saveGambler(id: String, gambler: GamblerModel): Resource<Boolean> {
         return withContext(Dispatchers.IO) {
             safeCall {

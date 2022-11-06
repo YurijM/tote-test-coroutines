@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/padding_sm">
 
     <LinearLayout
-        android:id="@+id/stakeLayoutTop"
+        android:id="@+id/itemStakeLayoutTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/application"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/stakeStart"
+            android:id="@+id/itemStakeStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             tools:text="@string/start_game" />
 
         <TextView
-            android:id="@+id/stakeGroup"
+            android:id="@+id/itemStakeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,10 +45,10 @@
         android:padding="@dimen/padding_sm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stakeLayoutTop">
+        app:layout_constraintTop_toBottomOf="@id/itemStakeLayoutTop">
 
         <TextView
-            android:id="@+id/stakeColon"
+            android:id="@+id/itemStakeColon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/colon"
@@ -57,66 +57,66 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/stakeGoal1"
+            android:id="@+id/itemStakeGoal1"
             android:layout_width="@dimen/stake_width_goal"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_sm"
             android:gravity="center"
-            app:layout_constraintEnd_toStartOf="@id/stakeColon"
+            app:layout_constraintEnd_toStartOf="@id/itemStakeColon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/question_mark" />
 
         <TextView
-            android:id="@+id/stakeTeam1"
+            android:id="@+id/itemStakeTeam1"
             android:layout_width="@dimen/stake_width_team"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_sm"
             android:ellipsize="end"
             android:gravity="end"
             android:lines="1"
-            app:layout_constraintEnd_toStartOf="@id/stakeGoal1"
+            app:layout_constraintEnd_toStartOf="@id/itemStakeGoal1"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/team" />
 
         <TextView
-            android:id="@+id/stakeGoal2"
+            android:id="@+id/itemStakeGoal2"
             android:layout_width="@dimen/stake_width_goal"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_sm"
             android:gravity="center"
-            app:layout_constraintStart_toEndOf="@id/stakeColon"
+            app:layout_constraintStart_toEndOf="@id/itemStakeColon"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/question_mark" />
 
         <TextView
-            android:id="@+id/stakeTeam2"
+            android:id="@+id/itemStakeTeam2"
             android:layout_width="@dimen/stake_width_team"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_sm"
             android:ellipsize="end"
             android:lines="1"
-            app:layout_constraintStart_toEndOf="@id/stakeGoal2"
+            app:layout_constraintStart_toEndOf="@id/itemStakeGoal2"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/team" />
 
         <LinearLayout
-            android:id="@+id/stakeLayoutAddTime"
+            android:id="@+id/itemStakeLayoutAddTime"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="@dimen/margin_sm"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stakeColon">
+            app:layout_constraintTop_toBottomOf="@id/itemStakeColon">
 
             <TextView
-                android:id="@+id/stakeAddTime"
+                android:id="@+id/itemStakeAddTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@string/stake_add_time" />
 
             <TextView
-                android:id="@+id/stakePenalty"
+                android:id="@+id/itemStakePenalty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="@string/stake_penalty" />

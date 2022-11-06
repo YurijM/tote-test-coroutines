@@ -16,9 +16,8 @@
     </fragment>
     <fragment
         android:id="@+id/stakeFragment"
-        android:name="com.example.tote_test.ui.tabs.stakes.StakeFragment"
-        android:label="fragment_stake"
-        tools:layout="@layout/fragment_stake" >
+        android:name="com.example.tote_test.ui.tabs.stakes.stake.StakeFragment"
+        tools:layout="@layout/fragment_stake">
         <argument
             android:name="game"
             app:argType="com.example.tote_test.models.GameModel" />
