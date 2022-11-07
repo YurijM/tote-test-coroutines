@@ -119,7 +119,7 @@ class StakeFragment : Fragment() {
                 viewModel.changeAddGoal1(it.toString())
                 game.addGoal1 = it.toString()
 
-                checkResult()
+                checkResultAddTime()
             }
         }
     }
@@ -133,7 +133,7 @@ class StakeFragment : Fragment() {
                 viewModel.changeAddGoal2(it.toString())
                 game.addGoal2 = it.toString()
 
-                checkResult()
+                checkResultAddTime()
             }
         }
     }
@@ -151,15 +151,37 @@ class StakeFragment : Fragment() {
             viewModel.changePenalty(penaltyGame)
             game.penalty = penaltyGame
 
-            checkResult()
+            checkResultPenalty()
         }
     }
 
     private fun checkResult() {
+        val check = viewModel.checkResult()
+
         if (isGroup) {
-            binding.stakeSave.isEnabled = viewModel.checkResult()
+            binding.stakeSave.isEnabled = check
         } else {
-            binding.stakeLayoutAddTime.isGone = with(game) {
+            //toLog("checkDraw: ${viewModel.checkDraw()}")
+            binding.stakeSave.isEnabled = check && viewModel.checkResultAddTime()
+            binding.stakeLayoutAddTime.isGone = !viewModel.checkDraw()
+        }
+    }
+
+    private fun checkResultAddTime() {
+        val check = viewModel.checkResultAddTime()
+
+        binding.stakeSave.isEnabled = check
+
+        if (check) {
+            binding.stakeLayoutPenalty.isGone = !viewModel.checkDrawAddTime() && !viewModel.checkResultPenalty()
+        }
+    }
+
+    private fun checkResultPenalty() {
+        binding.stakeSave.isEnabled = viewModel.checkResultPenalty()
+    }
+
+            /*binding.stakeLayoutAddTime.isGone = with(game) {
                 toLog("addTime: ${!(goal1.isNotBlank() && goal2.isNotBlank() && goal1 == game.goal2)}")
                 !(goal1.isNotBlank() && goal2.isNotBlank() && goal1 == game.goal2)
             }
@@ -169,9 +191,8 @@ class StakeFragment : Fragment() {
                 !(addGoal1.isNotBlank() && addGoal2.isNotBlank() && addGoal1 == game.addGoal2)
             }
 
-            binding.stakeSave.isEnabled = viewModel.checkResultAdd()
         }
-    }
+    }*/
 
     private fun saveStake() {
         val stake = StakeModel()

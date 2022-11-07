@@ -5,42 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_sm"
-    android:background="@color/application"
     tools:context=".ui.tabs.stakes.stake.StakeFragment">
 
-    <TextView
-        android:id="@+id/stakeStart"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/stakeLayoutTop"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/application"
-        android:gravity="center"
+        android:orientation="horizontal"
         android:padding="@dimen/padding_sm"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_sm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/start_game" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/stakeGamesPlayed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/application"
-        android:gravity="center"
-        android:padding="@dimen/padding_sm"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_size_sm"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/games_played" />
+        <TextView
+            android:id="@+id/stakeStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/application"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_sm"
+            tools:text="@string/start_game" />
+
+        <TextView
+            android:id="@+id/stakeGamesPlayed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/application"
+            android:gravity="end"
+            android:text="@string/games_played"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_sm" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
+        android:paddingBottom="@dimen/padding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/stakeStart">
+        app:layout_constraintTop_toBottomOf="@id/stakeLayoutTop">
 
         <TextView
             android:id="@+id/stakeColon"
@@ -185,8 +191,8 @@
                         android:id="@+id/stakePenaltyTeam1"
                         style="@style/RadioButton"
                         android:layout_height="@dimen/text_size_xl"
-                        android:textColor="@color/color_text"
                         android:layout_marginEnd="@dimen/margin"
+                        android:textColor="@color/color_text"
                         tools:text="@string/team" />
 
                     <RadioButton
@@ -220,9 +226,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
+        android:indeterminateTintMode="src_in"
+        android:indeterminateTint="@color/application"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

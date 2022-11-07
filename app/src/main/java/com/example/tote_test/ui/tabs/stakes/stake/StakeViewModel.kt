@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.tote_test.models.StakeModel
 import com.example.tote_test.utils.REPOSITORY
 import com.example.tote_test.utils.Resource
-import com.example.tote_test.utils.toLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -45,24 +44,36 @@ class StakeViewModel : ViewModel() {
         return (_goal1.value != "" && _goal2.value != "")
     }
 
-    fun checkResultAdd(): Boolean {
-        var result = false
-
-        toLog("goal1, goal2, addGoal1, addGoal2: ${_goal1.value}, ${_goal2.value}, ${_addGoal1.value}, ${_addGoal2.value}")
-
-        if (_goal1.value == _goal2.value) {
-            if (_addGoal1.value == "" || _addGoal2.value == "") {
-                result = false
-            } else if (_addGoal1.value == _addGoal2.value) {
-                toLog("_penalty.value: ${_penalty.value}")
-                result = _penalty.value != ""
-            }
-        } else {
-            return checkResult()
-        }
-
-        return result
+    fun checkDraw(): Boolean {
+        return (_goal1.value == _goal2.value)
     }
+
+    fun checkResultAddTime(): Boolean {
+        return (_addGoal1.value != "" && _addGoal2.value != "")
+    }
+
+    fun checkDrawAddTime(): Boolean {
+        return (_addGoal1.value == _addGoal2.value)
+    }
+
+    fun checkResultPenalty(): Boolean {
+        return (_addGoal1.value == _addGoal2.value && _penalty.value != "")
+    }
+    /*toLog("goal1, goal2, addGoal1, addGoal2: ${_goal1.value}, ${_goal2.value}, ${_addGoal1.value}, ${_addGoal2.value}")
+
+    if (checkResult() && _goal1.value == _goal2.value) {
+        if (_addGoal1.value != "" && _addGoal2.value != "") {
+            result = true
+        } else if (_addGoal1.value == _addGoal2.value) {
+            toLog("_penalty.value: ${_penalty.value}")
+            result = _penalty.value != ""
+        }
+    } else {
+        return checkResult()
+    }
+
+    return result
+}*/
 
     fun saveStake(stake: StakeModel) {
         _status.postValue(Resource.Loading())
