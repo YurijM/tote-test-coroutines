@@ -40,40 +40,53 @@ class StakeViewModel : ViewModel() {
         _penalty.value = team
     }
 
-    fun checkResult(): Boolean {
-        return (_goal1.value != "" && _goal2.value != "")
-    }
-
-    fun checkDraw(): Boolean {
-        return (_goal1.value == _goal2.value)
-    }
-
-    fun checkResultAddTime(): Boolean {
-        return (_addGoal1.value != "" && _addGoal2.value != "")
-    }
-
-    fun checkDrawAddTime(): Boolean {
-        return (_addGoal1.value == _addGoal2.value)
-    }
-
-    fun checkResultPenalty(): Boolean {
-        return (_addGoal1.value == _addGoal2.value && _penalty.value != "")
-    }
-    /*toLog("goal1, goal2, addGoal1, addGoal2: ${_goal1.value}, ${_goal2.value}, ${_addGoal1.value}, ${_addGoal2.value}")
-
-    if (checkResult() && _goal1.value == _goal2.value) {
-        if (_addGoal1.value != "" && _addGoal2.value != "") {
-            result = true
-        } else if (_addGoal1.value == _addGoal2.value) {
-            toLog("_penalty.value: ${_penalty.value}")
-            result = _penalty.value != ""
+    fun checkResultForEnabled(isGroup: Boolean): Boolean {
+        val isResult = _goal1.value != "" && _goal2.value != ""
+        if (isGroup) {
+            return isResult
+        } else {
+            val isAddTimeResult = _addGoal1.value != "" && _addGoal2.value != ""
+            return if (isResult && _goal1.value == _goal2.value) {
+                if (isAddTimeResult) {
+                    if (_addGoal1.value == _addGoal2.value) {
+                        _penalty.value != ""
+                    } else {
+                        true
+                    }
+                } else {
+                    false
+                }
+            } else {
+                isResult
+            }
         }
-    } else {
-        return checkResult()
     }
 
-    return result
-}*/
+    fun checkResultForAddTimeGone(isGroup: Boolean): Boolean {
+        if (!isGroup && _goal1.value != "" && _goal2.value != ""
+            && _goal1.value == _goal2.value
+        ) {
+            _addGoal1.value = ""
+            _addGoal2.value = ""
+            _penalty.value = ""
+
+            return false
+        }
+
+        return true
+    }
+
+    fun checkResultForPenaltyGone(): Boolean {
+        if (_addGoal1.value != "" && _addGoal2.value != ""
+            && _addGoal1.value == _addGoal2.value
+        ) {
+            _penalty.value = ""
+
+            return false
+        }
+
+        return true
+    }
 
     fun saveStake(stake: StakeModel) {
         _status.postValue(Resource.Loading())
