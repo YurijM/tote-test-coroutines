@@ -53,6 +53,9 @@ class StakesFragment : Fragment() {
             if (stake.isNotEmpty()) {
                 game.goal1 = stake[0].goal1
                 game.goal2 = stake[0].goal2
+                game.addGoal1 = stake[0].addGoal1
+                game.addGoal2 = stake[0].addGoal2
+                game.penalty = stake[0].penalty
             } else {
                 game.goal1 = ""
                 game.goal2 = ""

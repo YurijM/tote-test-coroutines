@@ -31,6 +31,8 @@ class StakeFragment : Fragment() {
     private lateinit var inputAddGoal2: TextView
     private var penaltyGame = ""
 
+    private var isFirstShow = true
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +55,12 @@ class StakeFragment : Fragment() {
     }
 
     private fun initFields() {
+        initFieldGoal1()
+        initFieldGoal2()
+        initFieldAddGoal1()
+        initFieldAddGoal2()
+        initFieldPenalty()
+
         with(binding) {
             stakeStart.text = APP_ACTIVITY.getString(
                 R.string.start_game,
@@ -63,27 +71,28 @@ class StakeFragment : Fragment() {
             stakeTeam1.text = game.team1
             stakeTeam2.text = game.team2
 
-            stakeInputGoal1.setText(game.goal1)
-            stakeInputGoal2.setText(game.goal2)
-            stakeInputAddGoal1.setText(game.addGoal1)
-            stakeInputAddGoal2.setText(game.addGoal2)
+            inputGoal1.text = game.goal1
+            inputGoal2.text = game.goal2
+
+            inputAddGoal1.text = game.addGoal1
+            inputAddGoal2.text = game.addGoal2
+
             stakePenaltyTeam1.text = game.team1
             stakePenaltyTeam2.text = game.team2
 
-            stakeLayoutAddTime.isGone = true
-            stakeLayoutPenalty.isGone = true
-
-            stakeSave.isEnabled = game.goal1.isNotBlank() && game.goal2.isNotBlank()
+            binding.stakePenaltyTeamsGroup.check(
+                if (game.team1 == game.penalty) {
+                    binding.stakePenaltyTeam1.id
+                } else if (game.team2 == game.penalty) {
+                    binding.stakePenaltyTeam2.id
+                } else 0
+            )
         }
 
-        initFieldGoal1()
-        initFieldGoal2()
-        initFieldAddGoal1()
-        initFieldAddGoal2()
-        initFieldPenalty()
+        isFirstShow = false
     }
 
-    private val textWatcherGoal1 = object : TextWatcher {
+    private val watcherGoal1 = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -93,12 +102,12 @@ class StakeFragment : Fragment() {
                 game.goal1 = s.toString()
 
                 binding.stakeSave.isEnabled = checkResultForEnabled()
-                checkResultForAddTimeGone()
+                checkResultForAddTimeGone(isFirstShow)
             }
         }
     }
 
-    private val textWatcherGoal2 = object : TextWatcher {
+    private val watcherGoal2 = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -108,12 +117,12 @@ class StakeFragment : Fragment() {
                 game.goal2 = s.toString()
 
                 binding.stakeSave.isEnabled = checkResultForEnabled()
-                checkResultForAddTimeGone()
+                checkResultForAddTimeGone(isFirstShow)
             }
         }
     }
 
-    private val textWatcherAddGoal1 = object : TextWatcher {
+    private val watcherAddGoal1 = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -123,12 +132,12 @@ class StakeFragment : Fragment() {
                 game.addGoal1 = s.toString()
 
                 binding.stakeSave.isEnabled = checkResultForEnabled()
-                checkResultForPenaltyGone()
+                checkResultForPenaltyGone(isFirstShow)
             }
         }
     }
 
-    private val textWatcherAddGoal2 = object : TextWatcher {
+    private val watcherAddGoal2 = object : TextWatcher {
         override fun afterTextChanged(s: Editable?) {}
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -147,28 +156,28 @@ class StakeFragment : Fragment() {
         inputGoal1 = binding.stakeInputGoal1
         viewModel.changeGoal1(game.goal1)
 
-        inputGoal1.addTextChangedListener(textWatcherGoal1)
+        inputGoal1.addTextChangedListener(watcherGoal1)
     }
 
     private fun initFieldGoal2() {
         inputGoal2 = binding.stakeInputGoal2
         viewModel.changeGoal2(game.goal2)
 
-        inputGoal2.addTextChangedListener(textWatcherGoal2)
+        inputGoal2.addTextChangedListener(watcherGoal2)
     }
 
     private fun initFieldAddGoal1() {
         inputAddGoal1 = binding.stakeInputAddGoal1
         viewModel.changeAddGoal1(game.addGoal1)
 
-        inputAddGoal1.addTextChangedListener(textWatcherAddGoal1)
+        inputAddGoal1.addTextChangedListener(watcherAddGoal1)
     }
 
     private fun initFieldAddGoal2() {
         inputAddGoal2 = binding.stakeInputAddGoal2
         viewModel.changeAddGoal2(game.addGoal2)
 
-        inputAddGoal2.addTextChangedListener(textWatcherAddGoal2)
+        inputAddGoal2.addTextChangedListener(watcherAddGoal2)
     }
 
     private fun initFieldPenalty() {
@@ -208,15 +217,15 @@ class StakeFragment : Fragment() {
         }
     }
 
-    private fun checkResultForAddTimeGone() {
+    private fun checkResultForAddTimeGone(isFirstShow: Boolean = false) {
         val result = inputGoal1.text.toString().isNotBlank() && inputGoal2.text.toString().isNotBlank()
 
         val isResultDraw = (!isGroup && result && inputGoal1.text.toString() == inputGoal2.text.toString())
         binding.stakeLayoutAddTime.isGone = !isResultDraw
 
-        if (!isResultDraw) {
-            inputAddGoal1.removeTextChangedListener(textWatcherAddGoal1)
-            inputAddGoal2.removeTextChangedListener(textWatcherAddGoal2)
+        if (!isResultDraw && !isFirstShow) {
+            inputAddGoal1.removeTextChangedListener(watcherAddGoal1)
+            inputAddGoal2.removeTextChangedListener(watcherAddGoal2)
 
             inputAddGoal1.text = ""
             game.addGoal1 = ""
@@ -225,18 +234,18 @@ class StakeFragment : Fragment() {
             binding.stakePenaltyTeamsGroup.check(0)
             game.penalty = ""
 
-            inputAddGoal1.addTextChangedListener(textWatcherAddGoal1)
-            inputAddGoal2.addTextChangedListener(textWatcherAddGoal2)
+            inputAddGoal1.addTextChangedListener(watcherAddGoal1)
+            inputAddGoal2.addTextChangedListener(watcherAddGoal2)
         }
     }
 
-    private fun checkResultForPenaltyGone() {
+    private fun checkResultForPenaltyGone(isFirstShow: Boolean = false) {
         val resultAddTime = inputAddGoal1.text.toString().isNotBlank() && inputAddGoal2.text.toString().isNotBlank()
 
         val isResultAddTimeDraw = (resultAddTime && inputAddGoal1.text.toString() == inputAddGoal2.text.toString())
         binding.stakeLayoutPenalty.isGone = !isResultAddTimeDraw
 
-        if (!isResultAddTimeDraw) {
+        if (!isResultAddTimeDraw && !isFirstShow) {
             binding.stakePenaltyTeamsGroup.check(0)
             game.penalty = ""
         }
