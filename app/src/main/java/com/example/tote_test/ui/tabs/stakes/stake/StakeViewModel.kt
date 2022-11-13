@@ -40,54 +40,6 @@ class StakeViewModel : ViewModel() {
         _penalty.value = team
     }
 
-    fun checkResultForEnabled(isGroup: Boolean): Boolean {
-        val isResult = _goal1.value != "" && _goal2.value != ""
-        if (isGroup) {
-            return isResult
-        } else {
-            val isAddTimeResult = _addGoal1.value != "" && _addGoal2.value != ""
-            return if (isResult && _goal1.value == _goal2.value) {
-                if (isAddTimeResult) {
-                    if (_addGoal1.value == _addGoal2.value) {
-                        _penalty.value != ""
-                    } else {
-                        true
-                    }
-                } else {
-                    false
-                }
-            } else {
-                isResult
-            }
-        }
-    }
-
-    fun checkResultForAddTimeGone(isGroup: Boolean): Boolean {
-        if (!isGroup && _goal1.value != "" && _goal2.value != ""
-            && _goal1.value == _goal2.value
-        ) {
-            _addGoal1.value = ""
-            _addGoal2.value = ""
-            _penalty.value = ""
-
-            return false
-        }
-
-        return true
-    }
-
-    fun checkResultForPenaltyGone(): Boolean {
-        if (_addGoal1.value != "" && _addGoal2.value != ""
-            && _addGoal1.value == _addGoal2.value
-        ) {
-            _penalty.value = ""
-
-            return false
-        }
-
-        return true
-    }
-
     fun saveStake(stake: StakeModel) {
         _status.postValue(Resource.Loading())
 
