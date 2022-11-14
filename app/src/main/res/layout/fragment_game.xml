@@ -16,4 +16,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="дд.мм.гггг чч:мм" />
 
+    <Spinner
+        android:id="@+id/gameListGroups"
+        style="@style/Widget.AppCompat.Spinner"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:dropDownWidth="120dp"
+        android:dropDownVerticalOffset="24dp"
+        android:paddingHorizontal="14dp"
+        android:popupBackground="@color/background"
+        android:popupElevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gameStart" />
+    <!--android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

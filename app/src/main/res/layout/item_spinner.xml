@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<TextView xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="13sp"
+    android:background="@android:color/transparent"
+    android:ellipsize="end"
+    android:lines="1"
+    android:paddingEnd="20dp"
+    tools:text="JSON"
+    tools:ignore="RtlSymmetry" />-->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text2"
+    style="?attr/spinnerDropDownItemStyle"
+    android:textColor="@color/dark_grey"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/abc_spinner_mtrl_am_alpha"
+    android:backgroundTint="@color/dark_grey"
+    android:ellipsize="marquee" />

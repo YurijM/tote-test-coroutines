@@ -171,4 +171,9 @@ fun String.asTime(withSeconds: Boolean): String {
     return timeFormat.format(time)
 }
 
+fun padLeftZero(value: Int): String {
+    return if (value < 10) "0$value" else value.toString()
+}
+
+
 

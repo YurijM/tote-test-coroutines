@@ -6,10 +6,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
+import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentGameBinding
+import com.example.tote_test.utils.padLeftZero
+import com.example.tote_test.utils.showToast
 import java.util.*
 
 class GameFragment : Fragment(),
@@ -17,11 +22,11 @@ class GameFragment : Fragment(),
     TimePickerDialog.OnTimeSetListener {
     private lateinit var binding: FragmentGameBinding
 
-    private var newDay = 0
-    private var newMonth = 0
-    private var newYear = 0
-    private var newHour = 0
-    private var newMinute = 0
+    private var newDay = ""
+    private var newMonth = ""
+    private var newYear = ""
+    private var newHour = ""
+    private var newMinute = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +46,30 @@ class GameFragment : Fragment(),
             datePickerDialog.show()
         }
 
+        val data = arrayOf("Java", "Python", "C++", "C#", "Angular", "Go")
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_spinner, data)
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
+
+        val spinner = binding.gameListGroups
+        spinner.adapter = adapter
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                showToast(parent.getItemAtPosition(position).toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
+
         return binding.root
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        newDay = dayOfMonth
-        newYear = year
-        newMonth = month + 1
+        newDay = padLeftZero(dayOfMonth)
+        newYear = year.toString()
+        newMonth = padLeftZero(month + 1)
 
         val calendar: Calendar = Calendar.getInstance()
 
@@ -60,8 +82,8 @@ class GameFragment : Fragment(),
     }
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        newHour = hourOfDay
-        newMinute = minute
+        newHour = padLeftZero(hourOfDay)
+        newMinute = padLeftZero(minute)
 
         val start = "$newDay.$newMonth.$newYear $newHour:$newMinute"
 
