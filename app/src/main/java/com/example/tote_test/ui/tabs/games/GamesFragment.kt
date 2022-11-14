@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentGamesBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GroupGamesModel
@@ -15,12 +17,14 @@ import com.example.tote_test.models.GroupModel
 import com.example.tote_test.models.TeamModel
 import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
     private val viewModelGames: MainViewModel by viewModels()
     private lateinit var groups: List<GroupModel>
     private lateinit var teams: List<TeamModel>
+    private lateinit var buttonAddGame: FloatingActionButton
     private val adapter = GamesAdapter { group -> onListItemClick(group) }
 
     override fun onCreateView(
@@ -30,6 +34,8 @@ class GamesFragment : Fragment() {
         //toLog("${javaClass.simpleName} - ${object{}.javaClass.enclosingMethod?.name}")
 
         binding = FragmentGamesBinding.inflate(layoutInflater, container, false)
+
+        buttonAddGame = APP_ACTIVITY.findViewById<FloatingActionButton>(R.id.gamesAddGame)
 
         val recyclerView = binding.groupGamesList
         recyclerView.adapter = adapter
@@ -43,6 +49,7 @@ class GamesFragment : Fragment() {
     }
 
     private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
+        buttonAddGame.isGone = true
         binding.gamesProgressBar.isVisible = true
 
         val games = arrayListOf<GroupGamesModel>()
@@ -73,6 +80,7 @@ class GamesFragment : Fragment() {
         }
 
         binding.gamesProgressBar.isInvisible = true
+        buttonAddGame.isVisible = GAMBLER.admin
 
         adapter.setGames(games)
     }

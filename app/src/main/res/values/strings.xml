@@ -75,5 +75,6 @@
     <string name="games_played"><u>Сыгранные матчи</u></string>
     <string name="add_time">доп.время</string>
     <string name="penalty">по пенальти</string>
+    <string name="add_game">Добавить игру</string>
 
 </resources>
