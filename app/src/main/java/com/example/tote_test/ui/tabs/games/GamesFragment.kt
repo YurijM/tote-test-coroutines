@@ -35,7 +35,13 @@ class GamesFragment : Fragment() {
 
         binding = FragmentGamesBinding.inflate(layoutInflater, container, false)
 
-        buttonAddGame = APP_ACTIVITY.findViewById<FloatingActionButton>(R.id.gamesAddGame)
+        buttonAddGame = APP_ACTIVITY.findViewById(R.id.gamesAddGame)
+
+        if (GAMBLER.admin) {
+            buttonAddGame.setOnClickListener {
+                findTopNavController().navigate(GamesFragmentDirections.actionGamesFragmentToGameFragment())
+            }
+        }
 
         val recyclerView = binding.groupGamesList
         recyclerView.adapter = adapter
@@ -89,5 +95,10 @@ class GamesFragment : Fragment() {
         if (GAMBLER.admin) {
             findTopNavController().navigate(GamesFragmentDirections.actionGamesFragmentToAdminGroupGamesFragment(group))
         }
+    }
+
+    override fun onDestroy() {
+        buttonAddGame.isGone = true
+        super.onDestroy()
     }
 }

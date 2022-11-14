@@ -68,8 +68,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/stakeInputGoal1"
-                style="@style/TextInputGoal"
-                android:inputType="number" />
+                style="@style/TextInputGoal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -143,8 +142,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/stakeInputAddGoal1"
-                        style="@style/TextInputGoal"
-                        android:inputType="number" />
+                        style="@style/TextInputGoal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -161,8 +159,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/stakeInputAddGoal2"
-                        style="@style/TextInputGoal"
-                        android:inputType="number" />
+                        style="@style/TextInputGoal" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

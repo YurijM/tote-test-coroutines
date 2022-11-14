@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_gamesFragment_to_adminGroupGamesFragment"
             app:destination="@id/adminGroupGamesFragment" />
+        <action
+            android:id="@+id/action_gamesFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/adminGroupGamesFragment"
@@ -23,4 +26,9 @@
             android:name="group"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.tote_test.ui.tabs.games.game.GameFragment"
+        android:label="@string/add_game"
+        tools:layout="@layout/fragment_game" />
 </navigation>

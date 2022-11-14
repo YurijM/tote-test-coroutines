@@ -13,6 +13,7 @@
     <string name="games">Игры</string>
     <string name="profile">Профиль</string>
     <string name="admin_gambler">Участник</string>
+    <string name="add_game">Добавить матч</string>
 
     <string name="save">Сохранить</string>
 
@@ -75,6 +76,5 @@
     <string name="games_played"><u>Сыгранные матчи</u></string>
     <string name="add_time">доп.время</string>
     <string name="penalty">по пенальти</string>
-    <string name="add_game">Добавить игру</string>
 
 </resources>
