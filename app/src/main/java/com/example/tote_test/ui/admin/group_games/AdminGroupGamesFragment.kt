@@ -58,8 +58,6 @@ class AdminGroupGamesFragment : Fragment() {
             .filter { item -> item.group == group }
             .sortedBy { item -> item.id }
 
-        toLog("games: $games")
-
         binding.adminGroupGamesProgressBar.isInvisible = true
 
         adapter.setGames(games)

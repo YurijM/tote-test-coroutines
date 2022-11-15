@@ -49,5 +49,4 @@ class StakeViewModel : ViewModel() {
             _status.postValue(Resource.Success(result))
         }
     }
-
 }

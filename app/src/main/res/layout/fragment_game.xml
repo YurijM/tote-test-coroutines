@@ -4,31 +4,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/padding_xl"
     tools:context=".ui.tabs.games.game.GameFragment">
+
+    <TextView
+        android:id="@+id/gameNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game_number"
+        app:layout_constraintEnd_toEndOf="@id/gameStart"
+        app:layout_constraintTop_toTopOf="@id/gameLayoutNumber"
+        app:layout_constraintBottom_toBottomOf="@id/gameLayoutNumber" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/gameLayoutNumber"
+        style="@style/LayoutTextInput"
+        android:layout_width="64dp"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/margin_xl"
+        app:layout_constraintStart_toEndOf="@id/gameNumber"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/gameInputNumber"
+            style="@style/TextInputGoal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/gameStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/start_new_game"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:text="дд.мм.гггг чч:мм" />
+        app:layout_constraintTop_toTopOf="@id/gameEditStart"
+        app:layout_constraintBottom_toBottomOf="@id/gameEditStart" />
+
+    <TextView
+        android:id="@+id/gameStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_xl"
+        app:layout_constraintStart_toEndOf="@id/gameStart"
+        app:layout_constraintTop_toTopOf="@id/gameEditStart"
+        app:layout_constraintBottom_toBottomOf="@id/gameEditStart"
+        tools:text="дд.мм.гггг чч:мм" />
+
+    <ImageButton
+        android:id="@+id/gameEditStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/application"
+        app:layout_constraintStart_toEndOf="@id/gameStartDate"
+        app:layout_constraintTop_toBottomOf="@id/gameLayoutNumber"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_edit" />
+
+    <TextView
+        android:id="@+id/gameGroups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stage"
+        app:layout_constraintBottom_toBottomOf="@id/gameListGroups"
+        app:layout_constraintEnd_toEndOf="@id/gameStart"
+        app:layout_constraintTop_toTopOf="@id/gameListGroups" />
 
     <Spinner
         android:id="@+id/gameListGroups"
-        style="@style/Widget.AppCompat.Spinner"
-        android:layout_width="150dp"
+        style="@style/SpinnerTote"
+        app:layout_constraintStart_toStartOf="@id/gameStartDate"
+        app:layout_constraintTop_toBottomOf="@id/gameEditStart" />
+
+    <TextView
+        android:id="@+id/gameTeams"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:dropDownWidth="120dp"
-        android:dropDownVerticalOffset="24dp"
-        android:paddingHorizontal="14dp"
-        android:popupBackground="@color/background"
-        android:popupElevation="3dp"
+        android:text="@string/teams"
+        app:layout_constraintBottom_toBottomOf="@id/gameListTeams2"
+        app:layout_constraintEnd_toEndOf="@id/gameStart"
+        app:layout_constraintTop_toTopOf="@id/gameListTeams1" />
+
+    <Spinner
+        android:id="@+id/gameListTeams1"
+        style="@style/SpinnerTote"
+        app:layout_constraintStart_toStartOf="@id/gameListGroups"
+        app:layout_constraintTop_toBottomOf="@id/gameListGroups" />
+
+    <Spinner
+        android:id="@+id/gameListTeams2"
+        style="@style/SpinnerTote"
+        app:layout_constraintStart_toStartOf="@id/gameListTeams1"
+        app:layout_constraintTop_toBottomOf="@id/gameListTeams1" />
+
+    <Button
+        android:id="@+id/gameSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin"
+        android:text="@string/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gameStart" />
-    <!--android:dropDownVerticalOffset="?attr/dropdownListPreferredItemHeight"-->
+        app:layout_constraintTop_toBottomOf="@id/gameListTeams2" />
+
+    <ProgressBar
+        android:id="@+id/gameProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:indeterminateTintMode="src_in"
+        android:indeterminateTint="@color/application"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gameSave" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
