@@ -44,8 +44,20 @@ class StakesFragment : Fragment() {
         binding.stakesProgressBar.isVisible = true
 
         val now = Calendar.getInstance().time.time
+
+        /*val gamesPlayOff = it.filter { item ->
+            val isPlayOff = GROUPS.any { group -> group.group == item.group && group.number > GROUPS_COUNT }
+            isPlayOff && (now < item.start.toLong())
+        }.sortedByDescending { item -> item.id }
+
+        val gamesGroup = it.filter { item ->
+            val isGroup = GROUPS.any { group -> group.group == item.group && group.number <= GROUPS_COUNT }
+            isGroup && now < item.start.toLong()
+        }.sortedBy { item -> item.id }
+
+        games = gamesPlayOff + gamesGroup*/
+
         games = it.filter { item -> now < item.start.toLong() }
-            .sortedBy { item -> item.id }
 
         games.forEach { game ->
             val stake = stakes.filter { item -> item.gameId == game.id }

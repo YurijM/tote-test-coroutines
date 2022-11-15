@@ -192,6 +192,8 @@ class StakeFragment : Fragment() {
 
             viewModel.changePenalty(penaltyGame)
             game.penalty = penaltyGame
+
+            binding.stakeSave.isEnabled = checkResultForEnabled()
         }
     }
 
@@ -204,7 +206,7 @@ class StakeFragment : Fragment() {
             return if (isResult && inputGoal1.text.toString() == inputGoal2.text.toString()) {
                 if (isAddTimeResult) {
                     if (inputAddGoal1.text.toString() == inputAddGoal2.text.toString()) {
-                        binding.stakePenalty.text != ""
+                        binding.stakePenaltyTeamsGroup.checkedRadioButtonId > 0
                     } else {
                         true
                     }
@@ -233,6 +235,7 @@ class StakeFragment : Fragment() {
             game.addGoal2 = ""
             binding.stakePenaltyTeamsGroup.check(0)
             game.penalty = ""
+            binding.stakeLayoutPenalty.isGone = true
 
             inputAddGoal1.addTextChangedListener(watcherAddGoal1)
             inputAddGoal2.addTextChangedListener(watcherAddGoal2)
@@ -272,6 +275,7 @@ class StakeFragment : Fragment() {
             }
             is Resource.Success -> {
                 binding.stakeProgressBar.isInvisible = true
+                findTopNavController().navigate(R.id.action_stakeFragment_to_stakesFragment)
             }
             is Resource.Error -> {
                 binding.stakeProgressBar.isInvisible = true

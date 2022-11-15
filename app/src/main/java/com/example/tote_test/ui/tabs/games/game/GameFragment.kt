@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,9 +17,7 @@ import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentGameBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.ui.main.MainViewModel
-import com.example.tote_test.utils.GROUPS
-import com.example.tote_test.utils.TEAMS
-import com.example.tote_test.utils.padLeftZero
+import com.example.tote_test.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,9 +28,6 @@ class GameFragment : Fragment(),
     private lateinit var binding: FragmentGameBinding
     private val viewModel by viewModels<GameViewModel>()
     private val viewModelGames: MainViewModel by viewModels()
-
-    private lateinit var game: GameModel
-    private lateinit var inputGameNumber: TextView
 
     private var newDay = ""
     private var newMonth = ""
@@ -46,6 +43,8 @@ class GameFragment : Fragment(),
 
         initFields()
 
+        observeStatus()
+
         return binding.root
     }
 
@@ -54,14 +53,36 @@ class GameFragment : Fragment(),
         initGroups()
         initTeams()
         initGameNumber()
+        initSave()
+    }
+
+    private fun initSave() {
+        binding.gameSave.setOnClickListener {
+            val game = GameModel()
+
+            with (binding) {
+                game.id = gameInputNumber.text.toString().toInt()
+                game.start = convertDateTimeToTimestamp(gameStartDate.text.toString())
+                game.group = gameListGroups.selectedItem.toString()
+                game.team1 = gameListTeams1.selectedItem.toString()
+                game.team2 = gameListTeams2.selectedItem.toString()
+            }
+
+            if (game.team1 != game.team2) {
+                viewModel.saveGame(game)
+            } else {
+                showToast(getString(R.string.error_team_selection))
+            }
+        }
     }
 
     private fun initGameNumber() {
-        inputGameNumber = binding.gameInputNumber
-        viewModel.changeGameNumber((viewModelGames.games.value?.size?.plus(1)).toString())
+        with(binding.gameInputNumber) {
+            addTextChangedListener {
+                binding.gameSave.isEnabled = !it.isNullOrBlank()
+            }
 
-        inputGameNumber.addTextChangedListener {
-            binding.gameSave.isEnabled = !it.isNullOrBlank()
+            setText((viewModelGames.games.value?.size?.plus(1)).toString())
         }
     }
 
@@ -154,6 +175,22 @@ class GameFragment : Fragment(),
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
+    private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
+        when (it) {
+            is Resource.Loading -> {
+                binding.gameProgressBar.isVisible = true
+            }
+            is Resource.Success -> {
+                binding.gameProgressBar.isInvisible = true
+                findTopNavController().navigate(R.id.action_gameFragment_to_gamesFragment)
+            }
+            is Resource.Error -> {
+                binding.gameProgressBar.isInvisible = true
+                fixError(it.message.toString())
             }
         }
     }

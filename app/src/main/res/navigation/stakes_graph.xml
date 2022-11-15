@@ -21,5 +21,9 @@
         <argument
             android:name="game"
             app:argType="com.example.tote_test.models.GameModel" />
+        <action
+            android:id="@+id/action_stakeFragment_to_stakesFragment"
+            app:destination="@id/stakesFragment"
+            app:popUpTo="@id/stakesFragment" />
     </fragment>
 </navigation>

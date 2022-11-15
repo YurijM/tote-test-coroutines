@@ -14,12 +14,6 @@ class GameViewModel: ViewModel() {
     private val _status = MutableLiveData<Resource<Boolean>>()
     val status: LiveData<Resource<Boolean>> = _status
 
-    private val _gameNumber = MutableLiveData("")
-
-    fun changeGameNumber(gameNumber: String) {
-        _gameNumber.value = gameNumber
-    }
-
     fun saveGame(game: GameModel) {
         _status.postValue(Resource.Loading())
 

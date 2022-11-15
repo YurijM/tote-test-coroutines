@@ -6,13 +6,23 @@
     tools:context=".ui.tabs.games.GamesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/groupGamesList"
+        android:id="@+id/playoffGamesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_playoff_game" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/groupGamesList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/playoffGamesList"
         tools:listitem="@layout/item_group_games" />
 
     <ProgressBar
