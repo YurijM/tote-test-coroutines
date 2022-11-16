@@ -61,6 +61,12 @@ class StakeFragment : Fragment() {
         initFieldAddGoal2()
         initFieldPenalty()
 
+        setStartValues()
+
+        isFirstShow = false
+    }
+
+    private fun setStartValues() {
         with(binding) {
             stakeStart.text = APP_ACTIVITY.getString(
                 R.string.start_game,
@@ -88,8 +94,6 @@ class StakeFragment : Fragment() {
                 } else 0
             )
         }
-
-        isFirstShow = false
     }
 
     private val watcherGoal1 = object : TextWatcher {

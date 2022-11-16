@@ -98,6 +98,7 @@ class GamesFragment : Fragment() {
     }
 
     override fun onDestroyView() {
+        buttonAddGame.setOnClickListener(null)
         buttonAddGame.isGone = true
         super.onDestroyView()
     }
