@@ -54,6 +54,7 @@
     <string name="admin">администратор</string>
     <string name="admin_settings_add_games">Добавить расписание игр</string>
     <string name="admin_settings_add_teams">Добавить список сборных</string>
+    <string name="admin_settings_list_email">Список разрешённых e-mail адресов</string>
 
     <string name="number">№</string>
     <string name="team">Команда</string>
