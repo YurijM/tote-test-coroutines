@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.tote_test.databinding.FragmentRatingBinding
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.GAMBLER
@@ -13,7 +13,7 @@ import com.example.tote_test.utils.findTopNavController
 
 class RatingFragment : Fragment() {
     private lateinit var binding: FragmentRatingBinding
-    private lateinit var viewModel: RatingViewModel
+    private val viewModel: RatingViewModel by viewModels()
     private val adapter = RatingAdapter { gambler -> onListItemClick(gambler) }
 
     override fun onCreateView(
@@ -26,8 +26,6 @@ class RatingFragment : Fragment() {
 
         val recyclerView = binding.ratingList
         recyclerView.adapter = adapter
-
-        viewModel = ViewModelProvider(this)[RatingViewModel::class.java]
 
         observeGamblers()
 

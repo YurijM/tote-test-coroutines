@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.tote_test.utils.REPOSITORY
 
 class MainViewModel : ViewModel() {
+    val emails = REPOSITORY.emails
     val gambler = REPOSITORY.gambler
     val games = REPOSITORY.games
 

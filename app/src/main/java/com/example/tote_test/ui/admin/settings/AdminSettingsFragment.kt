@@ -29,6 +29,16 @@ class AdminSettingsFragment : Fragment() {
 
         observeStatus()
 
+        addGames()
+
+        addTeams()
+
+        listEmails()
+
+        return binding.root
+    }
+
+    private fun addGames() {
         binding.adminSettingsAddGames.setOnClickListener {
             errorLoad = false
 
@@ -38,13 +48,15 @@ class AdminSettingsFragment : Fragment() {
 
             showToast(
                 if (!errorLoad) {
-                    APP_ACTIVITY.resources.getString(R.string.admin_settings_add_games_success)
+                    resources.getString(R.string.admin_settings_add_games_success)
                 } else {
-                    APP_ACTIVITY.resources.getString(R.string.error_add_games)
+                    resources.getString(R.string.error_add_games)
                 }
             )
         }
+    }
 
+    private fun addTeams() {
         binding.adminSettingsAddTeams.setOnClickListener {
             errorLoad = false
 
@@ -60,7 +72,12 @@ class AdminSettingsFragment : Fragment() {
                 }
             )
         }
-        return binding.root
+    }
+
+    private fun listEmails() {
+        binding.adminSettingsEmail.setOnClickListener {
+            findTopNavController().navigate(R.id.action_adminSettingsFragment_to_adminEmailsFragment)
+        }
     }
 
     override fun onStart() {

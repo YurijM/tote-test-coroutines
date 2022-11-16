@@ -3,10 +3,7 @@ package com.example.tote_test.firebase
 import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.tote_test.models.GamblerModel
-import com.example.tote_test.models.GameModel
-import com.example.tote_test.models.StakeModel
-import com.example.tote_test.models.TeamModel
+import com.example.tote_test.models.*
 import com.example.tote_test.utils.*
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +32,7 @@ class FirebaseRepository {
     val gambler: LiveData<GamblerModel> = GamblerLiveData()
     val gamblers: LiveData<List<GamblerModel>> = GamblersLiveData()
     val stakes: LiveData<List<StakeModel>> = StakesLiveData()
+    val emails: LiveData<List<EmailModel>> = EmailsLiveData()
 
     init {
         AUTH = FirebaseAuth.getInstance()

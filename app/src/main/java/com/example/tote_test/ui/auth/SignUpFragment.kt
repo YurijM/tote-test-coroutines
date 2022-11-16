@@ -8,14 +8,19 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentSignUpBinding
+import com.example.tote_test.models.EmailModel
+import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.*
 
 class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private lateinit var viewModel: SignUpViewModel
+    private val viewModelEmail: MainViewModel by viewModels()
+    private lateinit var emails: List<EmailModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +37,7 @@ class SignUpFragment : Fragment() {
         var isPasswordFilled = false
         var isPasswordConfirmFilled = false
 
+        observeEmails()
         observeStatus()
 
         binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
@@ -70,7 +76,11 @@ class SignUpFragment : Fragment() {
                 EMAIL = binding.signUpInputEmail.text.toString().trim()
                 PASSWORD = password
 
-                viewModel.signUp()
+                if (emails.any { email -> email.email == EMAIL }) {
+                    viewModel.signUp()
+                } else {
+                    showToast(getString(R.string.email_is_not_allowed, EMAIL))
+                }
             }
         }
 
@@ -89,6 +99,10 @@ class SignUpFragment : Fragment() {
         }
 
         return result
+    }
+
+    private fun observeEmails() = viewModelEmail.emails.observe(viewLifecycleOwner) {
+        emails = it
     }
 
     private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {

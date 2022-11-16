@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
@@ -24,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private var navController: NavController? = null
 
     private val viewModel: MainViewModel by viewModels()
-    //private lateinit var viewModel: MainViewModel
 
     private var topLevelDestinations = setOf(
         getMainDestination(),
@@ -42,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val destinationListener = NavController.OnDestinationChangedListener { _, destination, _ ->
-        toLog("destinationListener: $destination")
         supportActionBar?.title = destination.label
         supportActionBar?.setDisplayHomeAsUpEnabled(!isStartDestination(destination))
     }
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
         APP_ACTIVITY = this
 
-        //viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         observeGambler()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -103,7 +99,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeGambler() = viewModel.gambler.observe(this) {
         GAMBLER = it
-        toLog("MainActivity -> observeGambler: $GAMBLER")
     }
 
     private fun onNavControllerActivated(navController: NavController) {
