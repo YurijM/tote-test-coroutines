@@ -35,7 +35,7 @@ class GamesFragment : Fragment() {
 
         binding = FragmentGamesBinding.inflate(layoutInflater, container, false)
 
-        buttonAddGame = APP_ACTIVITY.findViewById(R.id.gamesAddGame)
+        buttonAddGame = APP_ACTIVITY.findViewById(R.id.buttonAdd)
 
         if (GAMBLER.admin) {
             buttonAddGame.setOnClickListener {

@@ -8,16 +8,29 @@
     android:gravity="center"
     tools:context=".ui.admin.emails.email.AdminEmailFragment">
 
+    <TextView
+        android:id="@+id/adminEmailTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/add_email"
+        android:textColor="@color/application"
+        android:textSize="@dimen/text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/adminEmailProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminateTintMode="src_in"
-        android:visibility="visible" />
+        android:visibility="invisible" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/adminEmailLayoutInputEmail"
         style="@style/LayoutTextInput"
+        android:layout_width="@dimen/width_email"
         android:hint="@string/email">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -33,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_lg"
-        android:text="@string/sign_in"
+        android:text="@string/save"
         app:cornerRadius="40dp"
         app:strokeColor="@color/application"
         app:strokeWidth="@dimen/margin_sm" />

@@ -34,4 +34,5 @@
 
     <dimen name="stake_width_team">168dp</dimen>
     <dimen name="stake_width_goal">12dp</dimen>
+    <dimen name="width_email">275dp</dimen>
 </resources>

@@ -112,6 +112,15 @@ class FirebaseRepository {
         return gambler
     }
 
+    suspend fun saveEmail(email: EmailModel): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                REF_DB_ROOT.child(NODE_EMAILS).push().setValue(email).await()
+                Resource.Success(true)
+            }
+        }
+    }
+
     suspend fun saveGame(id: String, game: GameModel): Resource<Boolean> {
         return withContext(Dispatchers.IO) {
             safeCall {

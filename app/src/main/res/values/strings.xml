@@ -85,6 +85,7 @@
     <string name="stage">Стадия</string>
     <string name="teams">Команды</string>
     <string name="game_number">Номер матча</string>
-    <string name="allowed_address">Разрешённые адреса</string>
+    <string name="add_email">Добавить e-mail</string>
+    <string name="data_absent">Данные отсутствуют</string>
 
 </resources>
