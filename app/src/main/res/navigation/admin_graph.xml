@@ -13,7 +13,9 @@
         tools:layout="@layout/fragment_admin_settings" >
         <action
             android:id="@+id/action_adminSettingsFragment_to_adminEmailsFragment"
-            app:destination="@id/adminEmailsFragment" />
+            app:destination="@id/adminEmailsFragment"
+            app:popUpTo="@id/adminSettingsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/adminEmailFragment"
