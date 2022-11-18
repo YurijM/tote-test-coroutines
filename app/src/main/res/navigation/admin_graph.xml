@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_adminEmailFragment_to_adminEmailsFragment"
             app:destination="@id/adminEmailsFragment" />
+        <argument
+            android:name="email"
+            app:argType="com.example.tote_test.models.EmailModel" />
     </fragment>
     <fragment
         android:id="@+id/adminEmailsFragment"
@@ -29,6 +32,8 @@
         tools:layout="@layout/fragment_admin_emails">
         <action
             android:id="@+id/action_adminEmailsFragment_to_adminEmailFragment"
-            app:destination="@id/adminEmailFragment" />
+            app:destination="@id/adminEmailFragment"
+            app:popUpTo="@id/adminEmailsFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

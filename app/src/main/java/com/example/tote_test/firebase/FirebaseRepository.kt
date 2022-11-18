@@ -115,7 +115,16 @@ class FirebaseRepository {
     suspend fun saveEmail(email: EmailModel): Resource<Boolean> {
         return withContext(Dispatchers.IO) {
             safeCall {
-                REF_DB_ROOT.child(NODE_EMAILS).push().setValue(email).await()
+                REF_DB_ROOT.child(NODE_EMAILS).child(email.id.toString()).setValue(email).await()
+                Resource.Success(true)
+            }
+        }
+    }
+
+    suspend fun removeEmail(id: String): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                REF_DB_ROOT.child(NODE_EMAILS).child(id).removeValue().await()
                 Resource.Success(true)
             }
         }

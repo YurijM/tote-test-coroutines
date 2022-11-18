@@ -23,4 +23,14 @@ class AdminEmailViewModel: ViewModel() {
             _status.postValue(Resource.Success(result))
         }
     }
+
+    fun removeEmail(id: String) {
+        _status.postValue(Resource.Loading())
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = REPOSITORY.removeEmail(id).data == true
+
+            _status.postValue(Resource.Success(result))
+        }
+    }
 }

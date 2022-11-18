@@ -8,7 +8,6 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentAdminEmailsBinding
 import com.example.tote_test.models.EmailModel
 import com.example.tote_test.ui.main.MainViewModel
@@ -29,7 +28,9 @@ class AdminEmailsFragment : Fragment() {
 
         binding.adminEmailsAddEmail
         binding.adminEmailsAddEmail.setOnClickListener {
-            findTopNavController().navigate(R.id.action_adminEmailsFragment_to_adminEmailFragment)
+            findTopNavController().navigate(
+                AdminEmailsFragmentDirections.actionAdminEmailsFragmentToAdminEmailFragment(EmailModel())
+            )
         }
 
         val recyclerView = binding.adminEmailsList
@@ -41,12 +42,7 @@ class AdminEmailsFragment : Fragment() {
     }
 
     private fun onListItemClick(email: EmailModel) {
-        /*val action = if (GAMBLER.admin) {
-            RatingFragmentDirections.actionRatingFragmentToAdminGamblerFragment(gambler)
-        } else {
-            RatingFragmentDirections.actionRatingFragmentToAdminGamblerPhotoFragment(gambler.photoUrl, true)
-        }
-        findTopNavController().navigate(action)*/
+        findTopNavController().navigate(AdminEmailsFragmentDirections.actionAdminEmailsFragmentToAdminEmailFragment(email))
     }
 
     private fun observeEmails() = viewModelEmail.emails.observe(viewLifecycleOwner) {
@@ -54,7 +50,9 @@ class AdminEmailsFragment : Fragment() {
 
         binding.adminEmailsDataAbsent.isGone = it.isNotEmpty()
 
-        adapter.setEmails(it)
+        val emails = it.sortedBy { item -> item.email }
+
+        adapter.setEmails(emails)
 
         binding.adminEmailsProgressBar.isVisible = false
     }

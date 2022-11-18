@@ -87,5 +87,6 @@
     <string name="game_number">Номер матча</string>
     <string name="add_email">Добавить e-mail</string>
     <string name="data_absent">Данные отсутствуют</string>
+    <string name="remove">Удалить</string>
 
 </resources>
