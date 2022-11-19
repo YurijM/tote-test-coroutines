@@ -89,4 +89,9 @@
     <string name="data_absent">Данные отсутствуют</string>
     <string name="remove">Удалить</string>
 
+    <string name="tournament_not_started">Турнир ещё не начался</string>
+    <string name="coefficients">Коэффициенты</string>
+    <string name="gambler">Игрок</string>
+    <string name="points_full">Очки</string>
+
 </resources>

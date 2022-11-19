@@ -18,8 +18,9 @@ import java.util.*
 
 class StakesFragment : Fragment() {
     private lateinit var binding: FragmentStakesBinding
-    private val viewModelGames: MainViewModel by viewModels()
-    private val viewModel: StakesViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
+    //private val viewModelGames: MainViewModel by viewModels()
+    //private val viewModel: StakesViewModel by viewModels()
     private val adapter = StakesAdapter { game -> onListItemClick(game) }
     private lateinit var games: List<GameModel>
     private lateinit var stakes: List<StakeModel>
@@ -40,7 +41,7 @@ class StakesFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
+    private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
         binding.stakesProgressBar.isVisible = true
 
         val now = Calendar.getInstance().time.time

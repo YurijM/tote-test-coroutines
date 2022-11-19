@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/itemPrognosisGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_sm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/group" />
+
+    <TextView
+        android:id="@+id/itemPrognosisStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisGroup"
+        tools:text="Начало игры" />
+
+    <TextView
+        android:id="@+id/itemPrognosisResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisStart"
+        tools:text="Результат игры" />
+
+    <LinearLayout
+        android:id="@+id/itemPrognosisCoefficients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisResult">
+
+        <TextView
+            android:id="@+id/itemPrognosisCoefficientForWin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_win"
+            tools:text="за победу" />
+
+        <TextView
+            android:id="@+id/itemPrognosisCoefficientForDraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:textColor="@color/color_draw"
+            tools:text=", за ничью" />
+
+        <TextView
+            android:id="@+id/itemPrognosisCoefficientForDefeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:textColor="@color/color_defeat"
+            tools:text=", за поражение" />
+
+        <TextView
+            android:id="@+id/itemPrognosisCoefficientForFine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:textColor="@color/color_fine"
+            tools:text=", штраф" />
+
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/itemPrognosisTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisCoefficients">
+
+        <!--Header-->
+        <TextView
+            android:layout_width="120dp"
+            android:gravity="center"
+            android:text="@string/gambler"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="220dp"
+            android:gravity="center"
+            android:text="@string/prognosis"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="48dp"
+            android:gravity="center"
+            android:text="@string/points_full"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold" />
+
+    </GridLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemPrognosisGamblersList"
+        android:layout_width="388dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisTable"
+        tools:listitem="@layout/item_prognosis_gambler" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

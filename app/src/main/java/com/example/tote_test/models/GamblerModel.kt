@@ -14,7 +14,7 @@ data class GamblerModel(
     var stake: Int = 0,
     val points: Double = 0.00,
     val placePrev: Int = 0,
-    val place: Int = 1,
+    val place: Int = 0,
     var admin: Boolean = false,
     var active: Boolean = false,
 ) : Serializable

@@ -93,7 +93,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/adminGamblerInputStake"
-                style="@style/TextInput" />
+                style="@style/TextInput"
+                android:inputType="number"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
