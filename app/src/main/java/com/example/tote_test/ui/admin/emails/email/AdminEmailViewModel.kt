@@ -14,8 +14,6 @@ class AdminEmailViewModel: ViewModel() {
     private val _status = MutableLiveData<Resource<Boolean>>()
     val status: LiveData<Resource<Boolean>> = _status
 
-    // проверка git
-
     fun saveEmail(email: EmailModel) {
         _status.postValue(Resource.Loading())
 
