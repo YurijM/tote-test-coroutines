@@ -268,6 +268,8 @@ class StakeFragment : Fragment() {
         stake.addGoal1 = game.addGoal1
         stake.addGoal2 = game.addGoal2
         stake.penalty = game.penalty
+        stake.points = 0.0
+        stake.place = 0
 
         viewModel.saveStake(stake)
     }

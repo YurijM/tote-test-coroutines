@@ -44,10 +44,13 @@ class PrognosisFragment : Fragment() {
 
         games = it.filter { item -> now < item.start.toLong() }
 
-        binding.prognosisTournamentNotStarted.text = games[0].start
-        binding.prognosisTournamentNotStarted.isGone = false
+        if (games.isNotEmpty()) {
 
-        binding.prognosisCoefficients.isGone = true
+            binding.prognosisTournamentNotStarted.text = games[0].start
+            binding.prognosisTournamentNotStarted.isGone = false
+
+            binding.prognosisCoefficients.isGone = true
+        }
 
         //observeGames()
     }
