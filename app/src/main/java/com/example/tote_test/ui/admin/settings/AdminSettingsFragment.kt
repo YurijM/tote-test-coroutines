@@ -29,16 +29,16 @@ class AdminSettingsFragment : Fragment() {
 
         observeStatus()
 
-        addGames()
+        //addGames()
 
-        addTeams()
+        //addTeams()
 
         listEmails()
 
         return binding.root
     }
 
-    private fun addGames() {
+    /*private fun addGames() {
         binding.adminSettingsAddGames.setOnClickListener {
             errorLoad = false
 
@@ -54,9 +54,9 @@ class AdminSettingsFragment : Fragment() {
                 }
             )
         }
-    }
+    }*/
 
-    private fun addTeams() {
+    /*private fun addTeams() {
         binding.adminSettingsAddTeams.setOnClickListener {
             errorLoad = false
 
@@ -72,7 +72,7 @@ class AdminSettingsFragment : Fragment() {
                 }
             )
         }
-    }
+    }*/
 
     private fun listEmails() {
         binding.adminSettingsEmail.setOnClickListener {

@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GroupGamesModel
 import com.example.tote_test.models.GroupResultsModel
+import com.example.tote_test.models.TeamModel
 import com.example.tote_test.utils.*
 
 class GamesAdapter(private val onItemClicked: (group: String) -> Unit) :
     RecyclerView.Adapter<GamesAdapter.GamesHolder>() {
     private var games = emptyList<GroupGamesModel>()
+    private var teams = emptyList<TeamModel>()
     private lateinit var groupResults: ArrayList<GroupResultsModel>
 
     class GamesHolder(
@@ -49,7 +51,7 @@ class GamesAdapter(private val onItemClicked: (group: String) -> Unit) :
 
         holder.group.text = group
 
-        val teams = TEAMS.filter { it.group == games[position].group }
+        val groupTeams = teams.filter { it.group == games[position].group }
             .sortedBy { item -> item.team }
 
         val groupGames = games[position].games
@@ -75,7 +77,7 @@ class GamesAdapter(private val onItemClicked: (group: String) -> Unit) :
 
             var rowReverse = row
 
-            val team = teams[row - 1].team
+            val team = groupTeams[row - 1].team
 
             var i = startCell
 
@@ -198,6 +200,12 @@ class GamesAdapter(private val onItemClicked: (group: String) -> Unit) :
     @SuppressLint("NotifyDataSetChanged")
     fun setGames(games: List<GroupGamesModel>) {
         this.games = games
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setTeams(teams: List<TeamModel>) {
+        this.teams = teams
         notifyDataSetChanged()
     }
 }

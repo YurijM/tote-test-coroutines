@@ -22,6 +22,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
     private val viewModelGames: MainViewModel by viewModels()
+    private val viewModelTeams: MainViewModel by viewModels()
     private lateinit var groups: List<GroupModel>
     private lateinit var teams: List<TeamModel>
     private lateinit var buttonAddGame: FloatingActionButton
@@ -49,9 +50,15 @@ class GamesFragment : Fragment() {
         groups = GROUPS.filter { it.number <= GROUPS_COUNT }
             .sortedBy { it.number }
 
+        observeTeams()
         observeGames()
 
         return binding.root
+    }
+
+    private fun observeTeams() = viewModelTeams.teams.observe(viewLifecycleOwner) {
+        teams = it
+        adapter.setTeams(teams)
     }
 
     private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
@@ -61,14 +68,14 @@ class GamesFragment : Fragment() {
         val games = arrayListOf<GroupGamesModel>()
 
         groups.forEach { group ->
-            teams = TEAMS.filter { team -> team.group == group.group }
+            val groupTeams = teams.filter { team -> team.group == group.group }
                 .sortedBy { item -> item.team }
 
             val groupGames = it.filter { item -> item.group == group.group }.toMutableList()
 
             val groupGamesByTeam = arrayListOf<GameModel>()
 
-            teams.forEach {
+            groupTeams.forEach {
                 groupGames.filter { item -> item.team1 == it.team || item.team2 == it.team }
                     .sortedBy { sort -> if (sort.team1 == it.team) sort.team2 else sort.team1 }
                     .forEach { game ->

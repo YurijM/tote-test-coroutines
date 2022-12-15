@@ -28,6 +28,7 @@ class GameFragment : Fragment(),
     private lateinit var binding: FragmentGameBinding
     private val viewModel by viewModels<GameViewModel>()
     private val viewModelGames: MainViewModel by viewModels()
+    private val viewModelTeams: MainViewModel by viewModels()
 
     private var newDay = ""
     private var newMonth = ""
@@ -149,7 +150,13 @@ class GameFragment : Fragment(),
     }
 
     private fun initTeams() {
-        val teams = TEAMS.sortedBy { it.team }.map { it.team }
+        //val teams = TEAMS.sortedBy { it.team }.map { it.team }
+        var teams = emptyList<String>()
+
+        val teamsLiveData = viewModelTeams.teams.value
+        if (teamsLiveData != null) {
+            teams = teamsLiveData.sortedBy { it.team }.map { it.team }
+        }
 
         val adapter = ArrayAdapter(
             requireContext(),

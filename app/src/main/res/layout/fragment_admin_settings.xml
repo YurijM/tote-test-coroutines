@@ -18,6 +18,30 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/adminSettingsEmail"
+        style="@style/CardViewAdmin"
+        android:layout_marginTop="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/admin_settings_list_email"
+            android:textColor="#055"
+            android:textSize="@dimen/text_size" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_double_arrow" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/adminSettingsAddTeams"
         style="@style/CardViewAdmin"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,9 +62,9 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_double_arrow" />
 
-    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>-->
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:id="@+id/adminSettingsAddGames"
         style="@style/CardViewAdmin"
         android:layout_marginTop="@dimen/margin"
@@ -62,31 +86,6 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_double_arrow" />
 
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/adminSettingsEmail"
-        style="@style/CardViewAdmin"
-        android:layout_marginTop="@dimen/margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adminSettingsAddGames">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/admin_settings_list_email"
-            android:textColor="#055"
-            android:textSize="@dimen/text_size" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_double_arrow" />
-
-    </androidx.cardview.widget.CardView>
-
+    </androidx.cardview.widget.CardView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

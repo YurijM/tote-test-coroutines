@@ -2,9 +2,7 @@ package com.example.tote_test.utils
 
 import com.example.tote_test.firebase.FirebaseRepository
 import com.example.tote_test.models.GamblerModel
-import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GroupModel
-import com.example.tote_test.models.TeamModel
 import com.example.tote_test.ui.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -73,7 +71,7 @@ const val GROUPS_COUNT = 8
 const val GROUP_TEAMS_COUNT = 4
 const val SCOPE_CELL_START = 2
 
-val TEAMS = arrayListOf(
+/*val TEAMS = arrayListOf(
     TeamModel(
         team = "Катар",
         group = "A",
@@ -234,9 +232,9 @@ val TEAMS = arrayListOf(
         group = "H",
         flagUrl = "https://firebasestorage.googleapis.com/v0/b/tote-test-923c5.appspot.com/o/flags%2Fkor.png?alt=media&token=f529c246-b7c4-4781-91b6-598e8c8e8261",
     ),
-)
+)*/
 
-val GAMES = arrayListOf(
+/*val GAMES = arrayListOf(
     GameModel(
         id = 1,
         group = "A",
@@ -573,4 +571,4 @@ val GAMES = arrayListOf(
         team2 = "Бразилия",
         start = convertDateTimeToTimestamp("02.12.2022 22:00")
     ),
-)
+)*/

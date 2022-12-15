@@ -8,6 +8,7 @@ class MainViewModel : ViewModel() {
     val gambler = REPOSITORY.gambler
     val games = REPOSITORY.games
     val stakes = REPOSITORY.stakes
+    val teams = REPOSITORY.teams
 
     /*private val _gambler = MutableLiveData<GamblerModel>()
     val gambler: LiveData<GamblerModel> = _gambler
