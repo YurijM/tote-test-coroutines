@@ -64,13 +64,13 @@
 
     </androidx.cardview.widget.CardView>-->
 
-    <!--<androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
         android:id="@+id/adminSettingsAddGames"
         style="@style/CardViewAdmin"
         android:layout_marginTop="@dimen/margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/adminSettingsAddTeams">
+        app:layout_constraintTop_toBottomOf="@id/adminSettingsEmail">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,6 +86,6 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_double_arrow" />
 
-    </androidx.cardview.widget.CardView>-->
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

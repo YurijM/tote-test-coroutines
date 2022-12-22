@@ -26,7 +26,6 @@ class AdminEmailsFragment : Fragment() {
 
         binding.adminEmailsDataAbsent.isGone = true
 
-        binding.adminEmailsAddEmail
         binding.adminEmailsAddEmail.setOnClickListener {
             findTopNavController().navigate(
                 AdminEmailsFragmentDirections.actionAdminEmailsFragmentToAdminEmailFragment(EmailModel())

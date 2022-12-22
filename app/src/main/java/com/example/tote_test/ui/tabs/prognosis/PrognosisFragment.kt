@@ -11,13 +11,12 @@ import com.example.tote_test.databinding.FragmentPrognosisBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.StakeModel
 import com.example.tote_test.ui.main.MainViewModel
-import com.example.tote_test.utils.CURRENT_ID
 import java.util.*
 
 class PrognosisFragment : Fragment() {
     private lateinit var binding: FragmentPrognosisBinding
-    private val viewModel: MainViewModel by viewModels()
-    private lateinit var stakes: List<StakeModel>
+    private val viewModelMain: MainViewModel by viewModels()
+    private val viewModel: PrognosisViewModel by viewModels()
     private lateinit var games: List<GameModel>
 
     override fun onCreateView(
@@ -33,20 +32,33 @@ class PrognosisFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeStakes() = viewModel.stakes.observe(viewLifecycleOwner) {
-        stakes = it.filter { item -> item.gamblerId == CURRENT_ID }
+    private fun observePrognosis() = viewModel.prognosis.observe(viewLifecycleOwner) {
+        val prognosis = arrayListOf<StakeModel>()
+
+        val gamesForStakes = games.sortedByDescending { item -> item.id }
+
+        gamesForStakes.forEach { game ->
+            it.filter { item -> item.gameId == game.id }.forEach { stake ->
+                prognosis.add(stake)
+            }
+        }
+
+        binding.prognosisTournamentNotStarted.text = it.size.toString()
+        binding.prognosisTournamentNotStarted.isGone = false
+        //stakes = it.filter { item -> item.gamblerId == CURRENT_ID }
 
         //observeGames()
     }
 
-    private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
+    private fun observeGames() = viewModelMain.games.observe(viewLifecycleOwner) {
         val now = Calendar.getInstance().time.time
 
-        games = it.filter { item -> now < item.start.toLong() }
+        games = it.filter { item -> now > item.start.toLong() }
 
         if (games.isNotEmpty()) {
-
-            binding.prognosisTournamentNotStarted.text = games[0].start
+            observePrognosis()
+        } else {
+            binding.prognosisTournamentNotStarted.text = "Турнир ещё не начался"
             binding.prognosisTournamentNotStarted.isGone = false
 
             binding.prognosisCoefficients.isGone = true

@@ -33,6 +33,7 @@ class FirebaseRepository {
     val gambler: LiveData<GamblerModel> = GamblerLiveData()
     val gamblers: LiveData<List<GamblerModel>> = GamblersLiveData()
     val stakes: LiveData<List<StakeModel>> = StakesLiveData()
+    val prognosis: LiveData<List<StakeModel>> = PrognosisLiveData()
     val emails: LiveData<List<EmailModel>> = EmailsLiveData()
 
     init {
