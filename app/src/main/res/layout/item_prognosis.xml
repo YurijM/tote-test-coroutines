@@ -6,33 +6,14 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/itemPrognosisGroup"
+        android:id="@+id/itemPrognosisGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_sm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/group" />
-
-    <TextView
-        android:id="@+id/itemPrognosisStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemPrognosisGroup"
-        tools:text="Начало игры" />
-
-    <TextView
-        android:id="@+id/itemPrognosisResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemPrognosisStart"
-        tools:text="Результат игры" />
+        tools:text="@string/games" />
 
     <LinearLayout
         android:id="@+id/itemPrognosisCoefficients"
@@ -42,7 +23,7 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemPrognosisResult">
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisGame">
 
         <TextView
             android:id="@+id/itemPrognosisCoefficientForWin"

@@ -5,4 +5,5 @@ import com.example.tote_test.utils.REPOSITORY
 
 class PrognosisViewModel: ViewModel() {
     val prognosis = REPOSITORY.prognosis
+    val gamblers = REPOSITORY.gamblers
 }
