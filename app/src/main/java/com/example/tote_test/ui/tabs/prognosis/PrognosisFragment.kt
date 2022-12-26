@@ -20,7 +20,6 @@ class PrognosisFragment : Fragment() {
     private val viewModel: PrognosisViewModel by viewModels()
     private lateinit var games: List<GameModel>
     private val adapter = PrognosisAdapter()
-    //private val adapterPrognosisGamblers = PrognosisGamblersAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,11 +32,6 @@ class PrognosisFragment : Fragment() {
         val recyclerView = binding.prognosisList
         recyclerView.adapter = adapter
 
-        //val view1 = inflater.inflate(R.layout.item_prognosis, container, false)
-        //val recyclerViewPrognosisGamblersList = view1.findViewById<RecyclerView>(R.id.itemPrognosisGamblersList)
-        //recyclerViewPrognosisGamblersList.adapter = adapterPrognosisGamblers
-        //toLog("recyclerViewPrognosisGamblersList: $recyclerViewPrognosisGamblersList")
-
         observeGames()
 
         return binding.root
@@ -45,7 +39,6 @@ class PrognosisFragment : Fragment() {
 
     private fun observePrognosis() = viewModel.prognosis.observe(viewLifecycleOwner) {
         val prognosis = arrayListOf<GameStakesModel>()
-        //val prognosisGamblers = arrayListOf<StakeModel>()
 
         val gamesForStakes = games.sortedByDescending { item -> item.id }
 
@@ -55,10 +48,9 @@ class PrognosisFragment : Fragment() {
             it.filter { item -> item.gameId == game.id }.forEach { stake ->
                 val gambler = viewModel.gamblers.value?.find { gambler -> gambler.id == stake.gamblerId }
                 if (gambler != null) {
-                    stake.gamblerId = "${gambler.family} ${gambler.name[0]}."
+                    stake.gamblerId = gambler.nickname
                 }
                 stakes.add(stake)
-                //prognosisGamblers.add(stake)
             }
 
             prognosis.add(
@@ -70,14 +62,6 @@ class PrognosisFragment : Fragment() {
         }
 
         adapter.setPrognosis(prognosis)
-        //adapterPrognosisGamblers.setPrognosis(prognosisGamblers)
-
-        //binding.prognosisTournamentNotStarted.text = prognosis.toString()
-        //binding.prognosisTournamentNotStarted.isGone = false
-
-        //stakes = it.filter { item -> item.gamblerId == CURRENT_ID }
-
-        //observeGames()
     }
 
     private fun observeGames() = viewModelMain.games.observe(viewLifecycleOwner) {

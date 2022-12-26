@@ -34,5 +34,10 @@
 
     <dimen name="stake_width_team">168dp</dimen>
     <dimen name="stake_width_goal">12dp</dimen>
+
     <dimen name="width_email">275dp</dimen>
+
+    <dimen name="width_prognosis_gambler_nickname">96dp</dimen>
+    <dimen name="width_prognosis_gambler_stake">224dp</dimen>
+    <dimen name="width_prognosis_gambler_points">60dp</dimen>
 </resources>

@@ -8,15 +8,15 @@
     android:layout_gravity="center_horizontal">
 
     <TextView
-        android:id="@+id/itemPrognosisGamblerNik"
-        android:layout_width="96dp"
+        android:id="@+id/itemPrognosisGamblerNickname"
+        android:layout_width="@dimen/width_prognosis_gambler_nickname"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         tools:text="@string/gambler"  />
 
     <TextView
         android:id="@+id/itemPrognosisGamblerStake"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/width_prognosis_gambler_stake"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="center"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/itemPrognosisGamblerPoints"
-        android:layout_width="48dp"
+        android:layout_width="@dimen/width_prognosis_gambler_points"
         android:layout_height="wrap_content"
         android:gravity="center"
         tools:text="@string/points_full" />

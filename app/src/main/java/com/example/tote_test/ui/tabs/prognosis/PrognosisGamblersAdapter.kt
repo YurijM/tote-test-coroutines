@@ -13,7 +13,9 @@ class PrognosisGamblersAdapter : RecyclerView.Adapter<PrognosisGamblersAdapter.P
     private var prognosisGamblers = emptyList<StakeModel>()
 
     class PrognosisGamblersHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val nickname: TextView = view.findViewById(R.id.itemPrognosisGamblerNik)
+        val nickname: TextView = view.findViewById(R.id.itemPrognosisGamblerNickname)
+        val stake: TextView = view.findViewById(R.id.itemPrognosisGamblerStake)
+        val points: TextView = view.findViewById(R.id.itemPrognosisGamblerPoints)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrognosisGamblersHolder {
@@ -21,11 +23,23 @@ class PrognosisGamblersAdapter : RecyclerView.Adapter<PrognosisGamblersAdapter.P
         return PrognosisGamblersHolder(view)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PrognosisGamblersHolder, position: Int) {
-        holder.nickname.text = prognosisGamblers[position].gamblerId
-        //toLog("holder.table.size: ${holder.table.size}")
-        /*val cell = holder.table.getChildAt(0) as TextView
-        cell.text = prognosisGamblers.size.toString()*/
+        val prognosis = prognosisGamblers[position]
+
+        holder.nickname.text = prognosis.gamblerId
+
+        var stake = "${prognosis.goal1}:${prognosis.goal2}"
+        if (prognosis.addGoal1.isNotBlank()) {
+            stake += ", доп.время ${prognosis.addGoal1}:${prognosis.addGoal2}"
+
+            if (prognosis.penalty.isNotBlank()) {
+                stake += ", по пенальти ${prognosis.penalty}"
+            }
+        }
+                holder.stake.text = stake
+
+        holder.points.text = "%.2f".format(prognosis.points)
     }
 
     override fun getItemCount(): Int = prognosisGamblers.size
