@@ -58,8 +58,8 @@
 
     </LinearLayout>
 
-    <GridLayout
-        android:id="@+id/itemPrognosisTable"
+    <!--<GridLayout
+        android:id="@+id/itemPrognosisTableHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="3"
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/itemPrognosisCoefficients">
 
-        <!--Header-->
+        &lt;!&ndash;Header&ndash;&gt;
         <TextView
             android:layout_width="120dp"
             android:gravity="center"
@@ -89,7 +89,48 @@
             android:textSize="@dimen/text_size_sm"
             android:textStyle="bold" />
 
-    </GridLayout>
+    </GridLayout>-->
+
+    <LinearLayout
+        android:id="@+id/itemPrognosisTableHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisCoefficients">
+
+        <TextView
+            android:id="@+id/itemPrognosisNikHeader"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@string/gambler"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/itemPrognosisGamblerStake"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="@string/prognosis"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemPrognosisGamblerPoints"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/points_full"
+            android:textSize="@dimen/text_size_sm"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemPrognosisGamblersList"
@@ -98,7 +139,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemPrognosisTable"
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisTableHeader"
         tools:listitem="@layout/item_prognosis_gambler" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

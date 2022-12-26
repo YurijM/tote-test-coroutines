@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemPrognosisTable"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/itemPrognosisGamblerNik"
+        android:layout_width="96dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        tools:text="@string/gambler"  />
+
+    <TextView
+        android:id="@+id/itemPrognosisGamblerStake"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center"
+        tools:text="@string/prognosis" />
+
+    <TextView
+        android:id="@+id/itemPrognosisGamblerPoints"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="@string/points_full" />
+
+</LinearLayout>
+<!--<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/itemPrognosisTable"
     android:layout_width="wrap_content"
@@ -7,7 +38,7 @@
     android:layout_gravity="center_horizontal"
     android:columnCount="3">
 
-    <!--Row-->
+    &lt;!&ndash;Row&ndash;&gt;
     <TextView
         android:layout_width="120dp"
         android:ellipsize="end"
@@ -24,4 +55,4 @@
         android:gravity="center"
         tools:text="@string/points_full" />
 
-</GridLayout>
+</GridLayout>-->

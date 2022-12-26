@@ -14,6 +14,7 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
 
     class PrognosisHolder(view: View) : RecyclerView.ViewHolder(view) {
         val game: TextView = view.findViewById(R.id.itemPrognosisGame)
+        val gamblers: RecyclerView = view.findViewById(R.id.itemPrognosisGamblersList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrognosisHolder {
@@ -23,6 +24,12 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
 
     override fun onBindViewHolder(holder: PrognosisHolder, position: Int) {
         holder.game.text = prognosis[position].game
+
+        holder.gamblers.apply {
+            val gamblersAdapter = PrognosisGamblersAdapter()
+            gamblersAdapter.setPrognosis(prognosis[position].stakes)
+            adapter = gamblersAdapter
+        }
     }
 
     override fun getItemCount(): Int = prognosis.size
@@ -32,5 +39,4 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
         this.prognosis = prognosis
         notifyDataSetChanged()
     }
-
 }
