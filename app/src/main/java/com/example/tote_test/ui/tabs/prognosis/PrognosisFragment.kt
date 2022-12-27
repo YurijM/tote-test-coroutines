@@ -101,23 +101,22 @@ class PrognosisFragment : Fragment() {
                 }
             }
 
-            var gameResult = "${game.team1} - ${game.team2}"
-
-            gameResult += if (game.goal1.isNotBlank() && game.goal2.isNotBlank()) {
-                " ${game.goal1}:${game.goal2}" +
-                        if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()) {
-                            ", доп.время ${game.addGoal1}:${game.addGoal2}" +
-                                    if (game.penalty.isNotBlank()) {
-                                        ", по пенальти ${game.penalty}"
-                                    } else {
-                                        ""
-                                    }
-                        } else {
-                            ""
-                        }
-            } else {
-                ""
-            }
+            val gameResult = "${game.team1} - ${game.team2}" +
+                    if (game.goal1.isNotBlank() && game.goal2.isNotBlank()) {
+                        " ${game.goal1}:${game.goal2}" +
+                                if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()) {
+                                    ", доп.время ${game.addGoal1}:${game.addGoal2}" +
+                                            if (game.penalty.isNotBlank()) {
+                                                ", по пенальти ${game.penalty}"
+                                            } else {
+                                                ""
+                                            }
+                                } else {
+                                    ""
+                                }
+                    } else {
+                        ""
+                    }
 
             prognosis.add(
                 GameStakesModel(
