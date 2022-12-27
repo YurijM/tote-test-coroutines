@@ -40,10 +40,9 @@ class PrognosisFragment : Fragment() {
     private fun observePrognosis() = viewModel.prognosis.observe(viewLifecycleOwner) {
         val prognosis = arrayListOf<GameStakesModel>()
 
-        //val gamesForStakes = games.sortedByDescending { item -> item.id }
+        val gamesForStakes = games.sortedByDescending { item -> item.id }
 
-        //gamesForStakes.forEach { game ->
-        games.forEach { game ->
+        gamesForStakes.forEach { game ->
             val stakes = arrayListOf<StakeModel>()
 
             it.filter { item -> item.gameId == game.id }.forEach { stake ->
@@ -51,6 +50,7 @@ class PrognosisFragment : Fragment() {
                 if (gambler != null) {
                     stake.gamblerId = gambler.nickname
                 }
+
                 stakes.add(stake)
             }
 
@@ -65,9 +65,63 @@ class PrognosisFragment : Fragment() {
             val coefficientForDefeat = if (stakesDefeatCount > 0) gamblersCount / stakesDefeatCount else 0.0
             val coefficientForFine = -((coefficientForWin + coefficientForDraw + coefficientForDefeat) / 3)
 
+            stakes.forEach { stake ->
+                val coefficient = if (stake.goal1 > stake.goal2) {
+                    coefficientForWin
+                } else if (stake.goal1 == stake.goal2) {
+                    coefficientForDraw
+                } else {
+                    coefficientForDefeat
+                }
+
+                stake.points = if (game.goal1.isBlank() || game.goal2.isBlank()) {
+                    0.0
+                } else if (stake.goal1.isBlank()) {
+                    coefficientForFine
+                } else if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2) {
+                    if (coefficient < gamblersCount) coefficient * 2 else coefficient
+                } else if (game.goal1 != game.goal2
+                    && (game.goal1.toInt() - game.goal2.toInt()) == (stake.goal1.toInt() - stake.goal2.toInt())
+                ) {
+                    coefficient * 1.25
+                } else if (
+                    (game.goal1 > game.goal2 && stake.goal1 > stake.goal2)
+                    || (game.goal1 == game.goal2 && stake.goal1 == stake.goal2)
+                    || (game.goal1 < game.goal2 && stake.goal1 < stake.goal2)
+                ) {
+                    if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
+                        coefficient * 1.1
+                    } else {
+                        coefficient
+                    }
+                } else if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
+                    0.15
+                } else {
+                    0.0
+                }
+            }
+
+            var gameResult = "${game.team1} - ${game.team2}"
+
+            gameResult += if (game.goal1.isNotBlank() && game.goal2.isNotBlank()) {
+                " ${game.goal1}:${game.goal2}" +
+                        if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()) {
+                            ", доп.время ${game.addGoal1}:${game.addGoal2}" +
+                                    if (game.penalty.isNotBlank()) {
+                                        ", по пенальти ${game.penalty}"
+                                    } else {
+                                        ""
+                                    }
+                        } else {
+                            ""
+                        }
+            } else {
+                ""
+            }
+
             prognosis.add(
                 GameStakesModel(
-                    "${game.team1} - ${game.team2}",
+                    gameResult,
                     coefficientForWin,
                     coefficientForDraw,
                     coefficientForDefeat,
@@ -87,14 +141,11 @@ class PrognosisFragment : Fragment() {
 
         if (games.isNotEmpty()) {
             binding.prognosisTournamentNotStarted.isGone = true
-            //binding.prognosisCoefficients.isGone = false
 
             observePrognosis()
         } else {
             binding.prognosisTournamentNotStarted.text = "Турнир ещё не начался"
             binding.prognosisTournamentNotStarted.isGone = false
-
-            //binding.prognosisCoefficients.isGone = true
         }
 
         //observeGames()

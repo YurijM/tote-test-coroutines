@@ -27,7 +27,8 @@
         android:layout_width="@dimen/width_prognosis_gambler_points"
         android:layout_height="wrap_content"
         android:gravity="center"
-        tools:text="@string/points_full" />
+        tools:text="@string/points_full"
+        android:textStyle="bold" />
 
 </LinearLayout>
 <!--<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"

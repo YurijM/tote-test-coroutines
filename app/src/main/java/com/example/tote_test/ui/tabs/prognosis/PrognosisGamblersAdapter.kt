@@ -29,15 +29,21 @@ class PrognosisGamblersAdapter : RecyclerView.Adapter<PrognosisGamblersAdapter.P
 
         holder.nickname.text = prognosis.gamblerId
 
-        var stake = "${prognosis.goal1}:${prognosis.goal2}"
-        if (prognosis.addGoal1.isNotBlank()) {
-            stake += ", доп.время ${prognosis.addGoal1}:${prognosis.addGoal2}"
+        var stake = "-"
 
-            if (prognosis.penalty.isNotBlank()) {
-                stake += ", по пенальти ${prognosis.penalty}"
+        if (prognosis.goal1.isNotBlank() && prognosis.goal2.isNotBlank()) {
+            stake = "${prognosis.goal1}:${prognosis.goal2}"
+
+            if (prognosis.addGoal1.isNotBlank()) {
+                stake += ", доп.время ${prognosis.addGoal1}:${prognosis.addGoal2}"
+
+                if (prognosis.penalty.isNotBlank()) {
+                    stake += ", по пенальти ${prognosis.penalty}"
+                }
             }
         }
-                holder.stake.text = stake
+
+        holder.stake.text = stake
 
         holder.points.text = "%.2f".format(prognosis.points)
     }
