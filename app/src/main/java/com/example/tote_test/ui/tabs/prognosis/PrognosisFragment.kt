@@ -99,16 +99,13 @@ class PrognosisFragment : Fragment() {
                 } else {
                     0.0
                 }
-
                 if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()
                     && stake.addGoal1.isNotBlank() && stake.addGoal2.isNotBlank()
                 ) {
-                    stake.points += if (stake.addGoal1 == game.addGoal1 && stake.addGoal2 == game.addGoal2) {
-                        if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2) {
-                            2.0
-                        } else {
-                            0.0
-                        }
+                    stake.points += if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2
+                        && stake.addGoal1 == game.addGoal1 && stake.addGoal2 == game.addGoal2
+                    ) {
+                        2.0
                     } else if (game.addGoal1 != game.addGoal2
                         && (stake.addGoal1.toInt() - stake.addGoal2.toInt()) == (game.addGoal1.toInt() - game.addGoal2.toInt())
                     ) {
