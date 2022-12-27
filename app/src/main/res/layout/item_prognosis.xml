@@ -10,53 +10,82 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_sm"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"
-        android:textStyle="bold"
         tools:text="@string/games" />
 
-    <LinearLayout
+    <TextView
         android:id="@+id/itemPrognosisCoefficients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/coefficients"
+        android:textSize="@dimen/text_size_sm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemPrognosisGame" />
+
+    <LinearLayout
+        android:id="@+id/itemPrognosisCoefficientsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemPrognosisGame">
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisCoefficients">
 
         <TextView
             android:id="@+id/itemPrognosisCoefficientForWin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_win"
-            tools:text="за победу" />
+            android:text="@string/coefficient_for_win"
+            android:textSize="@dimen/text_size_sm"
+            android:textColor="@color/color_win" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=", "
+            android:textSize="@dimen/text_size_sm" />
 
         <TextView
             android:id="@+id/itemPrognosisCoefficientForDraw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin"
-            android:textColor="@color/color_draw"
-            tools:text=", за ничью" />
+            android:text="@string/coefficient_for_draw"
+            android:textSize="@dimen/text_size_sm"
+            android:textColor="@color/color_draw" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=", "
+            android:textSize="@dimen/text_size_sm" />
 
         <TextView
             android:id="@+id/itemPrognosisCoefficientForDefeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin"
-            android:textColor="@color/color_defeat"
-            tools:text=", за поражение" />
+            android:text="@string/coefficient_for_defeat"
+            android:textSize="@dimen/text_size_sm"
+            android:textColor="@color/color_defeat" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=", "
+            android:textSize="@dimen/text_size_sm" />
 
         <TextView
             android:id="@+id/itemPrognosisCoefficientForFine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin"
-            android:textColor="@color/color_fine"
-            tools:text=", штраф" />
+            android:text="@string/coefficient_for_fine"
+            android:textSize="@dimen/text_size_sm"
+            android:textColor="@color/color_fine" />
 
     </LinearLayout>
 
@@ -64,21 +93,21 @@
         android:id="@+id/itemPrognosisTableHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/itemPrognosisCoefficients">
+        app:layout_constraintTop_toBottomOf="@id/itemPrognosisCoefficientsList">
 
         <TextView
             android:id="@+id/itemPrognosisNicknameHeader"
             android:layout_width="@dimen/width_prognosis_gambler_nickname"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:text="@string/gambler"
             android:gravity="center"
+            android:text="@string/gambler"
             android:textSize="@dimen/text_size_sm"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/itemPrognosisGamblerStake"

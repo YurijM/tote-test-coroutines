@@ -8,12 +8,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
 import com.example.tote_test.models.GameStakesModel
+import com.example.tote_test.utils.APP_ACTIVITY
 
 class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>() {
     private var prognosis = emptyList<GameStakesModel>()
 
     class PrognosisHolder(view: View) : RecyclerView.ViewHolder(view) {
         val game: TextView = view.findViewById(R.id.itemPrognosisGame)
+        val coefficientForWin: TextView = view.findViewById(R.id.itemPrognosisCoefficientForWin)
+        val coefficientForDraw: TextView = view.findViewById(R.id.itemPrognosisCoefficientForDraw)
+        val coefficientForDefeat: TextView = view.findViewById(R.id.itemPrognosisCoefficientForDefeat)
+        val coefficientForFine: TextView = view.findViewById(R.id.itemPrognosisCoefficientForFine)
         val gamblers: RecyclerView = view.findViewById(R.id.itemPrognosisGamblersList)
     }
 
@@ -23,11 +28,30 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
     }
 
     override fun onBindViewHolder(holder: PrognosisHolder, position: Int) {
-        holder.game.text = prognosis[position].game
+        val prognosisGambler = prognosis[position]
+
+        holder.game.text = prognosisGambler.game
+
+        holder.coefficientForWin.text = APP_ACTIVITY.getString(
+            R.string.coefficient_for_win,
+            prognosisGambler.coefficientForWin
+        )
+        holder.coefficientForDraw.text = APP_ACTIVITY.getString(
+            R.string.coefficient_for_draw,
+            prognosisGambler.coefficientForDraw
+        )
+        holder.coefficientForDefeat.text = APP_ACTIVITY.getString(
+            R.string.coefficient_for_defeat,
+            prognosisGambler.coefficientForDefeat
+        )
+        holder.coefficientForFine.text = APP_ACTIVITY.getString(
+            R.string.coefficient_for_fine,
+            prognosisGambler.coefficientForFine
+        )
 
         holder.gamblers.apply {
             val gamblersAdapter = PrognosisGamblersAdapter()
-            gamblersAdapter.setPrognosis(prognosis[position].stakes)
+            gamblersAdapter.setPrognosis(prognosisGambler.stakes)
             adapter = gamblersAdapter
         }
     }

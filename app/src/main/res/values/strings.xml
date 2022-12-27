@@ -93,6 +93,9 @@
     <string name="coefficients">Коэффициенты</string>
     <string name="gambler">Игрок</string>
     <string name="points_full">Очки</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="coefficient_for_win">за победу %1$.2f</string>
+    <string name="coefficient_for_draw">за ничью %1$.2f</string>
+    <string name="coefficient_for_defeat">за поражение %1$.2f</string>
+    <string name="coefficient_for_fine">штраф %1$.2f</string>
 
 </resources>
