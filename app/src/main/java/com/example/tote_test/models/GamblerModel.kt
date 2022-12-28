@@ -12,9 +12,9 @@ data class GamblerModel(
     var gender: String = "",
     val photoUrl: String = EMPTY, // для Picasso поле не должно быть пустым
     var stake: Int = 0,
-    val points: Double = 0.00,
-    val placePrev: Int = 0,
-    val place: Int = 0,
+    var points: Double = 0.00,
+    var placePrev: Int = 0,
+    var place: Int = 0,
     var admin: Boolean = false,
     var active: Boolean = false,
 ) : Serializable

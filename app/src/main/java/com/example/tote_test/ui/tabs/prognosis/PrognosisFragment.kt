@@ -12,6 +12,7 @@ import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.GameStakesModel
 import com.example.tote_test.models.StakeModel
 import com.example.tote_test.ui.main.MainViewModel
+import com.example.tote_test.utils.toLog
 import java.util.*
 
 class PrognosisFragment : Fragment() {
@@ -116,6 +117,43 @@ class PrognosisFragment : Fragment() {
                     stakes.sortedBy { it.gamblerId }
                 )
             )
+
+            var place = 1
+            var step = 0
+            var points = 0.0
+
+            /*stakes.sortedWith(
+                compareByDescending<StakeModel> { it.points }
+                    .thenBy { it.gamblerId }
+            ).forEach {
+                toLog("stake: ${it.gamblerId} = ${it.points}")
+            }*/
+
+            stakes.sortedWith(
+                compareByDescending<StakeModel> { it.points }
+                    .thenBy { it.gamblerId }
+            ).forEach {
+                toLog("${it.gamblerId} - ${it.points}")
+                /*val gambler = viewModel.gamblers.value?.find { it.nickname == stake.gamblerId }
+                if (gambler != null) {
+                    gambler.placePrev = gambler.place
+
+                    gambler.points = stake.points
+
+                    if (points == stake.points) {
+                        step++
+                    } else {
+                        place += step
+                        points = stake.points
+
+                        step = 1
+                    }
+
+                    gambler.place = place
+
+                    viewModel.saveGambler(gambler)
+                }*/
+            }
         }
 
         adapter.setPrognosis(prognosis)
