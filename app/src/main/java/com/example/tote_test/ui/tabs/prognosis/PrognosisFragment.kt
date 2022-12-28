@@ -78,53 +78,14 @@ class PrognosisFragment : Fragment() {
                     0.0
                 } else if (stake.goal1.isBlank()) {
                     coefficientForFine
-                } else if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2) {
-                    if (coefficient < gamblersCount) coefficient * 2 else coefficient
-                } else if (game.goal1 != game.goal2
-                    && (game.goal1.toInt() - game.goal2.toInt()) == (stake.goal1.toInt() - stake.goal2.toInt())
-                ) {
-                    coefficient * 1.25
-                } else if (
-                    (game.goal1 > game.goal2 && stake.goal1 > stake.goal2)
-                    || (game.goal1 == game.goal2 && stake.goal1 == stake.goal2)
-                    || (game.goal1 < game.goal2 && stake.goal1 < stake.goal2)
-                ) {
-                    if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
-                        coefficient * 1.1
-                    } else {
-                        coefficient
-                    }
-                } else if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
-                    0.15
                 } else {
-                    0.0
+                    calcPoints(stake, game, coefficient, gamblersCount)
                 }
+
                 if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()
                     && stake.addGoal1.isNotBlank() && stake.addGoal2.isNotBlank()
                 ) {
-                    stake.points += if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2
-                        && stake.addGoal1 == game.addGoal1 && stake.addGoal2 == game.addGoal2
-                    ) {
-                        2.0
-                    } else if (game.addGoal1 != game.addGoal2
-                        && (stake.addGoal1.toInt() - stake.addGoal2.toInt()) == (game.addGoal1.toInt() - game.addGoal2.toInt())
-                    ) {
-                        1.25
-                    } else if (
-                        (game.addGoal1 > game.addGoal2 && stake.addGoal1 > stake.addGoal2)
-                        || (game.addGoal1 == game.addGoal2 && stake.addGoal1 == stake.addGoal2)
-                        || (game.addGoal1 < game.addGoal2 && stake.addGoal1 < stake.addGoal2)
-                    ) {
-                        1.0
-                    } else if (stake.addGoal1 == game.addGoal1 || stake.addGoal2 == game.addGoal2) {
-                        0.1
-                    } else {
-                        0.0
-                    }
-                }
-
-                if (game.penalty.isNotBlank() && stake.penalty == game.penalty) {
-                    stake.points += 1
+                    calcPointsForAddTime(stake, game)
                 }
             }
 
@@ -173,7 +134,55 @@ class PrognosisFragment : Fragment() {
             binding.prognosisTournamentNotStarted.text = "Турнир ещё не начался"
             binding.prognosisTournamentNotStarted.isGone = false
         }
+    }
 
-        //observeGames()
+    private fun calcPoints(stake: StakeModel, game: GameModel, coefficient: Double, gamblersCount: Double): Double =
+        if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2) {
+            val points = coefficient * 2
+            if (points <= gamblersCount) points else coefficient
+        } else if (game.goal1 != game.goal2
+            && (game.goal1.toInt() - game.goal2.toInt()) == (stake.goal1.toInt() - stake.goal2.toInt())
+        ) {
+            coefficient * 1.25
+        } else if (
+            (game.goal1 > game.goal2 && stake.goal1 > stake.goal2)
+            || (game.goal1 == game.goal2 && stake.goal1 == stake.goal2)
+            || (game.goal1 < game.goal2 && stake.goal1 < stake.goal2)
+        ) {
+            if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
+                coefficient * 1.1
+            } else {
+                coefficient
+            }
+        } else if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
+            0.15
+        } else {
+            0.0
+        }
+
+    private fun calcPointsForAddTime(stake: StakeModel, game: GameModel) {
+        stake.points += if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2
+            && stake.addGoal1 == game.addGoal1 && stake.addGoal2 == game.addGoal2
+        ) {
+            2.0
+        } else if (game.addGoal1 != game.addGoal2
+            && (stake.addGoal1.toInt() - stake.addGoal2.toInt()) == (game.addGoal1.toInt() - game.addGoal2.toInt())
+        ) {
+            1.25
+        } else if (
+            (game.addGoal1 > game.addGoal2 && stake.addGoal1 > stake.addGoal2)
+            || (game.addGoal1 == game.addGoal2 && stake.addGoal1 == stake.addGoal2)
+            || (game.addGoal1 < game.addGoal2 && stake.addGoal1 < stake.addGoal2)
+        ) {
+            1.0
+        } else if (stake.addGoal1 == game.addGoal1 || stake.addGoal2 == game.addGoal2) {
+            0.1
+        } else {
+            0.0
+        }
+
+        if (game.penalty.isNotBlank() && stake.penalty == game.penalty) {
+            stake.points += 1
+        }
     }
 }
