@@ -122,23 +122,18 @@ class PrognosisFragment : Fragment() {
             var step = 0
             var points = 0.0
 
-            /*stakes.sortedWith(
-                compareByDescending<StakeModel> { it.points }
-                    .thenBy { it.gamblerId }
-            ).forEach {
-                toLog("stake: ${it.gamblerId} = ${it.points}")
-            }*/
-
             stakes.sortedWith(
                 compareByDescending<StakeModel> { it.points }
                     .thenBy { it.gamblerId }
-            ).forEach {
-                toLog("${it.gamblerId} - ${it.points}")
-                /*val gambler = viewModel.gamblers.value?.find { it.nickname == stake.gamblerId }
+            ).forEach { stake ->
+                val gambler = viewModel.gamblers.value?.find { gambler -> gambler.nickname == stake.gamblerId }
                 if (gambler != null) {
-                    gambler.placePrev = gambler.place
+                    if (gambler.place > 0) gambler.placePrev = gambler.place
 
                     gambler.points = stake.points
+
+                    toLog("points - $points, stake.points = ${stake.points}")
+                    toLog("step before = $step")
 
                     if (points == stake.points) {
                         step++
@@ -149,10 +144,12 @@ class PrognosisFragment : Fragment() {
                         step = 1
                     }
 
+                    toLog("step after = $step")
+
                     gambler.place = place
 
                     viewModel.saveGambler(gambler)
-                }*/
+                }
             }
         }
 

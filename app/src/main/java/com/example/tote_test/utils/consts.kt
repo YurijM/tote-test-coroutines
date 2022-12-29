@@ -241,14 +241,14 @@ val GAMES = arrayListOf(
         group = "A",
         team1 = "Катар",
         team2 = "Эквадор",
-        start = convertDateTimeToTimestamp("21.12.2022 19:00")
+        start = convertDateTimeToTimestamp("29.12.2022 15:00")
     ),
     GameModel(
         id = 2,
         group = "B",
         team1 = "Англия",
         team2 = "Иран",
-        start = convertDateTimeToTimestamp("21.01.2023 16:00")
+        start = convertDateTimeToTimestamp("29.12.2022 15:15")
     ),
     GameModel(
         id = 3,

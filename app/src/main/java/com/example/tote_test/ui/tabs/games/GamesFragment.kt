@@ -51,7 +51,7 @@ class GamesFragment : Fragment() {
             .sortedBy { it.number }
 
         observeTeams()
-        observeGames()
+        //observeGames()
 
         return binding.root
     }
@@ -59,6 +59,8 @@ class GamesFragment : Fragment() {
     private fun observeTeams() = viewModelTeams.teams.observe(viewLifecycleOwner) {
         teams = it
         adapter.setTeams(teams)
+
+        observeGames()
     }
 
     private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
