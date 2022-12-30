@@ -18,7 +18,6 @@ class EmailsLiveData: LiveData<List<EmailModel>>() {
 
         override fun onCancelled(error: DatabaseError) {
         }
-
     }
 
     override fun onActive() {

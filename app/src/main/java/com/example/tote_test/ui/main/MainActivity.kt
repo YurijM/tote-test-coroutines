@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this
 
         observeGambler()
+        observeGames()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -99,6 +100,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun observeGambler() = viewModel.gambler.observe(this) {
         GAMBLER = it
+    }
+
+    private fun observeGames() = viewModel.games.observe(this) {
+        viewModel.gamblers.value?.forEach {
+            it.place = (1..10).random()
+            it.points = (10..70).random() / 10.0
+
+            toLog("it.place: ${it.place}, it.points: ${it.points}")
+            viewModel.saveGambler(it)
+        }
     }
 
     private fun onNavControllerActivated(navController: NavController) {
