@@ -14,6 +14,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.tote_test.R
 import com.example.tote_test.databinding.ActivityMainBinding
+import com.example.tote_test.models.GameModel
+import com.example.tote_test.models.PrognosisModel
+import com.example.tote_test.models.StakeModel
 import com.example.tote_test.ui.tabs.TabsFragment
 import com.example.tote_test.utils.*
 import java.util.*
@@ -23,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     private var navController: NavController? = null
 
     private val viewModel: MainViewModel by viewModels()
+
+    private lateinit var stakes: List<StakeModel>
 
     private var topLevelDestinations = setOf(
         getMainDestination(),
@@ -49,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         APP_ACTIVITY = this
 
+        observeStakesAll()
         observeGambler()
         observeGames()
 
@@ -102,15 +108,178 @@ class MainActivity : AppCompatActivity() {
         GAMBLER = it
     }
 
-    private fun observeGames() = viewModel.games.observe(this) {
-        viewModel.gamblers.value?.forEach {
-            it.place = (1..10).random()
-            it.points = (10..70).random() / 10.0
+    private fun observeStakesAll() = viewModel.stakesAll.observe(this) {
+        stakes = it
+    }
 
-            toLog("it.place: ${it.place}, it.points: ${it.points}")
-            viewModel.saveGambler(it)
+    private fun observeGames() = viewModel.games.observe(this) {
+        stakes.map { stake ->
+            val gambler = viewModel.gamblers.value?.find { gambler -> gambler.nickname == stake.gamblerId }
+            if (gambler != null) {
+                stake.gamblerId = gambler.id
+            }
+        }
+
+        val now = Calendar.getInstance().time.time
+
+        val games = it.filter { item -> now > item.start.toLong() }.sortedByDescending { item -> item.id }
+
+        if (games.isNotEmpty()) {
+            games.forEach { game ->
+                val stakesForGame = stakes.filter { item -> item.gameId == game.id }
+
+                val gamblersCount = (viewModel.gamblers.value?.size ?: 0).toDouble()
+
+                val stakesWinCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 > stake.goal2 }.size
+                val stakesDrawCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 == stake.goal2 }.size
+                val stakesDefeatCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 < stake.goal2 }.size
+
+                val coefficientForWin = if (stakesWinCount > 0) gamblersCount / stakesWinCount else 0.0
+                val coefficientForDraw = if (stakesDrawCount > 0) gamblersCount / stakesDrawCount else 0.0
+                val coefficientForDefeat = if (stakesDefeatCount > 0) gamblersCount / stakesDefeatCount else 0.0
+                val coefficientForFine = -((coefficientForWin + coefficientForDraw + coefficientForDefeat) / 3)
+
+                stakesForGame.forEach { stake ->
+                    val coefficient = if (stake.goal1 > stake.goal2) {
+                        coefficientForWin
+                    } else if (stake.goal1 == stake.goal2) {
+                        coefficientForDraw
+                    } else {
+                        coefficientForDefeat
+                    }
+
+                    stake.points = if (game.goal1.isBlank() || game.goal2.isBlank()) {
+                        0.0
+                    } else if (stake.goal1.isBlank()) {
+                        coefficientForFine
+                    } else {
+                        calcPoints(stake, game, coefficient, gamblersCount)
+                    }
+
+                    if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()
+                        && stake.addGoal1.isNotBlank() && stake.addGoal2.isNotBlank()
+                    ) {
+                        calcPointsForAddTime(stake, game)
+                    }
+                }
+
+                val gameResult = "${game.team1} - ${game.team2}" +
+                        if (game.goal1.isNotBlank() && game.goal2.isNotBlank()) {
+                            " ${game.goal1}:${game.goal2}" +
+                                    if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()) {
+                                        ", доп.время ${game.addGoal1}:${game.addGoal2}" +
+                                                if (game.penalty.isNotBlank()) {
+                                                    ", по пенальти ${game.penalty}"
+                                                } else {
+                                                    ""
+                                                }
+                                    } else {
+                                        ""
+                                    }
+                        } else {
+                            ""
+                        }
+
+                viewModel.savePrognosis(
+                    game.id.toString(),
+                    PrognosisModel(
+                        game.id,
+                        gameResult,
+                        coefficientForWin,
+                        coefficientForDraw,
+                        coefficientForDefeat,
+                        coefficientForFine,
+                    )
+                )
+
+                var place = 1
+                var step = 0
+                var points = 0.0
+
+                stakesForGame.sortedWith(
+                    compareByDescending<StakeModel> { item -> item.points }
+                        .thenBy { el -> el.gamblerId }
+                ).forEach { stake ->
+                    val gambler = viewModel.gamblers.value?.find { gambler -> gambler.id == stake.gamblerId }
+
+                    if (gambler != null) {
+                        val stakesPrev = stakes.filter { item -> item.gameId == game.id - 1 }
+                        gambler.placePrev = stakesPrev.find { item -> item.gamblerId == gambler.id }?.place ?: 0
+
+                        gambler.points = stake.points
+
+                        if (points == stake.points) {
+                            step++
+                        } else {
+                            place += step
+                            points = stake.points
+
+                            step = 1
+                        }
+
+                        gambler.place = place
+
+                        viewModel.saveGambler(gambler)
+
+                        stake.place = place
+                        stake.points = points
+
+                        viewModel.saveStake(stake)
+                    }
+                }
+            }
         }
     }
+
+    private fun calcPointsForAddTime(stake: StakeModel, game: GameModel) {
+        stake.points += if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2
+            && stake.addGoal1 == game.addGoal1 && stake.addGoal2 == game.addGoal2
+        ) {
+            2.0
+        } else if (game.addGoal1 != game.addGoal2
+            && (stake.addGoal1.toInt() - stake.addGoal2.toInt()) == (game.addGoal1.toInt() - game.addGoal2.toInt())
+        ) {
+            1.25
+        } else if (
+            (game.addGoal1 > game.addGoal2 && stake.addGoal1 > stake.addGoal2)
+            || (game.addGoal1 == game.addGoal2 && stake.addGoal1 == stake.addGoal2)
+            || (game.addGoal1 < game.addGoal2 && stake.addGoal1 < stake.addGoal2)
+        ) {
+            1.0
+        } else if (stake.addGoal1 == game.addGoal1 || stake.addGoal2 == game.addGoal2) {
+            0.1
+        } else {
+            0.0
+        }
+
+        if (game.penalty.isNotBlank() && stake.penalty == game.penalty) {
+            stake.points += 1
+        }
+    }
+
+    private fun calcPoints(stake: StakeModel, game: GameModel, coefficient: Double, gamblersCount: Double): Double =
+        if (stake.goal1 == game.goal1 && stake.goal2 == game.goal2) {
+            val points = coefficient * 2
+            if (points <= gamblersCount) points else coefficient
+        } else if (game.goal1 != game.goal2
+            && (game.goal1.toInt() - game.goal2.toInt()) == (stake.goal1.toInt() - stake.goal2.toInt())
+        ) {
+            coefficient * 1.25
+        } else if (
+            (game.goal1 > game.goal2 && stake.goal1 > stake.goal2)
+            || (game.goal1 == game.goal2 && stake.goal1 == stake.goal2)
+            || (game.goal1 < game.goal2 && stake.goal1 < stake.goal2)
+        ) {
+            if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
+                coefficient * 1.1
+            } else {
+                coefficient
+            }
+        } else if (stake.goal1 == game.goal1 || stake.goal2 == game.goal2) {
+            0.15
+        } else {
+            0.0
+        }
 
     private fun onNavControllerActivated(navController: NavController) {
         if (this.navController == navController) return

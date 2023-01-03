@@ -10,7 +10,7 @@ import com.example.tote_test.R
 import com.example.tote_test.models.StakeModel
 
 class PrognosisGamblersAdapter : RecyclerView.Adapter<PrognosisGamblersAdapter.PrognosisGamblersHolder>() {
-    private var prognosisGamblers = emptyList<StakeModel>()
+    private var stakes = emptyList<StakeModel>()
 
     class PrognosisGamblersHolder(view: View) : RecyclerView.ViewHolder(view) {
         val nickname: TextView = view.findViewById(R.id.itemPrognosisGamblerNickname)
@@ -25,34 +25,34 @@ class PrognosisGamblersAdapter : RecyclerView.Adapter<PrognosisGamblersAdapter.P
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PrognosisGamblersHolder, position: Int) {
-        val prognosis = prognosisGamblers[position]
+        val stake = stakes[position]
 
-        holder.nickname.text = prognosis.gamblerId
+        holder.nickname.text = stake.gamblerId
 
-        var stake = "-"
+        var result = "-"
 
-        if (prognosis.goal1.isNotBlank() && prognosis.goal2.isNotBlank()) {
-            stake = "${prognosis.goal1}:${prognosis.goal2}"
+        if (stake.goal1.isNotBlank() && stake.goal2.isNotBlank()) {
+            result = "${stake.goal1}:${stake.goal2}"
 
-            if (prognosis.addGoal1.isNotBlank()) {
-                stake += ", доп.время ${prognosis.addGoal1}:${prognosis.addGoal2}"
+            if (stake.addGoal1.isNotBlank()) {
+                result += ", доп.время ${stake.addGoal1}:${stake.addGoal2}"
 
-                if (prognosis.penalty.isNotBlank()) {
-                    stake += ", по пенальти ${prognosis.penalty}"
+                if (stake.penalty.isNotBlank()) {
+                    result += ", по пенальти ${stake.penalty}"
                 }
             }
         }
 
-        holder.stake.text = stake
+        holder.stake.text = result
 
-        holder.points.text = "%.2f".format(prognosis.points)
+        holder.points.text = "%.2f".format(stake.points)
     }
 
-    override fun getItemCount(): Int = prognosisGamblers.size
+    override fun getItemCount(): Int = stakes.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrognosis(prognosisGamblers: List<StakeModel>) {
-        this.prognosisGamblers = prognosisGamblers
+    fun setStakes(stakes: List<StakeModel>) {
+        this.stakes = stakes
         notifyDataSetChanged()
     }
 }

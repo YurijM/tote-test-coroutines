@@ -32,8 +32,9 @@ class FirebaseRepository {
     val games: LiveData<List<GameModel>> = GamesLiveData()
     val gambler: LiveData<GamblerModel> = GamblerLiveData()
     val gamblers: LiveData<List<GamblerModel>> = GamblersLiveData()
-    val stakes: LiveData<List<StakeModel>> = StakesLiveData()
-    val prognosis: LiveData<List<StakeModel>> = PrognosisLiveData()
+    val stakes: LiveData<List<StakeModel>> = StakesForCurrentGamblerLiveData()
+    val stakesAll: LiveData<List<StakeModel>> = StakesAllLiveData()
+    val prognosis: LiveData<List<PrognosisModel>> = PrognosisLiveData()
     val emails: LiveData<List<EmailModel>> = EmailsLiveData()
 
     init {
@@ -141,10 +142,19 @@ class FirebaseRepository {
         }
     }
 
-    suspend fun saveStake(gameId: String, stake: StakeModel): Resource<Boolean> {
+    suspend fun saveStake(stake: StakeModel): Resource<Boolean> {
         return withContext(Dispatchers.IO) {
             safeCall {
-                REF_DB_ROOT.child(NODE_STAKES).child(gameId).child(CURRENT_ID).setValue(stake).await()
+                REF_DB_ROOT.child(NODE_STAKES).child(stake.gameId.toString()).child(stake.gamblerId).setValue(stake).await()
+                Resource.Success(true)
+            }
+        }
+    }
+
+    suspend fun savePrognosis(gameId: String, prognosis: PrognosisModel): Resource<Boolean> {
+        return withContext(Dispatchers.IO) {
+            safeCall {
+                REF_DB_ROOT.child(NODE_PROGNOSIS).child(gameId).setValue(prognosis).await()
                 Resource.Success(true)
             }
         }

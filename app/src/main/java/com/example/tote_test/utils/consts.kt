@@ -29,6 +29,7 @@ const val NODE_GAMBLERS = "gamblers"
 const val NODE_GAMES = "games"
 const val NODE_TEAMS = "teams"
 const val NODE_STAKES = "stakes"
+const val NODE_PROGNOSIS = "prognosis"
 const val NODE_EMAILS = "emails"
 
 var GAMBLER = GamblerModel()

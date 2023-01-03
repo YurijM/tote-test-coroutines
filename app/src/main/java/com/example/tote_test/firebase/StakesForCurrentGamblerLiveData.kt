@@ -9,7 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class StakesLiveData : LiveData<List<StakeModel>>() {
+class StakesForCurrentGamblerLiveData : LiveData<List<StakeModel>>() {
     private val listener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             value = snapshot.children.map {

@@ -44,7 +44,7 @@ class StakeViewModel : ViewModel() {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
-            val result = REPOSITORY.saveStake(stake.gameId.toString(), stake).data == true
+            val result = REPOSITORY.saveStake(stake).data == true
 
             _status.postValue(Resource.Success(result))
         }

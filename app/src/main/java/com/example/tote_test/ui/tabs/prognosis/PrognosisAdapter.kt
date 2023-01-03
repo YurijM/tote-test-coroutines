@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
-import com.example.tote_test.models.GameStakesModel
+import com.example.tote_test.models.PrognosisModel
+import com.example.tote_test.models.StakeModel
 import com.example.tote_test.utils.APP_ACTIVITY
 
 class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>() {
-    private var prognosis = emptyList<GameStakesModel>()
+    private var prognosis = emptyList<PrognosisModel>()
+    private var stakes = emptyList<StakeModel>()
 
     class PrognosisHolder(view: View) : RecyclerView.ViewHolder(view) {
         val game: TextView = view.findViewById(R.id.itemPrognosisGame)
@@ -19,7 +21,7 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
         val coefficientForDraw: TextView = view.findViewById(R.id.itemPrognosisCoefficientForDraw)
         val coefficientForDefeat: TextView = view.findViewById(R.id.itemPrognosisCoefficientForDefeat)
         val coefficientForFine: TextView = view.findViewById(R.id.itemPrognosisCoefficientForFine)
-        val gamblers: RecyclerView = view.findViewById(R.id.itemPrognosisGamblersList)
+        val stakes: RecyclerView = view.findViewById(R.id.itemStakesList)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PrognosisHolder {
@@ -49,9 +51,11 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
             prognosisGambler.coefficientForFine
         )
 
-        holder.gamblers.apply {
+        holder.stakes.apply {
             val gamblersAdapter = PrognosisGamblersAdapter()
-            gamblersAdapter.setPrognosis(prognosisGambler.stakes)
+            //prognosisGambler.stakes?.let { gamblersAdapter.setPrognosis(it) }
+            val stakesGame = stakes.filter { stake -> stake.gameId == prognosisGambler.gameId }
+            gamblersAdapter.setStakes(stakesGame)
             adapter = gamblersAdapter
         }
     }
@@ -59,8 +63,14 @@ class PrognosisAdapter : RecyclerView.Adapter<PrognosisAdapter.PrognosisHolder>(
     override fun getItemCount(): Int = prognosis.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrognosis(prognosis: List<GameStakesModel>) {
+    fun setPrognosis(prognosis: List<PrognosisModel>) {
         this.prognosis = prognosis
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setStakes(stakes: List<StakeModel>) {
+        this.stakes = stakes
         notifyDataSetChanged()
     }
 }
