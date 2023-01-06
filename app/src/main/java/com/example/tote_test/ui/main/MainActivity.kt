@@ -1,5 +1,6 @@
 package com.example.tote_test.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,20 +15,21 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.tote_test.R
 import com.example.tote_test.databinding.ActivityMainBinding
+import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.PrognosisModel
 import com.example.tote_test.models.StakeModel
 import com.example.tote_test.ui.tabs.TabsFragment
 import com.example.tote_test.utils.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var navController: NavController? = null
-
     private val viewModel: MainViewModel by viewModels()
-
     private lateinit var stakes: List<StakeModel>
+    //private var stakes = arrayListOf<List<StakeModel>>()
 
     private var topLevelDestinations = setOf(
         getMainDestination(),
@@ -112,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         stakes = it
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun observeGames() = viewModel.games.observe(this) {
         stakes.map { stake ->
             val gambler = viewModel.gamblers.value?.find { gambler -> gambler.nickname == stake.gamblerId }
@@ -121,113 +124,181 @@ class MainActivity : AppCompatActivity() {
         }
 
         val now = Calendar.getInstance().time.time
+        val nowLocale = SimpleDateFormat("dd.MM.yyyy HH:mm").parse(now.toString().asTime(toLocale = true))?.time ?: 0
 
-        val games = it.filter { item -> now > item.start.toLong() }.sortedByDescending { item -> item.id }
+        val games = it.filter { item -> nowLocale > item.start.toLong() }.sortedBy { item -> item.id }
 
         if (games.isNotEmpty()) {
+            val gamblersCount = (viewModel.gamblers.value?.size ?: 0).toDouble()
+
             games.forEach { game ->
+                toLog("now, games: ${nowLocale.toString().asTime()}($nowLocale), ${game.start}(${game.start.asTime()})")
                 val stakesForGame = stakes.filter { item -> item.gameId == game.id }
 
-                val gamblersCount = (viewModel.gamblers.value?.size ?: 0).toDouble()
+                calcPrognosis(game, stakesForGame, gamblersCount)
 
-                val stakesWinCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 > stake.goal2 }.size
-                val stakesDrawCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 == stake.goal2 }.size
-                val stakesDefeatCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 < stake.goal2 }.size
-
-                val coefficientForWin = if (stakesWinCount > 0) gamblersCount / stakesWinCount else 0.0
-                val coefficientForDraw = if (stakesDrawCount > 0) gamblersCount / stakesDrawCount else 0.0
-                val coefficientForDefeat = if (stakesDefeatCount > 0) gamblersCount / stakesDefeatCount else 0.0
-                val coefficientForFine = -((coefficientForWin + coefficientForDraw + coefficientForDefeat) / 3)
-
-                stakesForGame.forEach { stake ->
-                    val coefficient = if (stake.goal1 > stake.goal2) {
-                        coefficientForWin
-                    } else if (stake.goal1 == stake.goal2) {
-                        coefficientForDraw
-                    } else {
-                        coefficientForDefeat
-                    }
-
-                    stake.points = if (game.goal1.isBlank() || game.goal2.isBlank()) {
-                        0.0
-                    } else if (stake.goal1.isBlank()) {
-                        coefficientForFine
-                    } else {
-                        calcPoints(stake, game, coefficient, gamblersCount)
-                    }
-
-                    if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()
-                        && stake.addGoal1.isNotBlank() && stake.addGoal2.isNotBlank()
-                    ) {
-                        calcPointsForAddTime(stake, game)
-                    }
-                }
-
-                val gameResult = "${game.team1} - ${game.team2}" +
-                        if (game.goal1.isNotBlank() && game.goal2.isNotBlank()) {
-                            " ${game.goal1}:${game.goal2}" +
-                                    if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()) {
-                                        ", доп.время ${game.addGoal1}:${game.addGoal2}" +
-                                                if (game.penalty.isNotBlank()) {
-                                                    ", по пенальти ${game.penalty}"
-                                                } else {
-                                                    ""
-                                                }
-                                    } else {
-                                        ""
-                                    }
-                        } else {
-                            ""
-                        }
-
-                viewModel.savePrognosis(
-                    game.id.toString(),
-                    PrognosisModel(
-                        game.id,
-                        gameResult,
-                        coefficientForWin,
-                        coefficientForDraw,
-                        coefficientForDefeat,
-                        coefficientForFine,
-                    )
-                )
-
-                var place = 1
-                var step = 0
-                var points = 0.0
-
-                stakesForGame.sortedWith(
-                    compareByDescending<StakeModel> { item -> item.points }
-                        .thenBy { el -> el.gamblerId }
-                ).forEach { stake ->
-                    val gambler = viewModel.gamblers.value?.find { gambler -> gambler.id == stake.gamblerId }
-
-                    if (gambler != null) {
-                        val stakesPrev = stakes.filter { item -> item.gameId == game.id - 1 }
-                        gambler.placePrev = stakesPrev.find { item -> item.gamblerId == gambler.id }?.place ?: 0
-
-                        gambler.points = stake.points
-
-                        if (points == stake.points) {
-                            step++
-                        } else {
-                            place += step
-                            points = stake.points
-
-                            step = 1
-                        }
-
-                        gambler.place = place
-
-                        viewModel.saveGambler(gambler)
-
-                        stake.place = place
-                        stake.points = points
-
-                        viewModel.saveStake(stake)
-                    }
-                }
+                calcStakePoints(stakesForGame)
             }
+
+            calcGamblerPlaceAndPoints()
+        }
+    }
+
+    private fun calcPrognosis(game: GameModel, stakesForGame: List<StakeModel>, gamblersCount: Double) {
+        val stakesWinCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 > stake.goal2 }.size
+        val stakesDrawCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 == stake.goal2 }.size
+        val stakesDefeatCount = stakesForGame.filter { stake -> stake.goal1.isNotBlank() && stake.goal1 < stake.goal2 }.size
+
+        val coefficientForWin = if (stakesWinCount > 0) gamblersCount / stakesWinCount else 0.0
+        val coefficientForDraw = if (stakesDrawCount > 0) gamblersCount / stakesDrawCount else 0.0
+        val coefficientForDefeat = if (stakesDefeatCount > 0) gamblersCount / stakesDefeatCount else 0.0
+        val coefficientForFine = -((coefficientForWin + coefficientForDraw + coefficientForDefeat) / 3)
+
+        stakesForGame.forEach { stake ->
+            val coefficient = if (stake.goal1 > stake.goal2) {
+                coefficientForWin
+            } else if (stake.goal1 == stake.goal2) {
+                coefficientForDraw
+            } else {
+                coefficientForDefeat
+            }
+
+            stake.points = if (game.goal1.isBlank() || game.goal2.isBlank()) {
+                0.0
+            } else if (stake.goal1.isBlank()) {
+                coefficientForFine
+            } else {
+                calcPoints(stake, game, coefficient, gamblersCount)
+            }
+
+            if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()
+                && stake.addGoal1.isNotBlank() && stake.addGoal2.isNotBlank()
+            ) {
+                calcPointsForAddTime(stake, game)
+            }
+        }
+
+        val gameResult = "${game.team1} - ${game.team2}" +
+                if (game.goal1.isNotBlank() && game.goal2.isNotBlank()) {
+                    " ${game.goal1}:${game.goal2}" +
+                            if (game.addGoal1.isNotBlank() && game.addGoal2.isNotBlank()) {
+                                ", доп.время ${game.addGoal1}:${game.addGoal2}" +
+                                        if (game.penalty.isNotBlank()) {
+                                            ", по пенальти ${game.penalty}"
+                                        } else {
+                                            ""
+                                        }
+                            } else {
+                                ""
+                            }
+                } else {
+                    ""
+                }
+
+        viewModel.savePrognosis(
+            game.id.toString(),
+            PrognosisModel(
+                game.id,
+                gameResult,
+                coefficientForWin,
+                coefficientForDraw,
+                coefficientForDefeat,
+                coefficientForFine,
+            )
+        )
+    }
+
+    private fun calcGamblerPlaceAndPoints() {
+        calcPointsAndPointsPrev()
+
+        calcPlace()
+
+        calcPlacePrev()
+    }
+
+    private fun calcStakePoints(stakesForGame: List<StakeModel>) {
+        var place = 1
+        var step = 0
+        var points = 0.0
+
+        stakesForGame.sortedWith(
+            compareByDescending<StakeModel> { item -> item.points }
+                .thenBy { el -> el.gamblerId }
+        ).forEach { stake ->
+            if (points == stake.points) {
+                step++
+            } else {
+                place += step
+                points = stake.points
+
+                step = 1
+            }
+
+            stake.place = place
+            stake.points = points
+
+            viewModel.saveStake(stake)
+        }
+    }
+
+    private fun calcPointsAndPointsPrev() {
+        viewModel.gamblers.value?.map { gambler ->
+            val stakesForGambler = stakes.filter { item -> item.gamblerId == gambler.id }
+
+            gambler.points = stakesForGambler.sumOf { stake -> stake.points }
+
+            val size = stakesForGambler.size
+
+            if (size > 1) {
+                gambler.pointsPrev = stakesForGambler.sortedBy {item -> item.gameId}.slice(0..stakesForGambler.size - 2).sumOf { stake -> stake.points }
+            }
+
+            viewModel.saveGambler(gambler)
+        }
+    }
+
+    private fun calcPlacePrev() {
+        var place = 1
+        var step = 0
+        var points = 0.0
+
+        viewModel.gamblers.value?.sortedByDescending { item -> item.pointsPrev }?.forEach { gambler ->
+            if (points == gambler.pointsPrev) {
+                step++
+            } else {
+                place += step
+                points = gambler.pointsPrev
+
+                step = 1
+            }
+
+            gambler.placePrev = place
+
+            viewModel.saveGambler(gambler)
+        }
+    }
+
+    private fun calcPlace() {
+        var place = 1
+        var step = 0
+        var points = 0.0
+
+        viewModel.gamblers.value?.sortedWith(
+            compareByDescending<GamblerModel> { item -> item.points }
+                .thenBy { item -> item.nickname }
+        )?.forEach { gambler ->
+            if (points == gambler.points) {
+                step++
+            } else {
+                place += step
+                points = gambler.points
+
+                step = 1
+            }
+
+            gambler.place = place
+
+            viewModel.saveGambler(gambler)
         }
     }
 

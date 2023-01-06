@@ -145,7 +145,8 @@ class FirebaseRepository {
     suspend fun saveStake(stake: StakeModel): Resource<Boolean> {
         return withContext(Dispatchers.IO) {
             safeCall {
-                REF_DB_ROOT.child(NODE_STAKES).child(stake.gameId.toString()).child(stake.gamblerId).setValue(stake).await()
+                //REF_DB_ROOT.child(NODE_STAKES).child(stake.gameId.toString()).child(stake.gamblerId).setValue(stake).await()
+                REF_DB_ROOT.child(NODE_STAKES).child("${stake.gameId}-${stake.gamblerId}").setValue(stake).await()
                 Resource.Success(true)
             }
         }

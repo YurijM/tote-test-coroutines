@@ -11,10 +11,8 @@ import com.google.firebase.database.ValueEventListener
 class StakesAllLiveData : LiveData<List<StakeModel>>() {
     private val listener = object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
-            snapshot.children.map {
-                value = it.children.map {stakes ->
-                    stakes.getValue(StakeModel::class.java) ?: StakeModel()
-                }
+            value = snapshot.children.map {
+                it.getValue(StakeModel::class.java) ?: StakeModel()
             }
         }
 

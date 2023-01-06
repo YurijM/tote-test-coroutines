@@ -154,26 +154,19 @@ fun getSizeDisplay(isBottomNav: Boolean): IntArray {
     return intArrayOf(width, height)
 }
 
-fun String.asTime(withSeconds: Boolean): String {
-    val time = Date(this.toLong())
-
+fun String.asTime(withSeconds: Boolean = false, toLocale: Boolean = false): String {
     val format = if (withSeconds) {
         "dd.MM.y HH:mm:ss"
     } else {
         "dd.MM.y HH:mm"
     }
+    val formatter = SimpleDateFormat(format, Locale.getDefault())
 
-    val timeFormat = SimpleDateFormat(
-        format,
-        Locale.getDefault()
-    )
+    if (toLocale) formatter.timeZone = TimeZone.getTimeZone("Europe/Moscow")
 
-    return timeFormat.format(time)
+    return formatter.format(Date(this.toLong()))
 }
 
 fun padLeftZero(value: Int): String {
     return if (value < 10) "0$value" else value.toString()
 }
-
-
-

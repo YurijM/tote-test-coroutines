@@ -49,7 +49,7 @@ class PrognosisFragment : Fragment() {
             }
         }
 
-        adapter.setPrognosis(it)
+        adapter.setPrognosis(it.sortedByDescending { prognosis -> prognosis.gameId })
         adapter.setStakes(stakes.sortedBy { stake -> stake.gamblerId })
     }
 

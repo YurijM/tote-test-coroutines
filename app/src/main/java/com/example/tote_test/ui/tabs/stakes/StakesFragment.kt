@@ -19,8 +19,6 @@ import java.util.*
 class StakesFragment : Fragment() {
     private lateinit var binding: FragmentStakesBinding
     private val viewModel: MainViewModel by viewModels()
-    //private val viewModelGames: MainViewModel by viewModels()
-    //private val viewModel: StakesViewModel by viewModels()
     private val adapter = StakesAdapter { game -> onListItemClick(game) }
     private lateinit var games: List<GameModel>
     private lateinit var stakes: List<StakeModel>
