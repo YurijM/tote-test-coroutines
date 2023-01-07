@@ -1,5 +1,6 @@
 package com.example.tote_test.ui.tabs.stakes
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.StakeModel
 import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.CURRENT_ID
+import com.example.tote_test.utils.asTime
+import java.text.SimpleDateFormat
 import java.util.*
 
 class StakesFragment : Fragment() {
@@ -39,10 +42,12 @@ class StakesFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
         binding.stakesProgressBar.isVisible = true
 
         val now = Calendar.getInstance().time.time
+        val nowLocale = SimpleDateFormat("dd.MM.yyyy HH:mm").parse(now.toString().asTime(toLocale = true))?.time ?: 0
 
         /*val gamesPlayOff = it.filter { item ->
             val isPlayOff = GROUPS.any { group -> group.group == item.group && group.number > GROUPS_COUNT }
@@ -56,17 +61,18 @@ class StakesFragment : Fragment() {
 
         games = gamesPlayOff + gamesGroup*/
 
-        games = it.filter { item -> now < item.start.toLong() }
+        games = it.filter { item -> nowLocale < item.start.toLong() }
 
         games.forEach { game ->
-            val stake = stakes.filter { item -> item.gameId == game.id }
+            val stake = stakes.find { item -> item.gameId == game.id }
 
-            if (stake.isNotEmpty()) {
-                game.goal1 = stake[0].goal1
-                game.goal2 = stake[0].goal2
-                game.addGoal1 = stake[0].addGoal1
-                game.addGoal2 = stake[0].addGoal2
-                game.penalty = stake[0].penalty
+            //if (stake.isNotEmpty()) {
+            if (stake != null) {
+                game.goal1 = stake.goal1
+                game.goal2 = stake.goal2
+                game.addGoal1 = stake.addGoal1
+                game.addGoal2 = stake.addGoal2
+                game.penalty = stake.penalty
             } else {
                 game.goal1 = ""
                 game.goal2 = ""
@@ -78,7 +84,7 @@ class StakesFragment : Fragment() {
         adapter.setStakes(games)
     }
 
-    private fun observeStakes() = viewModel.stakes.observe(viewLifecycleOwner) {
+    private fun observeStakes() = viewModel.stakesAll.observe(viewLifecycleOwner) {
         stakes = it.filter { item -> item.gamblerId == CURRENT_ID }
 
         observeGames()
