@@ -56,7 +56,7 @@ class PrognosisFragment : Fragment() {
     private fun observeGames() = viewModelMain.games.observe(viewLifecycleOwner) {
         val now = Calendar.getInstance().time.time
 
-        games = it.filter { item -> now > item.start.toLong() }
+        games = it.filter { item -> now > item.start.toLong() && item.goal1.isNotBlank() && item.goal2.isNotBlank() }
 
         if (games.isNotEmpty()) {
             binding.prognosisTournamentNotStarted.isGone = true

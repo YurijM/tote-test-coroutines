@@ -126,10 +126,14 @@ class MainActivity : AppCompatActivity() {
         val now = Calendar.getInstance().time.time
         val nowLocale = SimpleDateFormat("dd.MM.yyyy HH:mm").parse(now.toString().asTime(toLocale = true))?.time ?: 0
 
-        val games = it.filter { item -> nowLocale > item.start.toLong() }.sortedBy { item -> item.id }
+        val games =
+            it.filter { item -> (nowLocale > item.start.toLong()) && item.goal1.isNotBlank() && item.goal2.isNotBlank() }
+                .sortedBy { item -> item.id }
 
         if (games.isNotEmpty()) {
             val gamblersCount = (viewModel.gamblers.value?.size ?: 0).toDouble()
+
+            val gamesId = arrayListOf<Int>()
 
             games.forEach { game ->
                 toLog("now, games: ${nowLocale.toString().asTime()}($nowLocale), ${game.start}(${game.start.asTime()})")
@@ -138,9 +142,11 @@ class MainActivity : AppCompatActivity() {
                 calcPrognosis(game, stakesForGame, gamblersCount)
 
                 calcStakePoints(stakesForGame)
+
+                gamesId.add(game.id)
             }
 
-            calcGamblerPlaceAndPoints()
+            calcGamblerPlaceAndPoints(gamesId)
         }
     }
 
@@ -208,12 +214,12 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    private fun calcGamblerPlaceAndPoints() {
-        calcPointsAndPointsPrev()
+    private fun calcGamblerPlaceAndPoints(gamesId: ArrayList<Int>) {
+        calcPointsAndPointsPrev(gamesId)
 
         calcPlace()
 
-        calcPlacePrev()
+        calcPlacePrev(gamesId.size)
     }
 
     private fun calcStakePoints(stakesForGame: List<StakeModel>) {
@@ -241,29 +247,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun calcPointsAndPointsPrev() {
+    private fun calcPointsAndPointsPrev(gamesId: ArrayList<Int>) {
         viewModel.gamblers.value?.map { gambler ->
-            val stakesForGambler = stakes.filter { item -> item.gamblerId == gambler.id }
+            val stakesForGambler = stakes.filter { item -> item.gamblerId == gambler.id && item.gameId in gamesId }
 
             gambler.points = stakesForGambler.sumOf { stake -> stake.points }
 
             val size = stakesForGambler.size
 
             if (size > 1) {
-                gambler.pointsPrev = stakesForGambler.sortedBy {item -> item.gameId}.slice(0..stakesForGambler.size - 2).sumOf { stake -> stake.points }
+                gambler.pointsPrev = stakesForGambler.sortedBy { item -> item.gameId }
+                    .slice(0..stakesForGambler.size - 2)
+                    .sumOf { stake -> stake.points }
             }
 
             viewModel.saveGambler(gambler)
         }
     }
 
-    private fun calcPlacePrev() {
+    private fun calcPlacePrev(gamesCount: Int) {
         var place = 1
         var step = 0
         var points = 0.0
 
         viewModel.gamblers.value?.sortedByDescending { item -> item.pointsPrev }?.forEach { gambler ->
-            if (points == gambler.pointsPrev) {
+            if (gamesCount == 1) {
+                place = 0
+            } else if (points == gambler.pointsPrev) {
                 step++
             } else {
                 place += step
