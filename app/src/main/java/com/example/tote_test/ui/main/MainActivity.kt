@@ -23,6 +23,7 @@ import com.example.tote_test.ui.tabs.TabsFragment
 import com.example.tote_test.utils.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -136,7 +137,6 @@ class MainActivity : AppCompatActivity() {
             val gamesId = arrayListOf<Int>()
 
             games.forEach { game ->
-                toLog("now, games: ${nowLocale.toString().asTime()}($nowLocale), ${game.start}(${game.start.asTime()})")
                 val stakesForGame = stakes.filter { item -> item.gameId == game.id }
 
                 calcPrognosis(game, stakesForGame, gamblersCount)
@@ -251,15 +251,29 @@ class MainActivity : AppCompatActivity() {
         viewModel.gamblers.value?.map { gambler ->
             val stakesForGambler = stakes.filter { item -> item.gamblerId == gambler.id && item.gameId in gamesId }
 
-            gambler.points = stakesForGambler.sumOf { stake -> stake.points }
+            gambler.points = ("%.2f".format(
+                stakesForGambler.sumOf { stake -> stake.points }
+            ).replace(",", ".")).toDouble()
+            //gambler.points = ("%.2f".format(gambler.points).replace(",", ".")).toDouble()
 
             val size = stakesForGambler.size
 
             if (size > 1) {
-                gambler.pointsPrev = stakesForGambler.sortedBy { item -> item.gameId }
+                /*gambler.pointsPrev = stakesForGambler.sortedBy { item -> item.gameId }
                     .slice(0..stakesForGambler.size - 2)
-                    .sumOf { stake -> stake.points }
+                    .sumOf { stake -> stake.points }*/
+
+                val lastGameId = stakesForGambler.maxByOrNull { item -> item.gameId }!!.gameId
+                toLog("lastGameId: $lastGameId")
+                val start = viewModel.games.value?.find { item -> item.id == lastGameId }?.start
+                val firstGameId =
+                    viewModel.games.value?.sortedBy { item -> item.id }?.find { item -> item.start == start }?.id ?: 0
+                toLog("firstGameId: $firstGameId")
+                gambler.pointsPrev = (stakesForGambler.filter { item -> item.gameId < firstGameId }
+                    .sumOf { item -> item.points } * 100.0).roundToInt() / 100.0
             }
+
+            toLog("pointsPrev: ${gambler.pointsPrev}")
 
             viewModel.saveGambler(gambler)
         }

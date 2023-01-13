@@ -1,5 +1,6 @@
 package com.example.tote_test.ui.tabs.prognosis
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.example.tote_test.databinding.FragmentPrognosisBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.StakeModel
 import com.example.tote_test.ui.main.MainViewModel
+import com.example.tote_test.utils.asTime
+import java.text.SimpleDateFormat
 import java.util.*
 
 class PrognosisFragment : Fragment() {
@@ -53,10 +56,14 @@ class PrognosisFragment : Fragment() {
         adapter.setStakes(stakes.sortedBy { stake -> stake.gamblerId })
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun observeGames() = viewModelMain.games.observe(viewLifecycleOwner) {
         val now = Calendar.getInstance().time.time
+        val nowLocale = SimpleDateFormat("dd.MM.yyyy HH:mm").parse(now.toString().asTime(toLocale = true))?.time ?: 0
 
-        games = it.filter { item -> now > item.start.toLong() && item.goal1.isNotBlank() && item.goal2.isNotBlank() }
+        games = it.filter { item -> (nowLocale > item.start.toLong()) && item.goal1.isNotBlank() && item.goal2.isNotBlank() }
+
+        //games = it.filter { item -> now > item.start.toLong() && item.goal1.isNotBlank() && item.goal2.isNotBlank() }
 
         if (games.isNotEmpty()) {
             binding.prognosisTournamentNotStarted.isGone = true
