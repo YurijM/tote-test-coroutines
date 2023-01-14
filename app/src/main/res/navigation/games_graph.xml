@@ -25,12 +25,19 @@
         <argument
             android:name="group"
             app:argType="string" />
+        <action
+            android:id="@+id/action_adminGroupGamesFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.tote_test.ui.tabs.games.game.GameFragment"
         android:label="@string/add_game"
         tools:layout="@layout/fragment_game" >
+        <argument
+            android:name="game"
+            app:argType="com.example.tote_test.models.GameModel"
+            app:nullable="true" />
         <action
             android:id="@+id/action_gameFragment_to_gamesFragment"
             app:destination="@id/gamesFragment" />

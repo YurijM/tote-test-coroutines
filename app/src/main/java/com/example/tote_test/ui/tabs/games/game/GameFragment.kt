@@ -18,7 +18,6 @@ import com.example.tote_test.databinding.FragmentGameBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class GameFragment : Fragment(),
@@ -30,6 +29,7 @@ class GameFragment : Fragment(),
     private val viewModelGames: MainViewModel by viewModels()
     private val viewModelTeams: MainViewModel by viewModels()
 
+    private lateinit var game: GameModel
     private var newDay = ""
     private var newMonth = ""
     private var newYear = ""
@@ -41,6 +41,9 @@ class GameFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameBinding.inflate(layoutInflater, container, false)
+
+        game = GameFragmentArgs.fromBundle(requireArguments()).game ?: GameModel()
+        toLog("game: $game")
 
         initFields()
 
@@ -59,12 +62,11 @@ class GameFragment : Fragment(),
 
     private fun initSave() {
         binding.gameSave.setOnClickListener {
-            val game = GameModel()
-
-            with (binding) {
+            with(binding) {
                 game.id = gameInputNumber.text.toString().toInt()
                 game.start = convertDateTimeToTimestamp(gameStartDate.text.toString())
-                game.group = gameListGroups.selectedItem.toString()
+                //game.group = gameListGroups.selectedItem.toString()
+                game.group = GROUPS.find { it.number == gameListGroups.selectedItemPosition + 1 }?.group ?: GROUPS[0].group
                 game.team1 = gameListTeams1.selectedItem.toString()
                 game.team2 = gameListTeams2.selectedItem.toString()
             }
@@ -83,17 +85,31 @@ class GameFragment : Fragment(),
                 binding.gameSave.isEnabled = !it.isNullOrBlank()
             }
 
-            setText((viewModelGames.games.value?.size?.plus(1)).toString())
+            if (game.id == 0) {
+                setText((viewModelGames.games.value?.size?.plus(1)).toString())
+            } else {
+                setText(game.id.toString())
+            }
         }
     }
 
     @SuppressLint("SimpleDateFormat")
     private fun initStartDate() {
-        val std = SimpleDateFormat("dd.MM.yyyy hh:mm")
-        binding.gameStartDate.text = std.format(Date())
+        /*val std = SimpleDateFormat("dd.MM.yyyy hh:mm")
+        binding.gameStartDate.text = std.format(Date())*/
+
+        binding.gameStartDate.text = if (game.id == 0) {
+            Calendar.getInstance().time.time.toString().asTime(toLocale = true)
+        } else {
+            game.start.asTime()
+        }
 
         binding.gameEditStart.setOnClickListener {
             val calendar: Calendar = Calendar.getInstance()
+
+            if (game.id > 0) {
+                calendar.time = Date(game.start.toLong())
+            }
 
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             val month = calendar.get(Calendar.MONTH)
@@ -112,7 +128,11 @@ class GameFragment : Fragment(),
 
         val calendar: Calendar = Calendar.getInstance()
 
-        val hour = calendar.get(Calendar.HOUR)
+        if (game.id > 0) {
+            calendar.time = Date(game.start.toLong())
+        }
+
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
         val timePickerDialog = TimePickerDialog(requireContext(), this, hour, minute, true)
@@ -146,32 +166,29 @@ class GameFragment : Fragment(),
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
-        initSpinner(binding.gameListGroups, adapter)
+        val group = groups.find { item -> item.contains(game.group) }
+
+        initSpinner(binding.gameListGroups, adapter, group ?: groups[0])
     }
 
     private fun initTeams() {
-        //val teams = TEAMS.sortedBy { it.team }.map { it.team }
-        var teams = emptyList<String>()
-
-        val teamsLiveData = viewModelTeams.teams.value
-        if (teamsLiveData != null) {
-            teams = teamsLiveData.sortedBy { it.team }.map { it.team }
-        }
-
         val adapter = ArrayAdapter(
             requireContext(),
             R.layout.item_spinner,
-            teams
+            viewModelTeams.teams.value?.sortedBy { it.team }?.map { it.team } ?: emptyList<String>()
         )
 
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1)
 
-        initSpinner(binding.gameListTeams1, adapter)
-        initSpinner(binding.gameListTeams2, adapter)
+        initSpinner(binding.gameListTeams1, adapter, game.team1)
+        initSpinner(binding.gameListTeams2, adapter, game.team2)
     }
 
-    private fun initSpinner(spinner: Spinner, adapter: ArrayAdapter<String>) {
+    private fun initSpinner(spinner: Spinner, adapter: ArrayAdapter<String>, defaultValue: String) {
         spinner.adapter = adapter
+
+        adapter.getPosition(defaultValue)
+        spinner.setSelection(adapter.getPosition(defaultValue))
 
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {

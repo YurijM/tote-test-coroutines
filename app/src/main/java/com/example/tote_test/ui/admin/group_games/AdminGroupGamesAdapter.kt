@@ -17,9 +17,14 @@ class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.Admin
     private var games = emptyList<GameModel>()
 
     private var listener: ((item: GameModel) -> Unit)? = null
+    private var listenerStart: ((item: GameModel) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (item: GameModel) -> Unit) {
         this.listener = listener
+    }
+
+    fun setOnStartClickListener(listenerStart: (item: GameModel) -> Unit) {
+        this.listenerStart = listenerStart
     }
 
     class AdminGroupGamesHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -37,15 +42,6 @@ class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.Admin
     }
 
     override fun onBindViewHolder(holder: AdminGroupGamesHolder, position: Int) {
-        holder.buttonSave.setOnClickListener {
-            val game = games[position]
-
-            game.goal1 = holder.goal1.text.toString()
-            game.goal2 = holder.goal2.text.toString()
-
-            listener?.invoke(this.games[position])
-        }
-
         holder.start.text = APP_ACTIVITY.getString(
             R.string.start_game,
             games[position].start.asTime(false),
@@ -55,6 +51,19 @@ class AdminGroupGamesAdapter : RecyclerView.Adapter<AdminGroupGamesAdapter.Admin
         holder.goal1.setText(games[position].goal1)
         holder.team2.text = games[position].team2
         holder.goal2.setText(games[position].goal2)
+
+        holder.buttonSave.setOnClickListener {
+            val game = games[position]
+
+            game.goal1 = holder.goal1.text.toString()
+            game.goal2 = holder.goal2.text.toString()
+
+            listener?.invoke(this.games[position])
+        }
+
+        holder.start.setOnClickListener {
+            listenerStart?.invoke(this.games[position])
+        }
     }
 
     override fun getItemCount(): Int = games.size

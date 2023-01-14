@@ -13,6 +13,7 @@ import com.example.tote_test.databinding.FragmentAdminGroupGamesBinding
 import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.Resource
+import com.example.tote_test.utils.findTopNavController
 import com.example.tote_test.utils.fixError
 
 class AdminGroupGamesFragment : Fragment() {
@@ -40,6 +41,10 @@ class AdminGroupGamesFragment : Fragment() {
 
         adapter.setOnItemClickListener {
             viewModel.saveGame(it)
+        }
+
+        adapter.setOnStartClickListener {
+            findTopNavController().navigate(AdminGroupGamesFragmentDirections.actionAdminGroupGamesFragmentToGameFragment(it))
         }
 
         return binding.root

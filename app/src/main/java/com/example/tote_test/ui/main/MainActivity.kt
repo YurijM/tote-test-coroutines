@@ -251,10 +251,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.gamblers.value?.map { gambler ->
             val stakesForGambler = stakes.filter { item -> item.gamblerId == gambler.id && item.gameId in gamesId }
 
-            gambler.points = ("%.2f".format(
-                stakesForGambler.sumOf { stake -> stake.points }
-            ).replace(",", ".")).toDouble()
-            //gambler.points = ("%.2f".format(gambler.points).replace(",", ".")).toDouble()
+            gambler.points = (stakesForGambler.sumOf { stake -> stake.points } * 100.0).roundToInt() / 100.0
 
             val size = stakesForGambler.size
 
@@ -273,7 +270,7 @@ class MainActivity : AppCompatActivity() {
                     .sumOf { item -> item.points } * 100.0).roundToInt() / 100.0
             }
 
-            toLog("pointsPrev: ${gambler.pointsPrev}")
+            toLog("points, pointsPrev: ${gambler.points}, ${gambler.pointsPrev}")
 
             viewModel.saveGambler(gambler)
         }

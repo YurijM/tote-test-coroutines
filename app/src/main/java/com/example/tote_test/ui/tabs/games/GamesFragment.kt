@@ -40,7 +40,7 @@ class GamesFragment : Fragment() {
 
         if (GAMBLER.admin) {
             buttonAddGame.setOnClickListener {
-                findTopNavController().navigate(GamesFragmentDirections.actionGamesFragmentToGameFragment())
+                findTopNavController().navigate(GamesFragmentDirections.actionGamesFragmentToGameFragment(null))
             }
         }
 
