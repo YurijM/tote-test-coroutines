@@ -39,11 +39,11 @@ class StakeFragment : Fragment() {
     ): View {
         binding = FragmentStakeBinding.inflate(layoutInflater, container, false)
 
+        game = StakeFragmentArgs.fromBundle(requireArguments()).game
+
         binding.stakeSave.setOnClickListener {
             saveStake()
         }
-
-        game = StakeFragmentArgs.fromBundle(requireArguments()).game
 
         isGroup = GROUPS.first { it.group == game.group }.number <= GROUPS_COUNT
 

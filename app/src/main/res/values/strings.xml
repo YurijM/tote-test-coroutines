@@ -77,7 +77,7 @@
     <string name="stake_add_time">доп.время %1$s : %2$s</string>
     <string name="stake_penalty">, по пенальти %1$s</string>
     <string name="question_mark">\?</string>
-    <string name="games_played"><u>Сыгранные матчи</u></string>
+    <string name="games_played">Сыгранные матчи</string>
     <string name="add_time">доп.время</string>
     <string name="penalty">по пенальти</string>
 
@@ -97,5 +97,6 @@
     <string name="coefficient_for_draw">за ничью %1$.2f</string>
     <string name="coefficient_for_defeat">за поражение %1$.2f</string>
     <string name="coefficient_for_fine">штраф %1$.2f</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

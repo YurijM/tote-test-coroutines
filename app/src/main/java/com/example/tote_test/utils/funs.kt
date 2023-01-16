@@ -33,15 +33,12 @@ fun fixError(err: String) {
     showToast(err)
 }
 
-fun convertDateTimeToTimestamp(datetime: String): String {
+fun convertDateTimeToTimestamp(datetime: String, toLocale: Boolean = false): String {
     val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
+    if (toLocale) simpleDateFormat.timeZone = TimeZone.getTimeZone("Europe/Moscow")
     val date = simpleDateFormat.parse(datetime)
 
     return date?.time.toString()
-
-    //simpleDateFormat.format(timestamp)
-
-    //val result = "${timestamp.toString()} -> ${simpleDateFormat.format(timestamp)}"
 }
 
 fun checkFieldBlank(

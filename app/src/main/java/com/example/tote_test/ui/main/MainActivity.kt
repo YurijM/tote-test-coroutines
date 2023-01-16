@@ -449,6 +449,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
         navController = null
+        toLog("onDestroy cache: ${cacheDir.deleteRecursively()}")
         super.onDestroy()
     }
 }
