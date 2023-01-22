@@ -109,12 +109,17 @@ fun ImageView.loadImage(url: String, width: Int, height: Int, radius: Int = 0, m
 @SuppressLint("PrivateResource")
 fun loadAppBarPhoto() {
     val gamblerPhoto = APP_ACTIVITY.findViewById<ImageView>(R.id.gamblerPhoto)
-    var size = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
+    //var size = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
+    var size = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)// * 2
+    //toLog("APP_ACTIVITY.resources: ${APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)}")
+    //toLog("size: $size")
 
     val tv = TypedValue()
     if (APP_ACTIVITY.theme.resolveAttribute(com.google.android.material.R.attr.actionBarSize, tv, true)) {
         val actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
-        size = actionBarHeight - APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.padding_xl)
+        toLog("actionBarHeight: $actionBarHeight")
+        size = actionBarHeight - APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.padding_lg)
+        toLog("size: $size")
     }
 
     gamblerPhoto.loadImage(GAMBLER.photoUrl, size, size, size / 2)
@@ -128,7 +133,8 @@ fun Fragment.findTopNavController(): NavController {
 
 @SuppressLint("PrivateResource")
 fun getSizeDisplay(isBottomNav: Boolean): IntArray {
-    var bar = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
+    //var bar = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
+    var bar = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)// * 2
     val tv = TypedValue()
     if (APP_ACTIVITY.theme.resolveAttribute(com.google.android.material.R.attr.actionBarSize, tv, true)) {
         bar = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
