@@ -1,5 +1,6 @@
 package com.example.tote_test.ui.tabs.stakes.stake
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,11 +17,17 @@ import com.example.tote_test.R
 import com.example.tote_test.databinding.FragmentStakeBinding
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.StakeModel
+import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class StakeFragment : Fragment() {
     private lateinit var binding: FragmentStakeBinding
     private val viewModel by viewModels<StakeViewModel>()
+    private val viewModelMain: MainViewModel by viewModels()
+
+    private val adapter = StakeAdapter()
 
     private lateinit var game: GameModel
     private var isGroup = true
@@ -39,6 +46,9 @@ class StakeFragment : Fragment() {
     ): View {
         binding = FragmentStakeBinding.inflate(layoutInflater, container, false)
 
+        val recyclerView = binding.stakePlayedGamesList
+        recyclerView.adapter = adapter
+
         game = StakeFragmentArgs.fromBundle(requireArguments()).game
 
         binding.stakeSave.setOnClickListener {
@@ -49,6 +59,7 @@ class StakeFragment : Fragment() {
 
         initFields()
 
+        observeGames()
         observeStatus()
 
         return binding.root
@@ -288,5 +299,37 @@ class StakeFragment : Fragment() {
                 fixError(it.message.toString())
             }
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun observeGames() = viewModelMain.games.observe(viewLifecycleOwner) {
+        val now = Calendar.getInstance().time.time
+        val nowLocale = SimpleDateFormat("dd.MM.yyyy HH:mm").parse(now.toString().asTime(toLocale = true))?.time ?: 0
+
+        val playedGames = arrayListOf<GameModel>()
+
+        playedGames.addAll(
+            it
+                .filter { item ->
+                    nowLocale > item.start.toLong() && (game.team1 in listOf(item.team1, item.team2))
+                }
+                .sortedBy { item -> item.start }
+        )
+
+        playedGames.addAll(
+            it
+                .filter { item ->
+                    nowLocale > item.start.toLong() && (game.team2 in listOf(item.team1, item.team2))
+                }
+                .sortedBy { item -> item.start }
+        )
+
+        if (playedGames.isEmpty()) {
+            binding.stakeLayoutPlayedGames.isGone = true
+        } else {
+            binding.stakeLayoutPlayedGames.isVisible = true
+        }
+
+        adapter.setPlayedGames(playedGames)
     }
 }

@@ -7,16 +7,6 @@
     android:layout_marginTop="@dimen/margin_sm"
     tools:context=".ui.tabs.stakes.stake.StakeFragment">
 
-    <!--<LinearLayout
-        android:id="@+id/stakeLayoutTop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/application"
-        android:orientation="horizontal"
-        android:padding="@dimen/padding_sm"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">-->
-
     <TextView
         android:id="@+id/stakeStart"
         android:layout_width="match_parent"
@@ -28,8 +18,6 @@
         android:textSize="@dimen/text_size_sm"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/start_game" />
-
-    <!--</LinearLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/stakeResult"
@@ -212,7 +200,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/stakeGamesPlayed"
+        android:id="@+id/stakeLayoutPlayedGames"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
@@ -228,12 +216,20 @@
             android:background="@color/application"
             android:gravity="center"
             android:paddingVertical="@dimen/padding_sm"
-
             android:text="@string/games_played"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_sm"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/stakePlayedGamesList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stakeGamesPlayedTitle"
+            tools:listitem="@layout/item_played_games" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
