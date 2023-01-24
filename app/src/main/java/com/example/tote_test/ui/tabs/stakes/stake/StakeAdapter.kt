@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -16,11 +17,13 @@ class StakeAdapter : RecyclerView.Adapter<StakeAdapter.StakeHolder>() {
     private var games = emptyList<GameModel>()
 
     inner class StakeHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val layout: ConstraintLayout = view.findViewById(R.id.playedGamesLayout)
         val team1: TextView = view.findViewById(R.id.playedGamesTeam1)
         val team2: TextView = view.findViewById(R.id.playedGamesTeam2)
         val goal1: TextView = view.findViewById(R.id.playedGamesGoal1)
         val goal2: TextView = view.findViewById(R.id.playedGamesGoal2)
         val addTime: TextView = view.findViewById(R.id.playedGamesAddTime)
+        val colon: TextView = view.findViewById(R.id.playedGamesColon)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StakeHolder {
@@ -33,6 +36,11 @@ class StakeAdapter : RecyclerView.Adapter<StakeAdapter.StakeHolder>() {
 
         with(holder) {
             addTime.isGone = true
+
+            if (game.id == 0) {
+                colon.isGone = true
+                layout.layoutParams.height = 12
+            }
 
             team1.text = game.team1
             goal1.text = game.goal1

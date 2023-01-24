@@ -2,8 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/playedGamesLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/padding_sm">
+
+    <TextView
+        android:id="@+id/playedGamesSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:background="@drawable/separator" />
 
     <TextView
         android:id="@+id/playedGamesColon"
@@ -11,6 +21,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/padding_sm"
         android:text="@string/colon"
+        android:textSize="@dimen/text_size_sm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,6 +30,7 @@
         android:id="@+id/playedGamesGoal1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_sm"
         app:layout_constraintEnd_toStartOf="@id/playedGamesColon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="0" />
@@ -28,6 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_sm"
+        android:textSize="@dimen/text_size_sm"
         app:layout_constraintEnd_toStartOf="@id/playedGamesGoal1"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/team" />
@@ -36,6 +49,7 @@
         android:id="@+id/playedGamesGoal2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_sm"
         app:layout_constraintStart_toEndOf="@id/playedGamesColon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="0" />
@@ -45,6 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_sm"
+        android:textSize="@dimen/text_size_sm"
         app:layout_constraintStart_toEndOf="@id/playedGamesGoal2"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/team" />
@@ -53,10 +68,10 @@
         android:id="@+id/playedGamesAddTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/padding"
-        android:text="@string/add_time"
+        android:textSize="@dimen/text_size_sm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/playedGamesColon" />
+        app:layout_constraintTop_toBottomOf="@id/playedGamesColon"
+        tools:text="@string/add_time" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
