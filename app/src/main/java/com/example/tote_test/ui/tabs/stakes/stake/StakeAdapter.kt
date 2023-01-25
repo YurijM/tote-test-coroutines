@@ -24,6 +24,7 @@ class StakeAdapter : RecyclerView.Adapter<StakeAdapter.StakeHolder>() {
         val goal2: TextView = view.findViewById(R.id.playedGamesGoal2)
         val addTime: TextView = view.findViewById(R.id.playedGamesAddTime)
         val colon: TextView = view.findViewById(R.id.playedGamesColon)
+        val separator: TextView = view.findViewById(R.id.playedGamesSeparator)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StakeHolder {
@@ -36,10 +37,12 @@ class StakeAdapter : RecyclerView.Adapter<StakeAdapter.StakeHolder>() {
 
         with(holder) {
             addTime.isGone = true
+            separator.isGone = true
 
             if (game.id == 0) {
                 colon.isGone = true
-                layout.layoutParams.height = 12
+                layout.layoutParams.height = 32
+                separator.isVisible = true
             }
 
             team1.text = game.team1
