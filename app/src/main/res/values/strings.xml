@@ -27,11 +27,13 @@
     <string name="error_valid_email">Некорректный адрес email</string>
     <string name="error_value_empty">значение <b>\"%1$s\"</b> не заполнено</string>
     <string name="error_add_games">Ошибка при обновлении расписания</string>
+    <string name="error_random_stakes">Ошибка при формировании случайных ставок</string>
     <string name="error_add_teams">Ошибка при обновлении списка сборных</string>
     <string name="error_team_selection">Должны быть выбраны разные команды</string>
 
     <string name="admin_settings_add_games_success">Расписание успешно обновлено</string>
     <string name="admin_settings_add_teams_success">Список сборных успешно обновлён</string>
+    <string name="admin_settings_random_stakes_success">Ставки успешно сохранены</string>
 
     <string name="sign_in">Войти</string>
     <string name="sign_up">Зарегистрироваться</string>
@@ -54,6 +56,7 @@
     <string name="active">активен</string>
 
     <string name="admin">администратор</string>
+    <string name="admin_settings_random_stakes">Случайные ставки для группового этапа</string>
     <string name="admin_settings_add_games">Добавить расписание игр</string>
     <string name="admin_settings_add_teams">Добавить список сборных</string>
     <string name="admin_settings_list_email">Список разрешённых e-mail адресов</string>

@@ -316,7 +316,7 @@ class StakeFragment : Fragment() {
                 .sortedBy { item -> item.start }
         )
 
-        playedGames.add(GameModel())
+        if (playedGames.isNotEmpty()) playedGames.add(GameModel())
 
         playedGames.addAll(
             it
