@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tote_test.models.GameModel
 import com.example.tote_test.models.StakeModel
-import com.example.tote_test.models.TeamModel
 import com.example.tote_test.utils.REPOSITORY
 import com.example.tote_test.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -34,28 +33,12 @@ class AdminSettingsViewModel : ViewModel() {
         }
     }
 
-    /*fun saveStakes(stakes: List<StakeModel>) {
-        _status.postValue(Resource.Loading())
-
-        lateinit var result: Resource<Boolean>
-
-        result = Resource.Success(true)
-
-        stakes.forEach { stake ->
-            viewModelScope.launch(Dispatchers.IO) {
-                result = REPOSITORY.saveStake(stake)
-            }
-        }
-
-        _status.postValue(result)
-    }*/
-
-    fun addTeam(team: TeamModel) {
+    /*fun addTeam(team: TeamModel) {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
             val result = REPOSITORY.addTeam(team)
             _status.postValue(result)
         }
-    }
+    }*/
 }

@@ -15,14 +15,34 @@ import com.example.tote_test.ui.main.MainViewModel
 import com.example.tote_test.utils.*
 
 class AdminSettingsFragment : Fragment() {
-    private val none = -1
-    private val schedule = 0
-    private val stakes = 1
+    private val noneCode = -1
+    private val scheduleCode = 0
+    private val stakesCode = 1
+
+    private data class AdminAction(
+        val code: Int,
+        val messageSuccess: String = "",
+        val messageError: String = ""
+    )
+
+    private var adminActions = arrayListOf(
+        AdminAction(
+            code = scheduleCode,
+            messageSuccess = APP_ACTIVITY.resources.getString(R.string.admin_settings_add_games_success),
+            messageError = APP_ACTIVITY.resources.getString(R.string.error_add_games)
+        ),
+        AdminAction(
+            code = stakesCode,
+            messageSuccess = APP_ACTIVITY.resources.getString(R.string.admin_settings_random_stakes_success),
+            messageError = APP_ACTIVITY.resources.getString(R.string.error_random_stakes)
+        )
+    )
 
     private lateinit var binding: FragmentAdminSettingsBinding
     private val viewModel: AdminSettingsViewModel by viewModels()
     private val viewModelMain: MainViewModel by viewModels()
-    private var functionCode = none
+
+    private var actionCode = noneCode
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +76,7 @@ class AdminSettingsFragment : Fragment() {
     }
 
     private fun addGames() {
-        functionCode = schedule
+        actionCode = scheduleCode
 
         GAMES.forEach {
             viewModel.addGame(it)
@@ -64,20 +84,19 @@ class AdminSettingsFragment : Fragment() {
     }
 
     private fun saveRandomStakes() {
-        functionCode = stakes
+        actionCode = stakesCode
 
         viewModelMain.games.value?.forEach { game ->
             viewModelMain.gamblers.value?.forEach { gambler ->
                 val randomGoal1 = (0..3).random()
                 val randomGoal2 = (0..3).random()
 
-                val stake = StakeModel()
-                with(stake) {
-                    gameId = game.id
-                    gamblerId = gambler.id
-                    goal1 = randomGoal1.toString()
+                val stake = StakeModel(
+                    gameId = game.id,
+                    gamblerId = gambler.id,
+                    goal1 = randomGoal1.toString(),
                     goal2 = randomGoal2.toString()
-                }
+                )
 
                 viewModel.saveStake(stake)
             }
@@ -85,7 +104,7 @@ class AdminSettingsFragment : Fragment() {
     }
 
     /*private fun addTeams() {
-        functionCode = teams
+        actionCode = teams
 
         TEAMS.forEach {
             viewModel.addTeam(it)
@@ -99,38 +118,19 @@ class AdminSettingsFragment : Fragment() {
     }
 
     private fun observeStatus() = viewModel.status.observe(viewLifecycleOwner) {
-        toLog("functionCode: $functionCode")
-
         when (it) {
             is Resource.Loading -> {
                 binding.adminSettingsProgressBar.isVisible = true
             }
             is Resource.Success -> {
-                var success = ""
-                var error = ""
-                var errorLoad = false
-
-                when (functionCode) {
-                    schedule -> {
-                        success = resources.getString(R.string.admin_settings_add_games_success)
-                        error = resources.getString(R.string.error_add_games)
-                    }
-                    stakes -> {
-                        success = resources.getString(R.string.admin_settings_random_stakes_success)
-                        error = resources.getString(R.string.error_random_stakes)
-                    }
-                }
-
-                if (it.data == false) errorLoad = true
+                val success = adminActions.find { action -> action.code == actionCode }?.messageSuccess ?: ""
+                val error = adminActions.find { action -> action.code == actionCode }?.messageError ?: ""
+                val errorLoad = it.data == false
 
                 binding.adminSettingsProgressBar.isInvisible = true
 
                 showToast(
-                    if (!errorLoad) {
-                        success
-                    } else {
-                        error
-                    }
+                    if (!errorLoad) success else error
                 )
             }
             is Resource.Error -> {
