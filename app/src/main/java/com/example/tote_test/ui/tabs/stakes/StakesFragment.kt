@@ -63,10 +63,17 @@ class StakesFragment : Fragment() {
 
         games = it.filter { item -> nowLocale < item.start.toLong() }
 
+        /*val gameIds = arrayListOf<Int>()
+
+        games.forEach { game ->
+            gameIds.add(game.id)
+        }
+
+        val actualStakes = stakes.filter { stake -> stake.gameId in gameIds }*/
+
         games.forEach { game ->
             val stake = stakes.find { item -> item.gameId == game.id }
 
-            //if (stake.isNotEmpty()) {
             if (stake != null) {
                 game.goal1 = stake.goal1
                 game.goal2 = stake.goal2
@@ -82,6 +89,7 @@ class StakesFragment : Fragment() {
         binding.stakesProgressBar.isInvisible = true
 
         adapter.setStakes(games)
+        //adapter.setStakes(actualStakes)
     }
 
     private fun observeStakes() = viewModel.stakesAll.observe(viewLifecycleOwner) {

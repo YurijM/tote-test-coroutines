@@ -21,8 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
-    private val viewModelGames: MainViewModel by viewModels()
-    private val viewModelTeams: MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var groups: List<GroupModel>
     private lateinit var teams: List<TeamModel>
     private lateinit var buttonAddGame: FloatingActionButton
@@ -56,14 +55,15 @@ class GamesFragment : Fragment() {
         return binding.root
     }
 
-    private fun observeTeams() = viewModelTeams.teams.observe(viewLifecycleOwner) {
+    private fun observeTeams() = viewModel.teams.observe(viewLifecycleOwner) {
         teams = it
         adapter.setTeams(teams)
 
         observeGames()
     }
 
-    private fun observeGames() = viewModelGames.games.observe(viewLifecycleOwner) {
+    private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
+        toLog("it[0]: ${it[0]}")
         buttonAddGame.isGone = true
         binding.gamesProgressBar.isVisible = true
 
