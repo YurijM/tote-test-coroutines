@@ -25,7 +25,6 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
             //toLog("isAuth: ${AppPreferences.getIsAuth()}")
 
             GAMBLER = REPOSITORY.getGambler(CURRENT_ID)
-            toLog("SplashFragment -> GAMBLER: $GAMBLER")
 
             withContext(Dispatchers.Main) {
                 val intent = Intent(requireContext(), MainActivity::class.java)

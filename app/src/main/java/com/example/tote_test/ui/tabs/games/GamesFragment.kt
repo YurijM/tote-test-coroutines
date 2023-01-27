@@ -50,7 +50,6 @@ class GamesFragment : Fragment() {
             .sortedBy { it.number }
 
         observeTeams()
-        //observeGames()
 
         return binding.root
     }
@@ -63,7 +62,6 @@ class GamesFragment : Fragment() {
     }
 
     private fun observeGames() = viewModel.games.observe(viewLifecycleOwner) {
-        toLog("it[0]: ${it[0]}")
         buttonAddGame.isGone = true
         binding.gamesProgressBar.isVisible = true
 

@@ -1,13 +1,18 @@
 package com.example.tote_test.utils
 
 import android.annotation.SuppressLint
+import android.graphics.Point
+import android.hardware.display.DisplayManager
+import android.os.Build
 import android.text.Editable
-import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
+import android.view.Display
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -111,15 +116,12 @@ fun loadAppBarPhoto() {
     val gamblerPhoto = APP_ACTIVITY.findViewById<ImageView>(R.id.gamblerPhoto)
     //var size = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
     var size = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)// * 2
-    //toLog("APP_ACTIVITY.resources: ${APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)}")
-    //toLog("size: $size")
 
     val tv = TypedValue()
     if (APP_ACTIVITY.theme.resolveAttribute(com.google.android.material.R.attr.actionBarSize, tv, true)) {
         val actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
-        toLog("actionBarHeight: $actionBarHeight")
+
         size = actionBarHeight - APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.padding_lg)
-        toLog("size: $size")
     }
 
     gamblerPhoto.loadImage(GAMBLER.photoUrl, size, size, size / 2)
@@ -131,10 +133,12 @@ fun Fragment.findTopNavController(): NavController {
     return topLevelHost?.navController ?: findNavController()
 }
 
+@RequiresApi(Build.VERSION_CODES.R)
 @SuppressLint("PrivateResource")
 fun getSizeDisplay(isBottomNav: Boolean): IntArray {
     //var bar = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.action_bar_size) * 2
-    var bar = APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)// * 2
+    var bar =
+        APP_ACTIVITY.resources.getDimensionPixelSize(com.google.android.material.R.dimen.abc_action_bar_default_height_material)// * 2
     val tv = TypedValue()
     if (APP_ACTIVITY.theme.resolveAttribute(com.google.android.material.R.attr.actionBarSize, tv, true)) {
         bar = TypedValue.complexToDimensionPixelSize(tv.data, APP_ACTIVITY.resources.displayMetrics)
@@ -148,11 +152,26 @@ fun getSizeDisplay(isBottomNav: Boolean): IntArray {
 
     val footer = APP_ACTIVITY.resources.getDimensionPixelSize(R.dimen.height_footer) * 2
 
-    val displayMetrics = DisplayMetrics()
+    /*val displayMetrics = DisplayMetrics()
     APP_ACTIVITY.windowManager.defaultDisplay.getMetrics(displayMetrics)
-
     val width = displayMetrics.widthPixels
-    val height = (displayMetrics.heightPixels - bar - footer - bottomNav) //550
+    val height = (displayMetrics.heightPixels - bar - footer - bottomNav) //550*/
+
+    /*val windowMetric = APP_ACTIVITY.windowManager.currentWindowMetrics
+    val width1 = windowMetric.bounds.width()
+    val height1 = (windowMetric.bounds.height() - bar - footer - bottomNav) //550*/
+
+    val pointSmall = Point()
+    val pointLarge = Point()
+    APP_ACTIVITY.getSystemService<DisplayManager>()?.getDisplay(Display.DEFAULT_DISPLAY)?.getCurrentSizeRange(pointSmall, pointLarge)
+
+    val width = pointSmall.x
+    val height = pointLarge.x - bar - footer - bottomNav
+
+    /*toLog("sizeDisplay: $width x ${displayMetrics.heightPixels}")
+    toLog("sizeDisplay: $width1 x ${windowMetric.bounds.height()}")
+    toLog("pointSmall: ${pointSmall.x} x ${pointSmall.y}")
+    toLog("pointLarge: ${pointLarge.x} x ${pointLarge.y}")*/
 
     return intArrayOf(width, height)
 }

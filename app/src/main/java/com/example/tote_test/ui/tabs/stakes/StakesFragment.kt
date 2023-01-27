@@ -23,7 +23,6 @@ class StakesFragment : Fragment() {
     private lateinit var binding: FragmentStakesBinding
     private val viewModel: MainViewModel by viewModels()
     private val adapter = StakesAdapter { game -> onListItemClick(game) }
-    private lateinit var games: List<GameModel>
     private lateinit var stakes: List<StakeModel>
 
     override fun onCreateView(
@@ -61,35 +60,38 @@ class StakesFragment : Fragment() {
 
         games = gamesPlayOff + gamesGroup*/
 
-        games = it.filter { item -> nowLocale < item.start.toLong() }
+        val games = it.filter { item -> nowLocale < item.start.toLong() }
 
-        /*val gameIds = arrayListOf<Int>()
-
-        games.forEach { game ->
-            gameIds.add(game.id)
-        }
-
-        val actualStakes = stakes.filter { stake -> stake.gameId in gameIds }*/
+        val gamesForStakes = arrayListOf<GameModel>()
 
         games.forEach { game ->
             val stake = stakes.find { item -> item.gameId == game.id }
 
+            val gameForStake = GameModel(
+                id = game.id,
+                start = game.start,
+                group = game.group,
+                team1 = game.team1,
+                team2 = game.team2,
+            )
+
             if (stake != null) {
-                game.goal1 = stake.goal1
-                game.goal2 = stake.goal2
-                game.addGoal1 = stake.addGoal1
-                game.addGoal2 = stake.addGoal2
-                game.penalty = stake.penalty
+                gameForStake.goal1 = stake.goal1
+                gameForStake.goal2 = stake.goal2
+                gameForStake.addGoal1 = stake.addGoal1
+                gameForStake.addGoal2 = stake.addGoal2
+                gameForStake.penalty = stake.penalty
             } else {
-                game.goal1 = ""
-                game.goal2 = ""
+                gameForStake.goal1 = ""
+                gameForStake.goal2 = ""
             }
+
+            gamesForStakes.add(gameForStake)
         }
 
         binding.stakesProgressBar.isInvisible = true
 
-        adapter.setStakes(games)
-        //adapter.setStakes(actualStakes)
+        adapter.setStakes(gamesForStakes)
     }
 
     private fun observeStakes() = viewModel.stakesAll.observe(viewLifecycleOwner) {
