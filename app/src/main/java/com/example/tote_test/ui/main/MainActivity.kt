@@ -270,7 +270,7 @@ class MainActivity : AppCompatActivity() {
                     .sumOf { item -> item.points } * 100.0).roundToInt() / 100.0
             }
 
-            toLog("points, pointsPrev: ${gambler.points}, ${gambler.pointsPrev}")
+            //toLog("points, pointsPrev: ${gambler.points}, ${gambler.pointsPrev}")
 
             viewModel.saveGambler(gambler)
         }

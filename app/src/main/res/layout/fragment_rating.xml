@@ -7,13 +7,24 @@
     tools:context=".ui.tabs.rating.RatingFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ratingWinners"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_winner" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ratingList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingWinners"
         tools:listitem="@layout/item_rating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

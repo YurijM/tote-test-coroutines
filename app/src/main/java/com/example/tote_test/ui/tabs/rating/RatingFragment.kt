@@ -14,7 +14,8 @@ import com.example.tote_test.utils.findTopNavController
 class RatingFragment : Fragment() {
     private lateinit var binding: FragmentRatingBinding
     private val viewModel: RatingViewModel by viewModels()
-    private val adapter = RatingAdapter { gambler -> onListItemClick(gambler) }
+    private val adapterRating = RatingAdapter { gambler -> onListItemClick(gambler) }
+    private val adapterWinners = RatingWinnersAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,8 +25,11 @@ class RatingFragment : Fragment() {
 
         binding = FragmentRatingBinding.inflate(layoutInflater, container, false)
 
-        val recyclerView = binding.ratingList
-        recyclerView.adapter = adapter
+        val recyclerViewRating = binding.ratingList
+        recyclerViewRating.adapter = adapterRating
+
+        val recyclerViewWinners = binding.ratingWinners
+        recyclerViewWinners.adapter = adapterWinners
 
         observeGamblers()
 
@@ -54,6 +58,12 @@ class RatingFragment : Fragment() {
                     .thenBy { item -> item.nickname }
             )
 
-        adapter.setGamblers(gamblers)
+        adapterRating.setGamblers(gamblers)
+
+        val winners = it
+            .filter { item -> (item.place in 1..3) }
+            .sortedBy { item -> item.place }
+
+        adapterWinners.setWinners(winners)
     }
 }
