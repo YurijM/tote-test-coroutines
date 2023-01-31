@@ -12,7 +12,6 @@ import com.example.tote_test.R
 import com.example.tote_test.models.GamblerModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.loadImage
-import com.example.tote_test.utils.toLog
 import kotlin.math.roundToInt
 
 class RatingWinnersAdapter :
@@ -35,7 +34,7 @@ class RatingWinnersAdapter :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RatingWinnersHolder, position: Int) {
         val winner = winners[position]
-        toLog("nickname: ${winner.nickname}")
+
         loadPhoto(holder.photo, winner.photoUrl)
 
         holder.nickname.text = winner.nickname
@@ -61,7 +60,6 @@ class RatingWinnersAdapter :
         val metrics = APP_ACTIVITY.resources.displayMetrics.density
         val size = (APP_ACTIVITY.resources.getDimension(R.dimen.winner_size_photo) * metrics).roundToInt()
 
-        toLog("size: $size")
         photo.loadImage(url, size, size)
     }
 

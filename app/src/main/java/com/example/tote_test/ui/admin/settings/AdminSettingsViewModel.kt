@@ -15,21 +15,23 @@ class AdminSettingsViewModel : ViewModel() {
     private val _status = MutableLiveData<Resource<Boolean>>()
     val status: LiveData<Resource<Boolean>> = _status
 
-    fun addGame(game: GameModel) {
+    fun addGame(game: GameModel, isLastRecord: Boolean) {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
             val result = REPOSITORY.addGame(game)
-            _status.postValue(result)
+
+            if (isLastRecord) _status.postValue(result)
         }
     }
 
-    fun saveStake(stake: StakeModel) {
+    fun saveStake(stake: StakeModel, isLastRecord: Boolean) {
         _status.postValue(Resource.Loading())
 
         viewModelScope.launch(Dispatchers.IO) {
             val result = REPOSITORY.saveStake(stake)
-            _status.postValue(result)
+
+            if (isLastRecord) _status.postValue(result)
         }
     }
 
