@@ -9,14 +9,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
-import com.example.tote_test.models.GamblerModel
+import com.example.tote_test.models.WinnerModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.loadImage
 import kotlin.math.roundToInt
 
 class RatingWinnersAdapter :
     RecyclerView.Adapter<RatingWinnersAdapter.RatingWinnersHolder>() {
-    private var winners = emptyList<GamblerModel>()
+    private var winners = emptyList<WinnerModel>()
 
     class RatingWinnersHolder(
         view: View,
@@ -40,7 +40,7 @@ class RatingWinnersAdapter :
         holder.nickname.text = winner.nickname
 
         holder.winning.setTextColor(setWinningColor(winner.place))
-        holder.winning.text = "%.2f".format(winner.points)
+        holder.winning.text = "%.0f".format(winner.winning)
     }
 
     private fun setWinningColor(place: Int): Int {
@@ -66,7 +66,7 @@ class RatingWinnersAdapter :
     override fun getItemCount(): Int = winners.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setWinners(winners: List<GamblerModel>) {
+    fun setWinners(winners: List<WinnerModel>) {
         this.winners = winners
         notifyDataSetChanged()
     }
