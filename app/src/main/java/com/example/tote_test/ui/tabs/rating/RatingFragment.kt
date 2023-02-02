@@ -22,7 +22,7 @@ class RatingFragment : Fragment() {
         val place: Int,
         val points: Double = 0.0,
         val gamblersCount: Int = 0,
-        var addCoef: Double = 1.0,
+        var addCoefficient: Double = 1.0,
     )
 
     override fun onCreateView(
@@ -75,37 +75,58 @@ class RatingFragment : Fragment() {
             .sortedBy { item -> item.place }
 
         val gamblersCount = it.size.toDouble()
+        val sumStakes = gamblers.sumOf { item -> item.stake }.toDouble()
+        val averageStake = sumStakes / gamblersCount
 
-        val averageStake = gamblers.sumOf { item -> item.stake } / gamblersCount
-
-        val winnerAttrs = getWinnerAttrs(winnerGamblers)
-
-        var attr = winnerAttrs.find { item -> item.place == 1 }
-        if (attr != null) attr.addCoef = calcAddCoef(attr, winnerAttrs)
-
-        attr = winnerAttrs.find { item -> item.place == 2 }
-        if (attr != null) attr.addCoef = calcAddCoef(attr, winnerAttrs)
+        var secondPartWinning = sumStakes
 
         winnerGamblers.forEach { gambler ->
-            val firstPartCoef = when (gambler.place) {
+            val firstPartCoefficient = when (gambler.place) {
                 1 -> 3
                 2 -> 6
                 else -> 12
             }
 
-            val firstPartWinning = (gamblersCount / firstPartCoef) * gambler.stake
+            secondPartWinning -= (gamblersCount / firstPartCoefficient) * gambler.stake
+        }
 
-            val stakeCoef = gambler.stake / averageStake
+        val winnerAttrs = getWinnerAttrs(winnerGamblers)
 
-            val coef = stakeCoef * (winnerAttrs.find { item -> item.place == gambler.place }?.addCoef ?: 1.0)
+        var attr = winnerAttrs.find { item -> item.place == 1 }
+        if (attr != null) attr.addCoefficient = calcAddCoefficient(attr, winnerAttrs)
+
+        attr = winnerAttrs.find { item -> item.place == 2 }
+        if (attr != null) attr.addCoefficient = calcAddCoefficient(attr, winnerAttrs)
+
+        var sumCoefficients = 0.0
+
+        winnerGamblers.forEach { gambler ->
+            sumCoefficients += (gambler.stake / averageStake) *
+                    (winnerAttrs.find { item -> item.place == gambler.place }?.addCoefficient ?: 1.0)
+        }
+
+        val sumForCalc = secondPartWinning / sumCoefficients
+
+        winnerGamblers.forEach { gambler ->
+            val firstPartCoefficient = when (gambler.place) {
+                1 -> 3
+                2 -> 6
+                else -> 12
+            }
+
+            val firstPartWinning = (gamblersCount / firstPartCoefficient) * gambler.stake
+
+            val stakeCoefficient = gambler.stake / averageStake
+
+            val coefficient = stakeCoefficient * (winnerAttrs.find { item -> item.place == gambler.place }?.addCoefficient ?: 1.0)
 
             winners.add(
                 WinnerModel(
                     id = gambler.id,
-                    nickname = gambler.nickname,
                     photoUrl = gambler.photoUrl,
                     place = gambler.place,
-                    winning = firstPartWinning,
+                    stake = gambler.stake,
+                    winning = firstPartWinning + coefficient * sumForCalc,
                 )
             )
         }
@@ -113,7 +134,7 @@ class RatingFragment : Fragment() {
         adapterWinners.setWinners(winners)
     }
 
-    private fun calcAddCoef(attr: WinnerAttr, attrs: List<WinnerAttr>): Double =
+    private fun calcAddCoefficient(attr: WinnerAttr, attrs: List<WinnerAttr>): Double =
         if (attr.place == 1) {
             if (attr.gamblersCount <= 2) {
                 (attr.points - (attrs.find { item -> item.place == 3 }?.points

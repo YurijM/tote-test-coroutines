@@ -22,8 +22,8 @@ class RatingWinnersAdapter :
         view: View,
     ) : RecyclerView.ViewHolder(view) {
         val photo: ImageView = view.findViewById(R.id.itemWinnerPhoto)
-        val nickname: TextView = view.findViewById(R.id.itemWinnerNickname)
         val winning: TextView = view.findViewById(R.id.itemWinnerWinning)
+        val winningCoefficient: TextView = view.findViewById(R.id.itemWinnerWinningCoefficient)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatingWinnersHolder {
@@ -34,13 +34,21 @@ class RatingWinnersAdapter :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RatingWinnersHolder, position: Int) {
         val winner = winners[position]
+        val color = setWinningColor(winner.place)
 
         loadPhoto(holder.photo, winner.photoUrl)
 
-        holder.nickname.text = winner.nickname
+        holder.winning.setTextColor(color)
+        holder.winning.text = APP_ACTIVITY.resources.getString(
+            R.string.winning,
+            winner.winning
+        )
 
-        holder.winning.setTextColor(setWinningColor(winner.place))
-        holder.winning.text = "%.0f".format(winner.winning)
+        holder.winningCoefficient.setTextColor(color)
+        holder.winningCoefficient.text = APP_ACTIVITY.resources.getString(
+            R.string.winning_coefficient,
+            (winner.winning / winner.stake)
+        )
     }
 
     private fun setWinningColor(place: Int): Int {
