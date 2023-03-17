@@ -78,16 +78,20 @@ class AdminSettingsFragment : Fragment() {
     private fun addGames() {
         actionCode = scheduleCode
 
-        GAMES.forEach {
-            viewModel.addGame(it)
+        val size = viewModelMain.games.value?.size ?: 0
+
+        GAMES.forEachIndexed { index, game ->
+            viewModel.addGame(game, size <= (index + 1))
         }
     }
 
     private fun saveRandomStakes() {
         actionCode = stakesCode
 
-        viewModelMain.games.value?.forEach { game ->
-            viewModelMain.gamblers.value?.forEach { gambler ->
+        val size = (viewModelMain.games.value?.size ?: 0) * (viewModelMain.gamblers.value?.size ?: 0)
+
+        viewModelMain.games.value?.forEachIndexed { i, game ->
+            viewModelMain.gamblers.value?.forEachIndexed { j, gambler ->
                 val randomGoal1 = (0..3).random()
                 val randomGoal2 = (0..3).random()
 
@@ -98,7 +102,7 @@ class AdminSettingsFragment : Fragment() {
                     goal2 = randomGoal2.toString()
                 )
 
-                viewModel.saveStake(stake)
+                viewModel.saveStake(stake, size <= (i + 1) * (j + 1))
             }
         }
     }

@@ -5,13 +5,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_sm"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="12dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/itemWinnerCard"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/padding_sm">
 
         <ImageView
             android:id="@+id/itemWinnerPhoto"
@@ -19,30 +20,22 @@
             android:layout_height="@dimen/winner_size_photo"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:src="@drawable/user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/itemWinnerNickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemWinnerPhoto"
-            tools:text="@string/gambler" />
+            android:src="@drawable/user" />
 
         <TextView
             android:id="@+id/itemWinnerWinning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/padding_sm"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itemWinnerNickname"
+            android:textStyle="bold"
             tools:text="@string/winning" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/itemWinnerWinningCoefficient"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_sm"
+            tools:text="@string/winning_coefficient" />
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -41,7 +41,8 @@
     <string name="password_confirm">Подтвердить пароль</string>
     <string name="email_is_not_allowed">email %1$s отсутствует в списке разрешённых</string>
 
-    <string name="winning"><b>%1$d</b>руб.</string>
+    <string name="winning">%1$.0fруб.</string>
+    <string name="winning_coefficient">(коэф. %1$.2f)</string>
 
     <string name="nickname">НИК</string>
     <string name="family">Фамилия</string>

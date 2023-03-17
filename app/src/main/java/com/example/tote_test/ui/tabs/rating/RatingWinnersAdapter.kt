@@ -9,22 +9,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tote_test.R
-import com.example.tote_test.models.GamblerModel
+import com.example.tote_test.models.WinnerModel
 import com.example.tote_test.utils.APP_ACTIVITY
 import com.example.tote_test.utils.loadImage
-import com.example.tote_test.utils.toLog
 import kotlin.math.roundToInt
 
 class RatingWinnersAdapter :
     RecyclerView.Adapter<RatingWinnersAdapter.RatingWinnersHolder>() {
-    private var winners = emptyList<GamblerModel>()
+    private var winners = emptyList<WinnerModel>()
 
     class RatingWinnersHolder(
         view: View,
     ) : RecyclerView.ViewHolder(view) {
         val photo: ImageView = view.findViewById(R.id.itemWinnerPhoto)
-        val nickname: TextView = view.findViewById(R.id.itemWinnerNickname)
         val winning: TextView = view.findViewById(R.id.itemWinnerWinning)
+        val winningCoefficient: TextView = view.findViewById(R.id.itemWinnerWinningCoefficient)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RatingWinnersHolder {
@@ -35,13 +34,21 @@ class RatingWinnersAdapter :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RatingWinnersHolder, position: Int) {
         val winner = winners[position]
-        toLog("nickname: ${winner.nickname}")
+        val color = setWinningColor(winner.place)
+
         loadPhoto(holder.photo, winner.photoUrl)
 
-        holder.nickname.text = winner.nickname
+        holder.winning.setTextColor(color)
+        holder.winning.text = APP_ACTIVITY.resources.getString(
+            R.string.winning,
+            winner.winning
+        )
 
-        holder.winning.setTextColor(setWinningColor(winner.place))
-        holder.winning.text = "%.2f".format(winner.points)
+        holder.winningCoefficient.setTextColor(color)
+        holder.winningCoefficient.text = APP_ACTIVITY.resources.getString(
+            R.string.winning_coefficient,
+            (winner.winning / winner.stake)
+        )
     }
 
     private fun setWinningColor(place: Int): Int {
@@ -61,14 +68,13 @@ class RatingWinnersAdapter :
         val metrics = APP_ACTIVITY.resources.displayMetrics.density
         val size = (APP_ACTIVITY.resources.getDimension(R.dimen.winner_size_photo) * metrics).roundToInt()
 
-        toLog("size: $size")
         photo.loadImage(url, size, size)
     }
 
     override fun getItemCount(): Int = winners.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setWinners(winners: List<GamblerModel>) {
+    fun setWinners(winners: List<WinnerModel>) {
         this.winners = winners
         notifyDataSetChanged()
     }
